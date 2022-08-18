@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+// Class contains methods that controllers share
 public class ControllerUtils {
 
     // Navigate to another window upon button click
