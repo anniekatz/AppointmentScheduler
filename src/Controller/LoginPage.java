@@ -13,7 +13,9 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class LoginPage implements Initializable {
     @FXML
@@ -37,11 +39,16 @@ public class LoginPage implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         System.out.println("Initializing");
+        // Check user language and change display if necessary
+        String UserLang = CheckUserLanguage();
+        // Check user locale and replace label
+        String TZ = CheckUserTZ();
+        LocaleLabel.setText(TZ);
     }
 
-    // Check user language and change display if necessary
-    // Check user locale and replace label
+
 
 
     @FXML
@@ -87,5 +94,22 @@ public class LoginPage implements Initializable {
         // Show upcoming appointments
     }
 
+    public String CheckUserLanguage() {
+        if (Locale.getDefault().getDisplayLanguage() == "French") {
+            LangLabel.setText("FR");
+            return "fr";
+        } else {
+            LangLabel.setText("EN");
+            return "en";
+        }
+    }
+
+    public String CheckUserTZ() {
+        if (TimeZone.getDefault().getID() != null) {
+            return (TimeZone.getDefault().getID()).substring(0, 3);
+        } else {
+            return "NULL";
+        }
+    }
 
 }

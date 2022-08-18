@@ -27,7 +27,7 @@
       <font>
          <Font size="13.0" />
       </font></TextField>
-    <Label fx:id="LocaleLabel" layoutX="776.0" layoutY="49.0" text="Locale" textAlignment="CENTER" />
-    <Label fx:id="LangLabel" layoutX="780.0" layoutY="17.0" text="Lang" textAlignment="CENTER" />
+    <Label fx:id="LocaleLabel" layoutX="781.0" layoutY="50.0" text="LOC" />
+    <Label fx:id="LangLabel" layoutX="785.0" layoutY="17.0" text="EN/FR" textAlignment="CENTER" />
 
 </AnchorPane>
