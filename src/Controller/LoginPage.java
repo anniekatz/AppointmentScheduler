@@ -42,7 +42,9 @@ public class LoginPage implements Initializable {
 
         System.out.println("Initializing");
         // Check user language and change display if necessary
-        String UserLang = CheckUserLanguage();
+
+        resourceBundle= ResourceBundle.getBundle("Languages/Lang", Locale.getDefault());
+        ChangeUserLanguage(resourceBundle);
         // Check user locale and replace label
         String TZ = CheckUserTZ();
         LocaleLabel.setText(TZ);
@@ -94,13 +96,18 @@ public class LoginPage implements Initializable {
         // Show upcoming appointments
     }
 
-    public String CheckUserLanguage() {
-        if (Locale.getDefault().getDisplayLanguage() == "French") {
-            LangLabel.setText("FR");
-            return "fr";
+    public void ChangeUserLanguage(ResourceBundle rb) {
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+            LangLabel.setText(rb.getString("Lang"));
+            TitleLabel.setText(rb.getString("Title"));
+            LoginButton.setText(rb.getString("Login"));
+            UsernameTextField.setPromptText(rb.getString("Username"));
+            PasswordTextField.setPromptText(rb.getString("Password"));
+
+
         } else {
-            LangLabel.setText("EN");
-            return "en";
+            LangLabel.setText(rb.getString("Lang"));
+
         }
     }
 
