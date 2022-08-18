@@ -48,7 +48,7 @@ public class LoginPage implements Initializable {
     void OnActionLogin(ActionEvent event) throws IOException {
         String Username = UsernameTextField.getText();
         String Password = PasswordTextField.getText();
-        Boolean ValidationCheck = ValidateUser(Username, Password);
+        boolean ValidationCheck = ValidateUser(Username, Password);
         if (ValidationCheck) {
             LoginTracker("Successful Login Attempt", Username);
             ShowAppointments(Username);
@@ -69,8 +69,8 @@ public class LoginPage implements Initializable {
         fw.close();
     }
 
-    public Boolean ValidateUser(String Username, String Password) throws IOException {
-        Boolean LoginStatus;
+    public boolean ValidateUser(String Username, String Password) throws IOException {
+        boolean LoginStatus;
         if (Username.equals("test") && Password.equals("test")) {
             System.out.println("Valid user");
             LoginStatus = true;
