@@ -88,12 +88,12 @@
             <Font name="System Bold" size="26.0" />
         </font>
     </Label>
-    <Button fx:id="AppointmentsButton" layoutX="581.0" layoutY="22.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Appointments">
+    <Button fx:id="AppointmentsButton" layoutX="581.0" layoutY="22.0" mnemonicParsing="false" onAction="#NavToAppointments" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Appointments">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>
     </Button>
-    <Button fx:id="CustomersButton" layoutX="705.0" layoutY="22.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Customers">
+    <Button fx:id="CustomersButton" layoutX="705.0" layoutY="22.0" mnemonicParsing="false" onAction="#NavToCustomers" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Customers">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>

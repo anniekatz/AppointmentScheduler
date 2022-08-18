@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #fff5ed;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePage">
+<AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #fff5ed;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePage">
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb598" height="259.0" layoutX="293.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" width="255.0" />
     <Label layoutX="339.0" layoutY="120.0" text="Navigation" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="30.0" />
         </font>
     </Label>
-    <Button fx:id="AppointmentsButton" layoutX="343.0" layoutY="236.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Appointments" textAlignment="CENTER">
+    <Button fx:id="AppointmentsButton" layoutX="343.0" layoutY="236.0" mnemonicParsing="false" onAction="#NavToAppointments" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Appointments" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="18.0" />
         </font>
     </Button>
-    <Button fx:id="CustomersButton" layoutX="343.0" layoutY="299.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Customers" textAlignment="CENTER">
+    <Button fx:id="CustomersButton" layoutX="343.0" layoutY="299.0" mnemonicParsing="false" onAction="#NavToCustomers" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Customers" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="18.0" />
         </font>
     </Button>
-    <Button fx:id="ReportsButton" layoutX="343.0" layoutY="363.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Reports" textAlignment="CENTER">
+    <Button fx:id="ReportsButton" layoutX="343.0" layoutY="363.0" mnemonicParsing="false" onAction="#NavToReports" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Reports" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="18.0" />
         </font>

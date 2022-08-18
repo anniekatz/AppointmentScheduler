@@ -17,12 +17,12 @@
             <Font name="System Bold" size="28.0" />
         </font>
     </Label>
-    <Button fx:id="AppointmentsButton" layoutX="574.0" layoutY="19.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Appointments">
+    <Button fx:id="AppointmentsButton" layoutX="574.0" layoutY="19.0" mnemonicParsing="false" onAction="#NavToAppointments" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Appointments">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>
     </Button>
-    <Button fx:id="ReportsButton" layoutX="699.0" layoutY="19.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Reports">
+    <Button fx:id="ReportsButton" layoutX="699.0" layoutY="19.0" mnemonicParsing="false" onAction="#NavToReports" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Reports">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>

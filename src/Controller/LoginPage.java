@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,10 +41,11 @@ public class LoginPage implements Initializable {
 
 
     @FXML
-    void OnActionLogin(ActionEvent event) {
+    void OnActionLogin(ActionEvent event) throws IOException {
         // Check if valid user input
             // Pop up if not valid
         // If valid, navigate to home page and display appointments pop up
         // Append data to tracker
+        ControllerUtils.NavigateToWindow(event, "/View/HomePage.fxml", "Home Page");
     }
 }

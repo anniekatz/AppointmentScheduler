@@ -20,12 +20,12 @@
             <Font name="System Bold" size="28.0" />
         </font>
     </Label>
-    <Button fx:id="CustomersButton" layoutX="598.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Customers">
+    <Button fx:id="CustomersButton" layoutX="598.0" layoutY="14.0" mnemonicParsing="false" onAction="#NavToCustomers" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Customers">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>
     </Button>
-    <Button fx:id="ReportsButton" layoutX="715.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Reports">
+    <Button fx:id="ReportsButton" layoutX="715.0" layoutY="14.0" mnemonicParsing="false" onAction="#NavToReports" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Reports">
         <font>
             <Font name="System Bold" size="13.0" />
         </font>
