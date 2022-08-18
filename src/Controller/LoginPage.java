@@ -3,6 +3,7 @@ package Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,6 +37,8 @@ public class LoginPage implements Initializable {
     @FXML
     private TextField UsernameTextField;
 
+    ResourceBundle rb = ResourceBundle.getBundle("Languages/Lang", Locale.getDefault());
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,11 +46,10 @@ public class LoginPage implements Initializable {
         System.out.println("Initializing");
         // Check user language and change display if necessary
 
-        resourceBundle= ResourceBundle.getBundle("Languages/Lang", Locale.getDefault());
-        ChangeUserLanguage(resourceBundle);
+
+        ChangeUserLanguage(rb);
         // Check user locale and replace label
-        String TZ = CheckUserTZ();
-        LocaleLabel.setText(TZ);
+        CheckUserTZ();
     }
 
 
@@ -64,7 +66,7 @@ public class LoginPage implements Initializable {
             ControllerUtils.NavigateToWindow(event, "/View/HomePage.fxml", "Home Page");
         } else {
             LoginTracker("Unsuccessful Login Attempt", Username);
-            System.out.println("Invalid Login");
+            SendErrorMessage(rb);
             // pop up error message
         }
     }
@@ -97,13 +99,12 @@ public class LoginPage implements Initializable {
     }
 
     public void ChangeUserLanguage(ResourceBundle rb) {
-        if (Locale.getDefault().getLanguage().equals("fr")) {
+        if (rb.getLocale().getLanguage().equals("fr")) {
             LangLabel.setText(rb.getString("Lang"));
             TitleLabel.setText(rb.getString("Title"));
             LoginButton.setText(rb.getString("Login"));
             UsernameTextField.setPromptText(rb.getString("Username"));
             PasswordTextField.setPromptText(rb.getString("Password"));
-
 
         } else {
             LangLabel.setText(rb.getString("Lang"));
@@ -111,12 +112,20 @@ public class LoginPage implements Initializable {
         }
     }
 
-    public String CheckUserTZ() {
+    public void CheckUserTZ() {
         if (TimeZone.getDefault().getID() != null) {
-            return (TimeZone.getDefault().getID()).substring(0, 3);
+            LocaleLabel.setText((TimeZone.getDefault().getID()).substring(0, 3));
         } else {
-            return "NULL";
+            LocaleLabel.setText("ERR");
         }
+    }
+
+    public void SendErrorMessage(ResourceBundle rb) {
+        Alert LoginError = new Alert(Alert.AlertType.ERROR);
+        LoginError.setTitle(rb.getString("Error"));
+        LoginError.setHeaderText(rb.getString("ErrHeader"));
+        LoginError.setContentText(rb.getString("ErrMessage"));
+        LoginError.showAndWait();
     }
 
 }
