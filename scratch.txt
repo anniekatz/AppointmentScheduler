@@ -1,0 +1,7 @@
+* Make UI navigations etc
+    -Avoid redundant code for event handlers/buttons
+
+* Make DAO
+* Connect DB
+
+* To fix

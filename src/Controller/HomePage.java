@@ -8,5 +8,6 @@ public class HomePage {
     public Button CustomersButton;
     public Button ReportsButton;
 
+    // Navigation button methods
 
 }
