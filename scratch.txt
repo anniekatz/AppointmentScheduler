@@ -3,5 +3,8 @@
 
 * Make DAO
 * Connect DB
+* Make login text file tracker
+* Make pop ups and errors
+* Do language stuff
 
 * To fix

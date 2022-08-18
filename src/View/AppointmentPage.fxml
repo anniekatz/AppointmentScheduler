@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -119,18 +120,21 @@
       <font>
          <Font size="13.0" />
       </font>
+      <toggleGroup>
+         <ToggleGroup fx:id="FilterApptTG" />
+      </toggleGroup>
    </RadioButton>
    <Label layoutX="100.0" layoutY="65.0" text="Filter by:" textAlignment="CENTER">
       <font>
          <Font name="System Bold" size="18.0" />
       </font>
    </Label>
-   <RadioButton fx:id="MonthFilterRadioButton" layoutX="253.0" layoutY="70.0" mnemonicParsing="false" text="This Month">
+   <RadioButton fx:id="MonthFilterRadioButton" layoutX="253.0" layoutY="70.0" mnemonicParsing="false" text="This Month" toggleGroup="$FilterApptTG">
       <font>
          <Font size="13.0" />
       </font>
    </RadioButton>
-   <RadioButton fx:id="WeekFilterRadioButton" layoutX="355.0" layoutY="70.0" mnemonicParsing="false" text="This Week">
+   <RadioButton fx:id="WeekFilterRadioButton" layoutX="355.0" layoutY="70.0" mnemonicParsing="false" text="This Week" toggleGroup="$FilterApptTG">
       <font>
          <Font size="13.0" />
       </font>

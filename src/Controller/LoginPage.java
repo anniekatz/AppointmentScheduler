@@ -35,8 +35,15 @@ public class LoginPage implements Initializable {
         System.out.println("Initializing");
     }
 
+    // Check user language and change display if necessary
+    // Check user locale and replace label
+
+
     @FXML
-    public void OnButtonLogin(ActionEvent event) {
-        System.out.println("OnButtonLogin clicked");
+    void OnActionLogin(ActionEvent event) {
+        // Check if valid user input
+            // Pop up if not valid
+        // If valid, navigate to home page and display appointments pop up
+        // Append data to tracker
     }
 }
