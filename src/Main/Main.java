@@ -1,7 +1,5 @@
 /* @author Annie Katz
  * Appointment Scheduler
- * C195 Software II: Adv. Java Concepts
- * ID: #010458098
  */
 
 package Main;

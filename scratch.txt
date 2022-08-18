@@ -1,5 +1,4 @@
-* Make UI navigations etc
-    -Avoid redundant code for event handlers/buttons
+
 
 * Make DAO
 * Connect DB
@@ -10,3 +9,6 @@
 * To fix
 
 * Temp code
+
+Other
+* Figure out with login_activity is supposed to be in UTC or in login user's local timezone

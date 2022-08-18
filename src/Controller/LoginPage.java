@@ -46,26 +46,46 @@ public class LoginPage implements Initializable {
 
     @FXML
     void OnActionLogin(ActionEvent event) throws IOException {
-        // Check if valid user input
-        // If not valid,
-        // Append failure to user activity log
-        // Pop up error message
-
-        // If valid,
-        // Append success to user activity log
-        String LoginStatus = "Successful Login Attempt";
-        LoginTracker(LoginStatus);
-        // Display upcoming appointment message
-        // Navigate to home page
-        ControllerUtils.NavigateToWindow(event, "/View/HomePage.fxml", "Home Page");
+        String UserID = UserIDTextField.getText();
+        String Password = PasswordTextField.getText();
+        Boolean ValidationCheck = ValidateUser(UserID, Password);
+        if (ValidationCheck) {
+            LoginTracker("Successful Login Attempt", UserID);
+            ShowAppointments(UserID);
+            ControllerUtils.NavigateToWindow(event, "/View/HomePage.fxml", "Home Page");
+        } else {
+            LoginTracker("Unsuccessful Login Attempt", UserID);
+            System.out.println("Invalid Login");
+            // pop up error message
+        }
     }
 
-    public void LoginTracker(String LoginStatus) throws IOException {
+    public void LoginTracker(String LoginStatus, String UserID) throws IOException {
         ZoneId UserTZ = ZoneId.systemDefault();
         ZonedDateTime ts = ZonedDateTime.now(UserTZ);
         DateTimeFormatter readable = DateTimeFormatter.ofPattern( "uuuu-MM-dd HH:mm:ss O" );
         FileWriter fw = new FileWriter("login_activity.txt", true);
-        fw.write("User: '" + UserIDTextField.getText() + "' - " + LoginStatus + " at " + ts.format(readable) + "\n");
+        fw.write("User: '" + UserID + "' - " + LoginStatus + " at " + ts.format(readable) + "\n");
         fw.close();
     }
+
+    public Boolean ValidateUser(String UserID, String Password) throws IOException {
+        Boolean LoginStatus;
+        if (UserID.equals("test") && Password.equals("test")) {
+            System.out.println("Valid user");
+            LoginStatus = true;
+        } else {
+            System.out.println("Invalid user");
+            LoginStatus = false;
+
+        }
+        return LoginStatus;
+    }
+
+    public void ShowAppointments(String UserID) throws IOException {
+        System.out.println("Showing appointments for " + UserID);
+        // Show upcoming appointments
+    }
+
+
 }
