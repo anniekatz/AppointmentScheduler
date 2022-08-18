@@ -32,7 +32,7 @@ public class LoginPage implements Initializable {
     private Label TitleLabel;
 
     @FXML
-    private TextField UserIDTextField;
+    private TextField UsernameTextField;
 
 
     @Override
@@ -46,32 +46,32 @@ public class LoginPage implements Initializable {
 
     @FXML
     void OnActionLogin(ActionEvent event) throws IOException {
-        String UserID = UserIDTextField.getText();
+        String Username = UsernameTextField.getText();
         String Password = PasswordTextField.getText();
-        Boolean ValidationCheck = ValidateUser(UserID, Password);
+        Boolean ValidationCheck = ValidateUser(Username, Password);
         if (ValidationCheck) {
-            LoginTracker("Successful Login Attempt", UserID);
-            ShowAppointments(UserID);
+            LoginTracker("Successful Login Attempt", Username);
+            ShowAppointments(Username);
             ControllerUtils.NavigateToWindow(event, "/View/HomePage.fxml", "Home Page");
         } else {
-            LoginTracker("Unsuccessful Login Attempt", UserID);
+            LoginTracker("Unsuccessful Login Attempt", Username);
             System.out.println("Invalid Login");
             // pop up error message
         }
     }
 
-    public void LoginTracker(String LoginStatus, String UserID) throws IOException {
+    public void LoginTracker(String LoginStatus, String Username) throws IOException {
         ZoneId UserTZ = ZoneId.systemDefault();
         ZonedDateTime ts = ZonedDateTime.now(UserTZ);
         DateTimeFormatter readable = DateTimeFormatter.ofPattern( "uuuu-MM-dd HH:mm:ss O" );
         FileWriter fw = new FileWriter("login_activity.txt", true);
-        fw.write("User: '" + UserID + "' - " + LoginStatus + " at " + ts.format(readable) + "\n");
+        fw.write("User: '" + Username + "' - " + LoginStatus + " at " + ts.format(readable) + "\n");
         fw.close();
     }
 
-    public Boolean ValidateUser(String UserID, String Password) throws IOException {
+    public Boolean ValidateUser(String Username, String Password) throws IOException {
         Boolean LoginStatus;
-        if (UserID.equals("test") && Password.equals("test")) {
+        if (Username.equals("test") && Password.equals("test")) {
             System.out.println("Valid user");
             LoginStatus = true;
         } else {
@@ -82,8 +82,8 @@ public class LoginPage implements Initializable {
         return LoginStatus;
     }
 
-    public void ShowAppointments(String UserID) throws IOException {
-        System.out.println("Showing appointments for " + UserID);
+    public void ShowAppointments(String Username) throws IOException {
+        System.out.println("Showing appointments for " + Username);
         // Show upcoming appointments
     }
 

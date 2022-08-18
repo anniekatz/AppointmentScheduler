@@ -23,7 +23,7 @@
       <font>
          <Font size="13.0" />
       </font></TextField>
-    <TextField fx:id="UserIDTextField" layoutX="337.0" layoutY="262.0" prefHeight="31.0" prefWidth="156.0" promptText="User ID">
+    <TextField fx:id="UsernameTextField" layoutX="337.0" layoutY="262.0" prefHeight="31.0" prefWidth="156.0" promptText="Username">
       <font>
          <Font size="13.0" />
       </font></TextField>
