@@ -121,9 +121,13 @@ public class LoginPage implements Initializable {
     }
 
     // Show upcoming appointments for user
-    public void ShowAppointments(String Username, ResourceBundle rb) throws IOException {
-        // TODO: Check database for num appts for user
-        int NumAppts = 0;
+    public void ShowAppointments(String Username, ResourceBundle rb) throws IOException, SQLException {
+        // Get user ID based on valid username
+        int UserID = Database.QueryTables.UsersTable.GetUserID(Username);
+        // Get number of appointments based on user ID
+        int NumAppts = Database.QueryTables.AppointmentsTable.GetAppointments(UserID);
+
+        // Create alert to display number of upcoming appointments
         Alert ApptAlert = new Alert(Alert.AlertType.INFORMATION);
         ApptAlert.setTitle(rb.getString("UpAppts"));
         if (NumAppts == 0) {

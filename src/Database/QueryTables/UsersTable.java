@@ -73,6 +73,19 @@ public class UsersTable {
 
     }
 
+    public static int GetUserID(String Username) throws SQLException {
+        int UserID = 0;
+        String Query = "SELECT User_ID FROM users WHERE User_Name = '" + Username + "';";
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+        PS.execute();
+        ResultSet RS = PS.getResultSet();
+        while (RS.next()) {
+            UserID = RS.getInt("User_ID");
+        }
+        return UserID;
+    }
+
 
 }
 
