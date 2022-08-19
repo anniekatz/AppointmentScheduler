@@ -125,7 +125,7 @@ public class LoginPage implements Initializable {
         // Get user ID based on valid username
         int UserID = Database.QueryTables.UsersTable.GetUserID(Username);
         // Get number of appointments based on user ID
-        int NumAppts = Database.QueryTables.AppointmentsTable.GetAppointments(UserID);
+        int NumAppts = Database.QueryTables.AppointmentsTable.GetUpcomingAppointments(UserID);
 
         // Create alert to display number of upcoming appointments
         Alert ApptAlert = new Alert(Alert.AlertType.INFORMATION);

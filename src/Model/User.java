@@ -33,9 +33,7 @@ public class User {
     public String GetPassword() {
         return Password;
     }
-    public LocalDateTime GetCreateDate() {
-        return CreateDate;
-    }
+    public LocalDateTime GetCreateDate() { return CreateDate; }
     public String GetCreatedBy() {
         return CreatedBy;
     }

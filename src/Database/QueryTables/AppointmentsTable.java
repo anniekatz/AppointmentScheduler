@@ -1,6 +1,9 @@
 package Database.QueryTables;
 
 import Database.QueryUtils;
+import Model.Appointment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,14 +12,46 @@ import java.time.LocalDateTime;
 
 public class AppointmentsTable {
 
+    public static ObservableList<Appointment> GetAppointments() throws SQLException {
+        ObservableList<Appointment> AppointmentList = FXCollections.observableArrayList();
+
+        String Query = "SELECT * FROM appointments;";
+
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+
+        PS.execute();
+        ResultSet RS = PS.getResultSet();
+        while (RS.next()) {
+            int AppointmentID = RS.getInt("Appointment_ID");
+            String Title = RS.getString("Title");
+            String Description = RS.getString("Description");
+            String Location = RS.getString("Location");
+            String Type = RS.getString("Type");
+            LocalDateTime Start = RS.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime End = RS.getTimestamp("End").toLocalDateTime();
+            LocalDateTime CreateDate = RS.getTimestamp("Create_Date").toLocalDateTime();
+            String CreatedBy = RS.getString("Created_By");
+            LocalDateTime LastUpdate = RS.getTimestamp("Last_Update").toLocalDateTime();
+            String LastUpdatedBy = RS.getString("Last_Updated_By");
+            int CustomerID = RS.getInt("Customer_ID");
+            int UserID = RS.getInt("User_ID");
+            int ContactID = RS.getInt("Contact_ID");
+
+            Appointment NewAppointment = new Appointment(AppointmentID, Title, Description, Location, Type, Start, End, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy, CustomerID, UserID, ContactID);
+            AppointmentList.add(NewAppointment);
+        }
+        return AppointmentList;
+    }
+
     // Get appointments for current user
-    public static int GetAppointments(int UserID) throws SQLException {
+    public static int GetUpcomingAppointments(int UserID) throws SQLException {
         // Get the exact time and convert to UTC time zone
         LocalDateTime CurrentTime = LocalDateTime.now();
         // Get the exact time plus 15 minutes
         LocalDateTime CurrentTimePlus15 = CurrentTime.plusMinutes(15);
 
-        String Query = "SELECT * FROM appointments WHERE User_ID =  '" + UserID + "' AND ;";
+        String Query = "SELECT * FROM appointments WHERE User_ID =  '" + UserID + "';";
 
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -26,8 +61,10 @@ public class AppointmentsTable {
         // Count number of appointments for current user
         int Count = 0;
         while (RS.next()) {
-            Count++;
-
+            LocalDateTime ApptTime = RS.getTimestamp("Start").toLocalDateTime();
+            if (ApptTime.isAfter(CurrentTime) && ApptTime.isBefore(CurrentTimePlus15)) {
+                Count++;
+            }
         }
         return Count;
     }
