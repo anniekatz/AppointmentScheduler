@@ -3,10 +3,7 @@ package Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,24 +34,21 @@ public class LoginPage implements Initializable {
     @FXML
     private TextField UsernameTextField;
 
-    ResourceBundle rb = ResourceBundle.getBundle("Languages/Lang", Locale.getDefault());
-
+    // Resource bundle for language and locale
+    public ResourceBundle rb = ResourceBundle.getBundle("Languages/Lang", Locale.getDefault());
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         System.out.println("Initializing");
+
         // Check user language and change display if necessary
-
-
         ChangeUserLanguage(rb);
         // Check user locale and replace label
         CheckUserTZ();
     }
 
-
-
-
+    // Login button method
     @FXML
     void OnActionLogin(ActionEvent event) throws IOException {
         String Username = UsernameTextField.getText();
@@ -62,15 +56,16 @@ public class LoginPage implements Initializable {
         boolean ValidationCheck = ValidateUser(Username, Password);
         if (ValidationCheck) {
             LoginTracker("Successful Login Attempt", Username);
-            ShowAppointments(Username);
+            ShowAppointments(Username, rb);
             ControllerUtils.NavigateToWindow(event, "/View/HomePage.fxml", "Home Page");
         } else {
             LoginTracker("Unsuccessful Login Attempt", Username);
+            // Pop-up error message if incorrect login
             SendErrorMessage(rb);
-            // pop up error message
         }
     }
 
+    // Track login attempts in text file
     public void LoginTracker(String LoginStatus, String Username) throws IOException {
         ZoneId UserTZ = ZoneId.systemDefault();
         ZonedDateTime ts = ZonedDateTime.now(UserTZ);
@@ -80,6 +75,7 @@ public class LoginPage implements Initializable {
         fw.close();
     }
 
+    // Validate user login
     public boolean ValidateUser(String Username, String Password) throws IOException {
         boolean LoginStatus;
         if (Username.equals("test") && Password.equals("test")) {
@@ -88,16 +84,12 @@ public class LoginPage implements Initializable {
         } else {
             System.out.println("Invalid user");
             LoginStatus = false;
-
         }
         return LoginStatus;
     }
 
-    public void ShowAppointments(String Username) throws IOException {
-        System.out.println("Showing appointments for " + Username);
-        // Show upcoming appointments
-    }
 
+    // Change language if necessary
     public void ChangeUserLanguage(ResourceBundle rb) {
         if (rb.getLocale().getLanguage().equals("fr")) {
             LangLabel.setText(rb.getString("Lang"));
@@ -105,13 +97,12 @@ public class LoginPage implements Initializable {
             LoginButton.setText(rb.getString("Login"));
             UsernameTextField.setPromptText(rb.getString("Username"));
             PasswordTextField.setPromptText(rb.getString("Password"));
-
         } else {
             LangLabel.setText(rb.getString("Lang"));
-
         }
     }
 
+    // Check user's system timezone
     public void CheckUserTZ() {
         if (TimeZone.getDefault().getID() != null) {
             LocaleLabel.setText((TimeZone.getDefault().getID()).substring(0, 3));
@@ -120,12 +111,29 @@ public class LoginPage implements Initializable {
         }
     }
 
+    // Create alert for incorrect login
     public void SendErrorMessage(ResourceBundle rb) {
         Alert LoginError = new Alert(Alert.AlertType.ERROR);
         LoginError.setTitle(rb.getString("Error"));
         LoginError.setHeaderText(rb.getString("ErrHeader"));
         LoginError.setContentText(rb.getString("ErrMessage"));
         LoginError.showAndWait();
+    }
+
+    // Show upcoming appointments for user
+    public void ShowAppointments(String Username, ResourceBundle rb) throws IOException {
+        // TODO: Check database for num appts for user
+        int NumAppts = 0;
+        Alert ApptAlert = new Alert(Alert.AlertType.INFORMATION);
+        ApptAlert.setTitle(rb.getString("UpAppts"));
+        if (NumAppts == 0) {
+            ApptAlert.setHeaderText(rb.getString("UpApptsFalse"));
+            ApptAlert.showAndWait();
+        }
+        else {
+            ApptAlert.setHeaderText(rb.getString("UpApptsTrue1") + " " + NumAppts + " " + rb.getString("UpApptsTrue2"));
+            ApptAlert.showAndWait();
+        }
     }
 
 }
