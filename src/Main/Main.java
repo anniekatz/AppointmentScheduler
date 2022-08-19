@@ -4,12 +4,14 @@
 
 package Main;
 
+import DatabaseUtils.ConnectDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -25,6 +27,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        ConnectDB.Connect();
         launch(args);
+        ConnectDB.Disconnect();
     }
 }
