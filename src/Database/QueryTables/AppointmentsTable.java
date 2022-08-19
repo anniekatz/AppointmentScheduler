@@ -51,8 +51,8 @@ public class AppointmentsTable {
         // Get the exact time plus 15 minutes
         LocalDateTime CurrentTimePlus15 = CurrentTime.plusMinutes(15);
 
+        // Grab appointments from database with the logged in user's ID
         String Query = "SELECT * FROM appointments WHERE User_ID =  '" + UserID + "';";
-
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
         PS.execute();
