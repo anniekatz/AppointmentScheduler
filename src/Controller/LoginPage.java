@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,7 +51,7 @@ public class LoginPage implements Initializable {
 
     // Login button method
     @FXML
-    void OnActionLogin(ActionEvent event) throws IOException {
+    void OnActionLogin(ActionEvent event) throws IOException, SQLException {
         String Username = UsernameTextField.getText();
         String Password = PasswordTextField.getText();
         boolean ValidationCheck = ValidateUser(Username, Password);
@@ -76,14 +77,13 @@ public class LoginPage implements Initializable {
     }
 
     // Validate user login
-    public boolean ValidateUser(String Username, String Password) throws IOException {
+    public boolean ValidateUser(String Username, String Password) throws IOException, SQLException {
         boolean LoginStatus;
-        if (Username.equals("test") && Password.equals("test")) {
+        LoginStatus = Database.QueryTables.UsersTable.CheckValidUsers(Username, Password);
+        if (LoginStatus) {
             System.out.println("Valid user");
-            LoginStatus = true;
         } else {
             System.out.println("Invalid user");
-            LoginStatus = false;
         }
         return LoginStatus;
     }
