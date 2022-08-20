@@ -2,14 +2,19 @@ package Controller;
 
 import Database.QueryTables.CustomersTable;
 import Model.Customer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class CustomerPage {
+public class CustomerPage implements Initializable {
     // Navigation buttons
     @FXML
     private Button ReportsButton;
@@ -19,21 +24,19 @@ public class CustomerPage {
 
     // Customer TableView Variables
     @FXML
-    private TableView<Customer> CustomerTable;
+    public TableView<Customer> CustomerTable;
     @FXML
-    private TableColumn<Customer, String> CustomerTableAddressColumn;
+    public TableColumn<Customer, String> CustomerTableAddressColumn;
     @FXML
-    private TableColumn<Customer, String> CustomerTableCountryColumn;
+    public TableColumn<Customer, Integer> CustomerTableCustomerIDColumn;
     @FXML
-    private TableColumn<Customer, Integer> CustomerTableCustomerIDColumn;
+    public TableColumn<Customer, Integer> CustomerTableDivisionColumn;
     @FXML
-    private TableColumn<Customer, Integer> CustomerTableDivisionColumn;
+    public TableColumn<Customer, String> CustomerTableNameColumn;
     @FXML
-    private TableColumn<Customer, String> CustomerTableNameColumn;
+    public TableColumn<Customer, String> CustomerTablePhoneColumn;
     @FXML
-    private TableColumn<Customer, String> CustomerTablePhoneColumn;
-    @FXML
-    private TableColumn<Customer, String> CustomerTablePostalCodeColumn;
+    public TableColumn<Customer, String> CustomerTablePostalCodeColumn;
 
     // Creating/Updating/Deleting Form Variables
     @FXML
@@ -55,17 +58,27 @@ public class CustomerPage {
     @FXML
     private TextField PostalCodeTextField;
 
+    static ObservableList<Customer> FullCustomerList;
+
     // Initialize method
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         // Initialize Customer TableView
-        CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
-        CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
-        CustomerTableCountryColumn.setCellValueFactory(new PropertyValueFactory<>("Country"));
-        CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("DivisionID"));
+
+        CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("CustomerID"));
+        CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerName"));
+        CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerAddress"));
+        CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerPhone"));
+        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerPostalCode"));
+        CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("DivisionID"));
+
+        try {
+            FullCustomerList = CustomersTable.GetCustomers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        CustomerTable.setItems(FullCustomerList);
+
     }
 
     // Navigation button methods
@@ -77,4 +90,6 @@ public class CustomerPage {
     void NavToReports(ActionEvent event) throws IOException {
         ControllerUtils.NavToReports(event);
     }
+
+
 }

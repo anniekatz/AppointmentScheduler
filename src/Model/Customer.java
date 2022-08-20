@@ -4,27 +4,19 @@ import java.time.LocalDateTime;
 
 public class Customer {
     private int CustomerID;
-    private String Name;
-    private String Address;
-    private String ZipCode;
-    private String Phone;
-    private LocalDateTime CreateDate;
-    private String CreatedBy;
-    private LocalDateTime LastUpdate;
-    private String LastUpdateBy;
+    private String CustomerName;
+    private String CustomerAddress;
+    private String CustomerZipCode;
+    private String CustomerPhone;
     private int DivisionID;
 
     // Customer constructor
-    public Customer(int CustomerID, String Name, String Address, String ZipCode, String Phone, LocalDateTime CreateDate, String CreatedBy, LocalDateTime LastUpdate, String LastUpdateBy, int DivisionID) {
+    public Customer(int CustomerID, String CustomerName, String CustomerAddress, String CustomerZipCode, String CustomerPhone, int DivisionID) {
         this.CustomerID = CustomerID;
-        this.Name = Name;
-        this.Address = Address;
-        this.ZipCode = ZipCode;
-        this.Phone = Phone;
-        this.CreateDate = CreateDate;
-        this.CreatedBy = CreatedBy;
-        this.LastUpdate = LastUpdate;
-        this.LastUpdateBy = LastUpdateBy;
+        this.CustomerName = CustomerName;
+        this.CustomerAddress = CustomerAddress;
+        this.CustomerZipCode = CustomerZipCode;
+        this.CustomerPhone = CustomerPhone;
         this.DivisionID = DivisionID;
     }
 
@@ -32,31 +24,37 @@ public class Customer {
     public int GetCustomerID() {
         return CustomerID;
     }
-    public String GetName() {
-        return Name;
+    public String GetCustomerName() {
+        return CustomerName;
     }
-    public String GetAddress() {
-        return Address;
+    public String GetCustomerAddress() {
+        return CustomerAddress;
     }
-    public String GetZipCode() {
-        return ZipCode;
+    public String GetCustomerZipCode() {
+        return CustomerZipCode;
     }
-    public String GetPhone() {
-        return Phone;
-    }
-    public LocalDateTime GetCreateDate() {
-        return CreateDate;
-    }
-    public String GetCreatedBy() {
-        return CreatedBy;
-    }
-    public LocalDateTime GetLastUpdate() {
-        return LastUpdate;
-    }
-    public String GetLastUpdateBy() {
-        return LastUpdateBy;
-    }
+    public String GetCustomerPhone() { return CustomerPhone; }
     public int GetDivisionID() {
         return DivisionID;
+    }
+
+    // Set methods
+    public void SetCustomerID(int CustomerID) {
+        this.CustomerID = CustomerID;
+    }
+    public void SetCustomerName(String CustomerName) {
+        this.CustomerName = CustomerName;
+    }
+    public void SetCustomerAddress(String CustomerAddress) {
+        this.CustomerAddress = CustomerAddress;
+    }
+    public void SetCustomerZipCode(String CustomerZipCode) {
+        this.CustomerZipCode = CustomerZipCode;
+    }
+    public void SetCustomerPhone(String CustomerPhone) {
+        this.CustomerPhone = CustomerPhone;
+    }
+    public void SetDivisionID(int DivisionID) {
+        this.DivisionID = DivisionID;
     }
 }
