@@ -99,7 +99,10 @@ public class CustomerPage implements Initializable {
                 alert.setContentText("Are you sure you want to delete this customer?");
                 alert.showAndWait();
                 if (alert.getResult() == ButtonType.OK) {
+                    // Delete customer from database
                     CustomersTable.DeleteCustomer(SelectedCustomer.getCustomerID());
+                    // Delete customer from tableview
+                    CustomerTable.getItems().remove(SelectedCustomer);
                 }
 
             }
