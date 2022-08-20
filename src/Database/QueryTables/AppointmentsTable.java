@@ -16,12 +16,12 @@ public class AppointmentsTable {
         ObservableList<Appointment> AppointmentList = FXCollections.observableArrayList();
 
         String Query = "SELECT * FROM appointments;";
-
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
-
         PS.execute();
         ResultSet RS = PS.getResultSet();
+
+        // Get appointments from database
         while (RS.next()) {
             int AppointmentID = RS.getInt("Appointment_ID");
             String Title = RS.getString("Title");

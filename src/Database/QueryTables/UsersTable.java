@@ -68,9 +68,7 @@ public class UsersTable {
         } else {
             check = false;
         }
-
         return check;
-
     }
 
     public static int GetUserID(String Username) throws SQLException {
