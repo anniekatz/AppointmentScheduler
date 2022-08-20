@@ -4,6 +4,7 @@ import Model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 
@@ -53,7 +54,18 @@ public class CustomerPage {
     @FXML
     private TextField PostalCodeTextField;
 
-
+    // Initialize method
+    @FXML
+    public void initialize() {
+        // Initialize Customer TableView
+        CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
+        CustomerTableCountryColumn.setCellValueFactory(new PropertyValueFactory<>("Country"));
+        CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("DivisionID"));
+    }
 
     // Navigation button methods
     @FXML
