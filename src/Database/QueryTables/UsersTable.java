@@ -18,9 +18,9 @@ import java.util.List;
 
 public class UsersTable {
 
-    public static ObservableList<User> GetUsers() throws SQLException {
+    public static ObservableList<User> GetUsers() {
         ObservableList<User> UserList = FXCollections.observableArrayList();
-
+try {
         String Query = "SELECT * FROM users;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -38,6 +38,8 @@ public class UsersTable {
 
             User NewUser = new User(UserID, Username, Password, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy);
             UserList.add(NewUser);
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return UserList;
     }

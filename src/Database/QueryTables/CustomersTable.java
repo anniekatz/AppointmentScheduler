@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class CustomersTable {
-    public static ObservableList<Customer> GetCustomers() throws SQLException {
+    public static ObservableList<Customer> GetCustomers() {
         ObservableList<Customer> CustomerList = FXCollections.observableArrayList();
-
+try {
         String Query = "SELECT * FROM customers;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -34,6 +34,8 @@ public class CustomersTable {
 
             Customer NewCustomer = new Customer(CustomerID, Name, Address, Phone, ZipCode, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy, DivisionID);
             CustomerList.add(NewCustomer);
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return CustomerList;
     }

@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 
 public class AppointmentsTable {
 
-    public static ObservableList<Appointment> GetAppointments() throws SQLException {
+    public static ObservableList<Appointment> GetAppointments() {
         ObservableList<Appointment> AppointmentList = FXCollections.observableArrayList();
 
+        try {
         String Query = "SELECT * FROM appointments;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -40,6 +41,8 @@ public class AppointmentsTable {
 
             Appointment NewAppointment = new Appointment(AppointmentID, Title, Description, Location, Type, Start, End, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy, CustomerID, UserID, ContactID);
             AppointmentList.add(NewAppointment);
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return AppointmentList;
     }

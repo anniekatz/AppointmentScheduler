@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class DivisionsTable {
-    public static ObservableList<Division> GetDivisions() throws SQLException, SQLException {
+    public static ObservableList<Division> GetDivisions() {
         ObservableList<Division> DivisionList = FXCollections.observableArrayList();
-
+try {
         String Query = "SELECT * FROM divisions;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -31,6 +31,8 @@ public class DivisionsTable {
 
             Division NewDivision = new Division(DivisionID, DivisionName, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy, CountryID);
             DivisionList.add(NewDivision);
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return DivisionList;
     }

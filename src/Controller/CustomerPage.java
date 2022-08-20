@@ -1,5 +1,6 @@
 package Controller;
 
+import Database.QueryTables.CustomersTable;
 import Model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

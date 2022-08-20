@@ -11,24 +11,26 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class CountriesTable {
-    public static ObservableList<Country> GetCountries() throws SQLException {
+    public static ObservableList<Country> GetCountries() {
         ObservableList<Country> CountryList = FXCollections.observableArrayList();
-
-        String Query = "SELECT * FROM countries;";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
-        ResultSet RS = PS.getResultSet();
-
-        while (RS.next()) {
-            int CountryID = RS.getInt("Country_ID");
-            String Country = RS.getString("Country");
-            LocalDateTime CreateDate = RS.getTimestamp("Create_Date").toLocalDateTime();
-            String CreatedBy = RS.getString("Created_By");
-            LocalDateTime LastUpdate = RS.getTimestamp("Last_Update").toLocalDateTime();
-            String LastUpdatedBy = RS.getString("Last_Updated_By");
-            Country NewCountry = new Country(CountryID, Country, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy);
-            CountryList.add(NewCountry);
+        try {
+            String Query = "SELECT * FROM countries;";
+            QueryUtils.SetPS(Query);
+            PreparedStatement PS = QueryUtils.GetPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            while (RS.next()) {
+                int CountryID = RS.getInt("Country_ID");
+                String Country = RS.getString("Country");
+                LocalDateTime CreateDate = RS.getTimestamp("Create_Date").toLocalDateTime();
+                String CreatedBy = RS.getString("Created_By");
+                LocalDateTime LastUpdate = RS.getTimestamp("Last_Update").toLocalDateTime();
+                String LastUpdatedBy = RS.getString("Last_Updated_By");
+                Country NewCountry = new Country(CountryID, Country, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy);
+                CountryList.add(NewCountry);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return CountryList;
     }

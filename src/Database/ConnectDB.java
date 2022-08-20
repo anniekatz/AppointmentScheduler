@@ -6,15 +6,17 @@ import java.sql.SQLException;
 
 // Establish connection to MySQL database
 public abstract class ConnectDB {
-    // URL parts
+    // TODO: Check which database to use, whether local or WGU remote
+    // Local URL parts
     private static final String DBProtocol = "jdbc:";
     private static final String DBVendor = "mysql:";
     private static final String DBServer = "//localhost:3306/";
     private static final String DBName = "client_schedule";
     private static final String DBTZServer = "?connectionTimeZone=SERVER";
 
-    // Final URL for connecting to database
+    // Final URL for connecting to local database
     private static final String JDBC_URL = DBProtocol + DBVendor + DBServer + DBName + DBTZServer;
+
 
     // Add database driver, username, and password
     private static final String DB_Driver = "com.mysql.cj.jdbc.Driver";

@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class ContactsTable {
-    public static ObservableList<Contact> GetContacts() throws SQLException {
+    public static ObservableList<Contact> GetContacts()  {
         ObservableList<Contact> ContactList = FXCollections.observableArrayList();
-
+try {
         String Query = "SELECT * FROM contacts;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -27,6 +27,8 @@ public class ContactsTable {
 
             Contact NewContact = new Contact(ContactID, Name, Email);
             ContactList.add(NewContact);
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return ContactList;
     }
