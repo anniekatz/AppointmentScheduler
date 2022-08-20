@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #fff5ed;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginPage">
+<AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #fff5ed;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginPage">
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb598" height="170.0" layoutX="310.0" layoutY="216.0" stroke="BLACK" strokeType="INSIDE" width="210.0" />
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb598" height="24.0" layoutX="771.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="45.0" />
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb598" height="24.0" layoutX="771.0" layoutY="46.0" stroke="BLACK" strokeType="INSIDE" width="45.0" />
     <Label fx:id="TitleLabel" layoutX="266.0" layoutY="146.0" text="Appointment System">
         <font>
             <Font name="System Bold" size="30.0" />
@@ -27,7 +27,7 @@
       <font>
          <Font size="13.0" />
       </font></TextField>
-    <Label fx:id="LocaleLabel" layoutX="781.0" layoutY="50.0" text="LOC" />
-    <Label fx:id="LangLabel" layoutX="785.0" layoutY="17.0" text="EN/FR" textAlignment="CENTER" />
+    <Label fx:id="LocaleLabel" layoutX="704.0" layoutY="40.0" text="Location/TimeZone" textAlignment="RIGHT" />
+    <Label fx:id="LangLabel" layoutX="799.0" layoutY="14.0" text="EN" textAlignment="RIGHT" />
 
 </AnchorPane>

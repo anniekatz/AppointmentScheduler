@@ -78,7 +78,7 @@
     <TextField fx:id="AddressTextField" layoutX="169.0" layoutY="491.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
     <TextField fx:id="PostalCodeTextField" layoutX="339.0" layoutY="491.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
     <TextField fx:id="PhoneTextField" layoutX="338.0" layoutY="536.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <Button fx:id="DeleteButton" layoutX="530.0" layoutY="522.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Delete Record">
+    <Button fx:id="DeleteButton" layoutX="530.0" layoutY="522.0" mnemonicParsing="false" onAction="#DeleteCustomer" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Delete Record">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>

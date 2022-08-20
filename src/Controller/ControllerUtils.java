@@ -39,4 +39,7 @@ public class ControllerUtils {
     public static void NavToReports(ActionEvent event) throws IOException {
         ControllerUtils.NavigateToWindow(event, "/View/ReportPage.fxml", "Reports");
     }
+
+
+
 }

@@ -71,4 +71,25 @@ public class AppointmentsTable {
         }
         return Count;
     }
+
+    // Get appointments for customer ID
+    // Grab appointments from database with the logged in user's ID
+
+    // Get appointments for current user
+    public static int GetCustomerAppointments(int CustomerID) throws SQLException {
+        // Grab appointments from database with the customer's ID
+        String Query = "SELECT * FROM appointments WHERE Customer_ID =  '" + CustomerID + "';";
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+        PS.execute();
+        ResultSet RS = PS.getResultSet();
+
+        // Count number of appointments for customer
+        int Count = 0;
+        while (RS.next()) {
+            Count++;
+        }
+        return Count;
+
+    }
 }

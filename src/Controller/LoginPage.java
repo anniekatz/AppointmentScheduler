@@ -105,9 +105,10 @@ public class LoginPage implements Initializable {
     // Check user's system timezone
     public void CheckUserTZ() {
         if (TimeZone.getDefault().getID() != null) {
-            LocaleLabel.setText((TimeZone.getDefault().getID()).substring(0, 3));
+            // Set LocaleLabel to user's timezone
+            LocaleLabel.setText(TimeZone.getDefault().getDisplayName());
         } else {
-            LocaleLabel.setText("ERR");
+            LocaleLabel.setText("Error getting timezone");
         }
     }
 

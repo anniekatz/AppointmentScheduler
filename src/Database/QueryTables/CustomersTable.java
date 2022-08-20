@@ -36,4 +36,12 @@ public class CustomersTable {
         }
         return CustomerList;
     }
+
+    // Delete customer from database
+    public static void DeleteCustomer(int CustomerID) throws SQLException {
+        String Query = "DELETE FROM customers WHERE Customer_ID =  '" + CustomerID + "';";
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+        PS.execute();
+    }
 }

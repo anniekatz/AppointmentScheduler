@@ -1,5 +1,6 @@
 package Controller;
 
+import Database.QueryTables.AppointmentsTable;
 import Database.QueryTables.CustomersTable;
 import Model.Customer;
 import javafx.collections.ObservableList;
@@ -77,6 +78,33 @@ public class CustomerPage implements Initializable {
 
     }
 
+    // Delete customer
+    @FXML
+    void DeleteCustomer(ActionEvent event) throws SQLException {
+        Customer SelectedCustomer = CustomerTable.getSelectionModel().getSelectedItem();
+        if (SelectedCustomer != null) {
+            // Check if customer has any appointments
+            int NumCustAppts = AppointmentsTable.GetCustomerAppointments(SelectedCustomer.getCustomerID());
+            if (NumCustAppts > 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Customer has appointments scheduled; cannot delete");
+                alert.showAndWait();
+            } else {
+                // ask user to confirm delete
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Confirmation");
+                alert.setContentText("Are you sure you want to delete this customer?");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.OK) {
+                    CustomersTable.DeleteCustomer(SelectedCustomer.getCustomerID());
+                }
+
+            }
+        }
+    }
 
 
     // Navigation button methods
