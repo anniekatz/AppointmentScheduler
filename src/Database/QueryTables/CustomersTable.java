@@ -2,7 +2,6 @@ package Database.QueryTables;
 
 import Database.QueryUtils;
 import Model.Customer;
-import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
