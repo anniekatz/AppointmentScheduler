@@ -22,12 +22,11 @@ public class UsersTable {
         ObservableList<User> UserList = FXCollections.observableArrayList();
 
         String Query = "SELECT * FROM users;";
-
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
-
         PS.execute();
         ResultSet RS = PS.getResultSet();
+
         while (RS.next()) {
             int UserID = RS.getInt("User_ID");
             String Username = RS.getString("User_Name");
