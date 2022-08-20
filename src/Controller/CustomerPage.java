@@ -58,7 +58,7 @@ public class CustomerPage implements Initializable {
     @FXML
     private TextField PostalCodeTextField;
 
-    static ObservableList<Customer> FullCustomerList;
+
 
     // Initialize method
     @Override
@@ -69,17 +69,15 @@ public class CustomerPage implements Initializable {
         CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerName"));
         CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerAddress"));
         CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerPhone"));
-        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerPostalCode"));
+        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerZipCode"));
         CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("DivisionID"));
 
-        try {
-            FullCustomerList = CustomersTable.GetCustomers();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        CustomerTable.setItems(FullCustomerList);
+        ObservableList<Customer> FullCustomersList = CustomersTable.GetCustomers();
+        CustomerTable.setItems(FullCustomersList);
 
     }
+
+
 
     // Navigation button methods
     @FXML

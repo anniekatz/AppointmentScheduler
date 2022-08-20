@@ -10,9 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomersTable {
-    public static ObservableList<Customer> GetCustomers() throws SQLException {
+    public static ObservableList<Customer> GetCustomers() {
         ObservableList<Customer> CustomerList = FXCollections.observableArrayList();
 
+        try {
         String Query = "SELECT * FROM customers;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
@@ -29,6 +30,9 @@ public class CustomersTable {
 
             Customer NewCustomer = new Customer(CustomerID, CustomerName, CustomerAddress, CustomerPhone, CustomerZipCode, DivisionID);
             CustomerList.add(NewCustomer);
+        }}
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return CustomerList;
     }

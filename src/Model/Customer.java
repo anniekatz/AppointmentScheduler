@@ -21,40 +21,40 @@ public class Customer {
     }
 
     // Get methods
-    public int GetCustomerID() {
+    public int getCustomerID() {
         return CustomerID;
     }
-    public String GetCustomerName() {
+    public String getCustomerName() {
         return CustomerName;
     }
-    public String GetCustomerAddress() {
+    public String getCustomerAddress() {
         return CustomerAddress;
     }
-    public String GetCustomerZipCode() {
+    public String getCustomerZipCode() {
         return CustomerZipCode;
     }
-    public String GetCustomerPhone() { return CustomerPhone; }
-    public int GetDivisionID() {
+    public String getCustomerPhone() { return CustomerPhone; }
+    public int getDivisionID() {
         return DivisionID;
     }
 
     // Set methods
-    public void SetCustomerID(int CustomerID) {
+    public void setCustomerID(int CustomerID) {
         this.CustomerID = CustomerID;
     }
-    public void SetCustomerName(String CustomerName) {
+    public void setCustomerName(String CustomerName) {
         this.CustomerName = CustomerName;
     }
-    public void SetCustomerAddress(String CustomerAddress) {
+    public void setCustomerAddress(String CustomerAddress) {
         this.CustomerAddress = CustomerAddress;
     }
-    public void SetCustomerZipCode(String CustomerZipCode) {
+    public void setCustomerZipCode(String CustomerZipCode) {
         this.CustomerZipCode = CustomerZipCode;
     }
-    public void SetCustomerPhone(String CustomerPhone) {
+    public void setCustomerPhone(String CustomerPhone) {
         this.CustomerPhone = CustomerPhone;
     }
-    public void SetDivisionID(int DivisionID) {
+    public void setDivisionID(int DivisionID) {
         this.DivisionID = DivisionID;
     }
 }
