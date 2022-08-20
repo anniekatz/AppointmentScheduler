@@ -13,13 +13,9 @@ public class Contact {
     }
 
     // Get methods
-    public int GetContactID() {
-        return ContactID;
-    }
-    public String GetName() {
-        return Name;
-    }
-    public String GetEmail() {
+    public int getContactID() { return ContactID; }
+    public String getName() { return Name; }
+    public String getEmail() {
         return Email;
     }
 

@@ -23,26 +23,25 @@ public class Division {
     }
 
     // Get methods
-    public int GetDivisionID() {
+    public int getDivisionID() {
         return DivisionID;
     }
-    public String GetDivisionName() {
+    public String getDivisionName() {
         return DivisionName;
     }
-
-    public LocalDateTime GetCreateDate() {
+    public LocalDateTime getCreateDate() {
         return CreateDate;
     }
-    public String GetCreatedBy() {
+    public String getCreatedBy() {
         return CreatedBy;
     }
-    public LocalDateTime GetLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return LastUpdate;
     }
-    public String GetLastUpdateBy() {
+    public String getLastUpdateBy() {
         return LastUpdateBy;
     }
-    public int GetCountryID() {
+    public int getCountryID() {
         return CountryID;
     }
 }

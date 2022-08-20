@@ -39,22 +39,11 @@ public class Customer {
     }
 
     // Set methods
-    public void setCustomerID(int CustomerID) {
-        this.CustomerID = CustomerID;
-    }
-    public void setCustomerName(String CustomerName) {
-        this.CustomerName = CustomerName;
-    }
-    public void setCustomerAddress(String CustomerAddress) {
-        this.CustomerAddress = CustomerAddress;
-    }
-    public void setCustomerZipCode(String CustomerZipCode) {
-        this.CustomerZipCode = CustomerZipCode;
-    }
-    public void setCustomerPhone(String CustomerPhone) {
-        this.CustomerPhone = CustomerPhone;
-    }
-    public void setDivisionID(int DivisionID) {
-        this.DivisionID = DivisionID;
-    }
+    public void setCustomerID(int CustomerID) { this.CustomerID = CustomerID; }
+    public void setCustomerName(String CustomerName) { this.CustomerName = CustomerName; }
+    public void setCustomerAddress(String CustomerAddress) { this.CustomerAddress = CustomerAddress; }
+    public void setCustomerZipCode(String CustomerZipCode) { this.CustomerZipCode = CustomerZipCode; }
+    public void setCustomerPhone(String CustomerPhone) { this.CustomerPhone = CustomerPhone; }
+    public void setDivisionID(int DivisionID) { this.DivisionID = DivisionID; }
+
 }

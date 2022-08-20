@@ -24,23 +24,23 @@ public class User {
     }
 
     // Get methods
-    public int GetUserID() {
+    public int getUserID() {
         return UserID;
     }
-    public String GetUsername() {
+    public String getUsername() {
         return Username;
     }
-    public String GetPassword() {
+    public String getPassword() {
         return Password;
     }
-    public LocalDateTime GetCreateDate() { return CreateDate; }
-    public String GetCreatedBy() {
+    public LocalDateTime getCreateDate() { return CreateDate; }
+    public String getCreatedBy() {
         return CreatedBy;
     }
-    public LocalDateTime GetLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return LastUpdate;
     }
-    public String GetLastUpdateBy() {
+    public String getLastUpdateBy() {
         return LastUpdateBy;
     }
 }

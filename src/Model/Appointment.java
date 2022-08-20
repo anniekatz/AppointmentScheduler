@@ -37,47 +37,18 @@ public class Appointment {
     }
 
     // Get methods
-    public int GetAppointmentID() {
-        return AppointmentID;
-    }
-    public String GetTitle() {
-        return Title;
-    }
-    public String GetDescription() {
-        return Description;
-    }
-    public String GetLocation() {
-        return Location;
-    }
-    public String GetType() {
-        return Type;
-    }
-    public LocalDateTime GetStart() {
-        return Start;
-    }
-    public LocalDateTime GetEnd() {
-        return End;
-    }
-    public LocalDateTime GetCreateDate() {
-        return CreateDate;
-    }
-    public String GetCreatedBy() {
-        return CreatedBy;
-    }
-    public LocalDateTime GetLastUpdate() {
-        return LastUpdate;
-    }
-    public String GetLastUpdateBy() {
-        return LastUpdateBy;
-    }
-    public int GetCustomerID() {
-        return CustomerID;
-    }
-    public int GetUserID() {
-        return UserID;
-    }
-    public int GetContactID() {
-        return ContactID;
-    }
-
+    public int getAppointmentID() { return AppointmentID; }
+    public String getTitle() { return Title; }
+    public String getDescription() { return Description; }
+    public String getLocation() { return Location; }
+    public String getType() { return Type; }
+    public LocalDateTime getStart() { return Start; }
+    public LocalDateTime getEnd() { return End; }
+    public LocalDateTime getCreateDate() { return CreateDate; }
+    public String getCreatedBy() { return CreatedBy; }
+    public LocalDateTime getLastUpdate() { return LastUpdate; }
+    public String getLastUpdateBy() { return LastUpdateBy; }
+    public int getCustomerID() { return CustomerID; }
+    public int getUserID() { return UserID; }
+    public int getContactID() { return ContactID; }
 }

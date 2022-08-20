@@ -21,24 +21,21 @@ public class Country {
     }
 
     // Get methods
-    public int GetCountryID() {
+    public int getCountryID() {
         return CountryID;
     }
     public String GetCountry() {
         return Country;
     }
-    public LocalDateTime GetCreateDate() {
+    public LocalDateTime getCreateDate() {
         return CreateDate;
     }
-    public String GetCreatedBy() {
+    public String getCreatedBy() {
         return CreatedBy;
     }
-    public LocalDateTime GetLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return LastUpdate;
     }
-    public String GetLastUpdateBy() {
-        return LastUpdateBy;
-
-    }
+    public String getLastUpdateBy() { return LastUpdateBy; }
 }
 
