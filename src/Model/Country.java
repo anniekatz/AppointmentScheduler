@@ -24,7 +24,7 @@ public class Country {
     public int getCountryID() {
         return CountryID;
     }
-    public String GetCountry() {
+    public String getCountry() {
         return Country;
     }
     public LocalDateTime getCreateDate() {

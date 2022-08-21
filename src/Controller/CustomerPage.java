@@ -1,8 +1,14 @@
 package Controller;
 
 import Database.QueryTables.AppointmentsTable;
+import Database.QueryTables.CountriesTable;
 import Database.QueryTables.CustomersTable;
+import Database.QueryTables.DivisionsTable;
+import Model.Appointment;
+import Model.Country;
 import Model.Customer;
+import Model.Division;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,13 +51,13 @@ public class CustomerPage implements Initializable {
     @FXML
     private TextField AddressTextField;
     @FXML
-    private ComboBox<?> CountryComboBox;
+    private ComboBox<String> CountryComboBox;
     @FXML
     private TextField CustomerIDTextField;
     @FXML
     private Button DeleteButton;
     @FXML
-    private ComboBox<?> DivisionComboBox;
+    private ComboBox<String> DivisionComboBox;
     @FXML
     private TextField NameTextField;
     @FXML
@@ -64,8 +70,8 @@ public class CustomerPage implements Initializable {
     // Initialize method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialize Customer TableView
 
+        // Initialize Customer TableView
         CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("CustomerID"));
         CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerName"));
         CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerAddress"));
@@ -76,6 +82,25 @@ public class CustomerPage implements Initializable {
         ObservableList<Customer> FullCustomersList = CustomersTable.GetCustomers();
         CustomerTable.setItems(FullCustomersList);
 
+        // Initialize Country ComboBox
+        ObservableList<Country> CountriesList = CountriesTable.GetCountries();
+        ObservableList<String> CountryNamesList = FXCollections.observableArrayList();
+        for (Country Country : CountriesList) {
+            CountryNamesList.add(Country.getCountry());
+        }
+        CountryComboBox.setItems(CountryNamesList);
+        CountryComboBox.setEditable(true);
+
+        // Initialize Division ComboBox
+        ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
+        ObservableList<String> DivisionNamesList = FXCollections.observableArrayList();
+        for (Division Division : DivisionsList) {
+            DivisionNamesList.add(Division.getDivisionName());
+        }
+        DivisionComboBox.setItems(DivisionNamesList);
+        DivisionComboBox.setEditable(true);
+
+
     }
 
     // Delete customer
@@ -84,7 +109,7 @@ public class CustomerPage implements Initializable {
         Customer SelectedCustomer = CustomerTable.getSelectionModel().getSelectedItem();
         if (SelectedCustomer != null) {
             // Check if customer has any appointments
-            int NumCustAppts = AppointmentsTable.GetCustomerAppointments(SelectedCustomer.getCustomerID());
+            int NumCustAppts = GetCustomerAppointment(SelectedCustomer.getCustomerID());
             if (NumCustAppts > 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -109,7 +134,17 @@ public class CustomerPage implements Initializable {
         }
     }
 
+    @FXML
+    void PopulateCountryComboBox(ActionEvent event) {
+        // Filter CountryComboBox based on DivisionComboBox chosen
 
+    }
+
+    @FXML
+    void PopulateDivisionComboBox(ActionEvent event) {
+        // Filter DivisionComboBox based on CountryComboBox chosen
+
+    }
 
     // Navigation button methods
     @FXML
@@ -120,6 +155,19 @@ public class CustomerPage implements Initializable {
     void NavToReports(ActionEvent event) throws IOException {
         ControllerUtils.NavToReports(event);
     }
+
+    int GetCustomerAppointment(int CustomerID) throws SQLException {
+        ObservableList<Appointment> AppointmentsList = AppointmentsTable.GetAppointments();
+        int NumAppts = 0;
+        for (Appointment Appointment : AppointmentsList) {
+            if (Appointment.getCustomerID() == CustomerID) {
+                NumAppts++;
+            }
+        }
+        return NumAppts;
+    }
+
+
 
 
 }

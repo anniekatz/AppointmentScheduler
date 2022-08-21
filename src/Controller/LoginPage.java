@@ -1,5 +1,8 @@
 package Controller;
 
+import Database.QueryTables.AppointmentsTable;
+import Model.Appointment;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -126,7 +129,7 @@ public class LoginPage implements Initializable {
         // Get user ID based on valid username
         int UserID = Database.QueryTables.UsersTable.GetUserID(Username);
         // Get number of appointments based on user ID
-        int NumAppts = Database.QueryTables.AppointmentsTable.GetUpcomingAppointments(UserID);
+        int NumAppts = GetUserAppointment(UserID);
 
         // Create alert to display number of upcoming appointments
         Alert ApptAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -139,6 +142,16 @@ public class LoginPage implements Initializable {
             ApptAlert.setHeaderText(rb.getString("UpApptsTrue1") + " " + NumAppts + " " + rb.getString("UpApptsTrue2"));
             ApptAlert.showAndWait();
         }
+    }
+    int GetUserAppointment(int UserID) {
+        ObservableList<Appointment> AppointmentsList = AppointmentsTable.GetAppointments();
+        int NumAppts = 0;
+        for (Appointment Appointment : AppointmentsList) {
+            if (Appointment.getUserID() == UserID) {
+                NumAppts++;
+            }
+        }
+        return NumAppts;
     }
 
 }

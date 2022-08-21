@@ -14,7 +14,7 @@ public class DivisionsTable {
     public static ObservableList<Division> GetDivisions() {
         ObservableList<Division> DivisionList = FXCollections.observableArrayList();
 try {
-        String Query = "SELECT * FROM divisions;";
+        String Query = "SELECT * FROM first_level_divisions;";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
         PS.execute();
@@ -29,8 +29,11 @@ try {
             String LastUpdatedBy = RS.getString("Last_Updated_By");
             int CountryID = RS.getInt("Country_ID");
 
+            // populate entire division list
             Division NewDivision = new Division(DivisionID, DivisionName, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy, CountryID);
             DivisionList.add(NewDivision);
+
+
         }} catch (SQLException e) {
             System.out.println(e.getMessage());
         }
