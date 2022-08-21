@@ -110,6 +110,7 @@ public class CustomerPage implements Initializable {
     }
 
 
+
     // Navigation button methods
     @FXML
     void NavToAppointments(ActionEvent event) throws IOException {

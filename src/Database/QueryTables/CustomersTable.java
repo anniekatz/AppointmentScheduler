@@ -44,4 +44,12 @@ public class CustomersTable {
         PreparedStatement PS = QueryUtils.GetPS();
         PS.execute();
     }
+
+    // Update customer in database
+    public static void UpdateCustomer(int CustomerID, String CustomerName, String CustomerAddress, String CustomerZipCode, String CustomerPhone, int DivisionID) throws SQLException {
+        String Query = "UPDATE customers SET Customer_Name = '" + CustomerName + "', Address = '" + CustomerAddress + "', Postal_Code = '" + CustomerZipCode + "', Phone = '" + CustomerPhone + "', Division_ID = '" + DivisionID + "' WHERE Customer_ID = '" + CustomerID + "';";
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+        PS.execute();
+    }
 }
