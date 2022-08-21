@@ -38,6 +38,7 @@ public class Customer {
         return DivisionID;
     }
 
+
     // Set methods
     public void setCustomerID(int CustomerID) { this.CustomerID = CustomerID; }
     public void setCustomerName(String CustomerName) { this.CustomerName = CustomerName; }

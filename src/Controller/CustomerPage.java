@@ -92,8 +92,6 @@ public class CustomerPage implements Initializable {
         CountryComboBox.setItems(CountryNamesList);
         CountryComboBox.setEditable(true);
 
-
-
     }
 
     // Delete customer
@@ -166,7 +164,6 @@ public class CustomerPage implements Initializable {
         }
         DivisionComboBox.setEditable(true);
     }
-
     // Navigation button methods
     @FXML
     void NavToAppointments(ActionEvent event) throws IOException {
@@ -188,4 +185,43 @@ public class CustomerPage implements Initializable {
         return NumAppts;
     }
 
-}
+    // Populate form based on selected customer
+    void PopulateForm(Customer SelectedCustomer) {
+        CustomerIDTextField.setText(Integer.toString(SelectedCustomer.getCustomerID()));
+        NameTextField.setText(SelectedCustomer.getCustomerName());
+        AddressTextField.setText(SelectedCustomer.getCustomerAddress());
+        PhoneTextField.setText(SelectedCustomer.getCustomerPhone());
+        PostalCodeTextField.setText(SelectedCustomer.getCustomerZipCode());
+        DivisionComboBox.setValue(GetCustomerDivision(SelectedCustomer.getDivisionID()));
+        CountryComboBox.setValue(GetCustomerCountry(SelectedCustomer.getDivisionID()));
+
+    }
+    String GetCustomerDivision(int DivisionID) {
+        ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
+        String Name="";
+        for (Division Division : DivisionsList) {
+            if (Division.getDivisionID() == DivisionID) {
+                Name = Division.getDivisionName();
+            }
+        }
+        return Name;
+        }
+    String GetCustomerCountry(int DivisionID) {
+        ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
+        ObservableList<Country> CountriesList = CountriesTable.GetCountries();
+        String Name="";
+        int CountryID = 0;
+        for (Division Division : DivisionsList) {
+            if (Division.getDivisionID() == DivisionID) {
+                CountryID = Division.getCountryID();
+            }
+        }
+           for (Country Country : CountriesList) {
+                if (Country.getCountryID() == CountryID) {
+                    Name = Country.getCountry();
+                }
+        }
+        return Name;
+        }
+    }
+
