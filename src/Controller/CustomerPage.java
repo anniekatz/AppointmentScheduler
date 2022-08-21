@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Filter;
 
 public class CustomerPage implements Initializable {
     // Navigation buttons
@@ -91,14 +92,6 @@ public class CustomerPage implements Initializable {
         CountryComboBox.setItems(CountryNamesList);
         CountryComboBox.setEditable(true);
 
-        // Initialize Division ComboBox
-        ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
-        ObservableList<String> DivisionNamesList = FXCollections.observableArrayList();
-        for (Division Division : DivisionsList) {
-            DivisionNamesList.add(Division.getDivisionName());
-        }
-        DivisionComboBox.setItems(DivisionNamesList);
-        DivisionComboBox.setEditable(true);
 
 
     }
@@ -135,15 +128,43 @@ public class CustomerPage implements Initializable {
     }
 
     @FXML
-    void PopulateCountryComboBox(ActionEvent event) {
-        // Filter CountryComboBox based on DivisionComboBox chosen
-
+    void ChooseCountryComboBox(ActionEvent event) {
+        FilterDivisionComboBox();
     }
 
-    @FXML
-    void PopulateDivisionComboBox(ActionEvent event) {
-        // Filter DivisionComboBox based on CountryComboBox chosen
+    void FilterDivisionComboBox() {
+        ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
+        ObservableList<String> DivisionNamesList = FXCollections.observableArrayList();
+        ObservableList<String> USDivisionNamesList = FXCollections.observableArrayList();
+        ObservableList<String> CADivisionNamesList = FXCollections.observableArrayList();
+        ObservableList<String> UKDivisionNamesList = FXCollections.observableArrayList();
+        for (Division Division : DivisionsList) {
+            if (Division.getCountryID() == 1) {
+                USDivisionNamesList.add(Division.getDivisionName());
+            } else if (Division.getCountryID() == 2) {
+                UKDivisionNamesList.add(Division.getDivisionName());
+            } else if (Division.getCountryID() == 3) {
+                CADivisionNamesList.add(Division.getDivisionName());
+                }
+            // Create full list of division names if country isn't chosen
+            DivisionNamesList.add(Division.getDivisionName());
+            }
 
+
+        // If CountryComboBox not null, include country selection to filter divisions
+        String CountrySelection = CountryComboBox.getSelectionModel().getSelectedItem();
+
+        if (CountrySelection.equals("U.S")) {
+            DivisionComboBox.setItems(USDivisionNamesList);
+        } else if (CountrySelection.equals("Canada")) {
+            DivisionComboBox.setItems(CADivisionNamesList);
+        } else if (CountrySelection.equals("UK")) {
+            DivisionComboBox.setItems(UKDivisionNamesList);
+        }
+        else {
+            DivisionComboBox.setItems(DivisionNamesList);
+        }
+        DivisionComboBox.setEditable(true);
     }
 
     // Navigation button methods
@@ -166,8 +187,5 @@ public class CustomerPage implements Initializable {
         }
         return NumAppts;
     }
-
-
-
 
 }
