@@ -22,11 +22,8 @@ public class CountriesTable {
             while (RS.next()) {
                 int CountryID = RS.getInt("Country_ID");
                 String Country = RS.getString("Country");
-                LocalDateTime CreateDate = RS.getTimestamp("Create_Date").toLocalDateTime();
-                String CreatedBy = RS.getString("Created_By");
-                LocalDateTime LastUpdate = RS.getTimestamp("Last_Update").toLocalDateTime();
-                String LastUpdatedBy = RS.getString("Last_Updated_By");
-                Country NewCountry = new Country(CountryID, Country, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy);
+
+                Country NewCountry = new Country(CountryID, Country);
                 CountryList.add(NewCountry);
             }
         } catch (SQLException e) {

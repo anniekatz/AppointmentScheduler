@@ -23,14 +23,10 @@ try {
         while (RS.next()) {
             int DivisionID = RS.getInt("Division_ID");
             String DivisionName = RS.getString("Division");
-            LocalDateTime CreateDate = RS.getTimestamp("Create_Date").toLocalDateTime();
-            String CreatedBy = RS.getString("Created_By");
-            LocalDateTime LastUpdate = RS.getTimestamp("Last_Update").toLocalDateTime();
-            String LastUpdatedBy = RS.getString("Last_Updated_By");
             int CountryID = RS.getInt("Country_ID");
 
             // populate entire division list
-            Division NewDivision = new Division(DivisionID, DivisionName, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy, CountryID);
+            Division NewDivision = new Division(DivisionID, DivisionName, CountryID);
             DivisionList.add(NewDivision);
 
 

@@ -1,7 +1,9 @@
 package Controller;
 
 import Database.QueryTables.AppointmentsTable;
+import Database.QueryTables.UsersTable;
 import Model.Appointment;
+import Model.User;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -80,9 +83,9 @@ public class LoginPage implements Initializable {
     }
 
     // Validate user login
-    public boolean ValidateUser(String Username, String Password) throws IOException, SQLException {
+    public boolean ValidateUser(String Username, String Password) {
         boolean LoginStatus;
-        LoginStatus = Database.QueryTables.UsersTable.CheckValidUsers(Username, Password);
+        LoginStatus = CheckUserValidity(Username, Password);
         if (LoginStatus) {
             System.out.println("Valid user");
         } else {
@@ -127,7 +130,7 @@ public class LoginPage implements Initializable {
     // Show upcoming appointments for user
     public void ShowAppointments(String Username, ResourceBundle rb) throws IOException, SQLException {
         // Get user ID based on valid username
-        int UserID = Database.QueryTables.UsersTable.GetUserID(Username);
+        int UserID = GetUserID(Username);
         // Get number of appointments based on user ID
         int NumAppts = GetUserAppointment(UserID);
 
@@ -143,15 +146,45 @@ public class LoginPage implements Initializable {
             ApptAlert.showAndWait();
         }
     }
+
+    // Check if valid user
+    boolean CheckUserValidity(String Username, String Password){
+        boolean check = false;
+        ObservableList<User> UserList = UsersTable.GetUsers();
+        for (User user : UserList) {
+            if (user.getUsername().equals(Username)) {
+                if (user.getPassword().equals(Password)) {
+                    check = true;
+                }
+            }
+        }
+        return check;
+    }
+
+    // Check for num of upcoming appointments for user
     int GetUserAppointment(int UserID) {
         ObservableList<Appointment> AppointmentsList = AppointmentsTable.GetAppointments();
         int NumAppts = 0;
         for (Appointment Appointment : AppointmentsList) {
             if (Appointment.getUserID() == UserID) {
-                NumAppts++;
+                if (Appointment.getStart().isAfter(LocalDateTime.now()) && Appointment.getStart().isBefore(LocalDateTime.now().plusMinutes(15))) {
+                    NumAppts++;
+                }
             }
         }
         return NumAppts;
+    }
+
+    // Get user ID
+    int GetUserID(String Username) {
+        ObservableList<User> UsersList = UsersTable.GetUsers();
+        int UserID = 0;
+        for (User User : UsersList) {
+            if (User.getUsername().equals(Username)) {
+                UserID = User.getUserID();
+            }
+        }
+        return UserID;
     }
 
 }

@@ -31,60 +31,14 @@ try {
             int UserID = RS.getInt("User_ID");
             String Username = RS.getString("User_Name");
             String Password = RS.getString("Password");
-            LocalDateTime CreateDate = RS.getTimestamp("Create_Date").toLocalDateTime();
-            String CreatedBy = RS.getString("Created_By");
-            LocalDateTime LastUpdate = RS.getTimestamp("Last_Update").toLocalDateTime();
-            String LastUpdatedBy = RS.getString("Last_Updated_By");
 
-            User NewUser = new User(UserID, Username, Password, CreateDate, CreatedBy, LastUpdate, LastUpdatedBy);
+            User NewUser = new User(UserID, Username, Password);
             UserList.add(NewUser);
         }} catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return UserList;
     }
-
-    public static boolean CheckValidUsers(String Username, String Password) throws SQLException {
-        List<String> ValidUsernames = new ArrayList<String>();
-        List<String> ValidPasswords = new ArrayList<String>();
-        String Query = "SELECT * FROM users WHERE User_Name is NOT NULL;";
-
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-
-        PS.execute();
-        ResultSet RS = PS.getResultSet();
-
-        while (RS.next()) {
-            String ValidUsername = RS.getString("User_Name");
-            String ValidPassword = RS.getString("Password");
-            ValidUsernames.add(ValidUsername);
-            ValidPasswords.add(ValidPassword);
-        }
-        // Check if Username in ValidUsernames
-        boolean check;
-        if (ValidUsernames.contains(Username)) {
-            int index = ValidUsernames.indexOf(Username);
-            check = ValidPasswords.get(index).equals(Password);
-        } else {
-            check = false;
-        }
-        return check;
-    }
-
-    public static int GetUserID(String Username) throws SQLException {
-        int UserID = 0;
-        String Query = "SELECT User_ID FROM users WHERE User_Name = '" + Username + "';";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
-        ResultSet RS = PS.getResultSet();
-        while (RS.next()) {
-            UserID = RS.getInt("User_ID");
-        }
-        return UserID;
-    }
-
 
 }
 
