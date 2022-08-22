@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.OffsetTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
 // Class contains methods that controllers share
@@ -39,7 +42,4 @@ public class ControllerUtils {
     public static void NavToReports(ActionEvent event) throws IOException {
         ControllerUtils.NavigateToWindow(event, "/View/ReportPage.fxml", "Reports");
     }
-
-
-
 }

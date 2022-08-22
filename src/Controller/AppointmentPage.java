@@ -174,21 +174,42 @@ public class AppointmentPage implements Initializable {
         CustIDComboBox.setEditable(true);
 
         // Initialize Start Time ComboBox
-        ObservableList<String> StartTimeList = FXCollections.observableArrayList();
-
-        // TODO: convert from Eastern to System Time
-        LocalTime StartTime = LocalTime.of(8, 0);
-        LocalTime EndTime = LocalTime.of(22, 0);
-
-        while (StartTime.isBefore(EndTime)) {
-            StartTimeList.add(StartTime.toString());
-            StartTime = StartTime.plusMinutes(30);
-        }
-        StartTimeComboBox.setItems(StartTimeList);
+        StartTimeComboBox.setItems(StartTimeConversion());
         StartTimeComboBox.setEditable(true);
 
     }
 
+    // Time Conversion helper method
+    ObservableList<String> StartTimeConversion() {
+        // Check if it is daylight savings time
+        OffsetTime EastOffsetTime = OffsetTime.now(ZoneId.of("America/New_York"));
+        OffsetTime SystemOffsetTime = OffsetTime.now(ZoneId.systemDefault());
+
+        // Get the hours difference between Eastern and System time
+        int hoursDiff = SystemOffsetTime.getHour() - EastOffsetTime.getHour();
+
+        OffsetTime StartTime = OffsetTime.of(8,0,0,0,EastOffsetTime.getOffset());
+        OffsetTime EndTime = OffsetTime.of(22,0,0,0,EastOffsetTime.getOffset());
+
+        // Change time to hours difference
+        OffsetTime NewStartTime = StartTime.plusHours(hoursDiff);
+        OffsetTime NewEndTime = EndTime.plusHours(hoursDiff);
+
+        ObservableList<String> StartTimeList = FXCollections.observableArrayList();
+
+        while (NewStartTime.isBefore(NewEndTime)) {
+            StartTimeList.add(NewStartTime.toString().substring(0, NewStartTime.toString().length() - 6));
+            NewStartTime = NewStartTime.plusMinutes(30);
+        }
+
+        // Parse time to just say beginning part
+        String StartString= NewStartTime.toString().substring(0, NewStartTime.toString().length() - 6);
+        String EndString = NewEndTime.toString().substring(0, NewEndTime.toString().length() - 6);
+
+        return StartTimeList;
+    }
+
+    // Once Start time is chosen, populate list of end times
     @FXML
     void PopulateEndComboBox(ActionEvent event) {
         LocalTime StartTime = LocalTime.parse(StartTimeComboBox.getValue());
