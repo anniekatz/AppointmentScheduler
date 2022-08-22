@@ -338,10 +338,10 @@ public class AppointmentPage implements Initializable {
     String ConvertToUTC(LocalDateTime LocalDateTime) {
         ZonedDateTime SystemDateTime = LocalDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime UTCDateTime = SystemDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println(UTCDateTime);
-        // Convert UTCDateTime to String
+
+        // Convert UTCDateTime to formatted String to store in database
         String UTCDateTimeString = UTCDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        System.out.println(UTCDateTimeString);
+
         return UTCDateTimeString;
 
     }
