@@ -114,9 +114,10 @@ public class CustomerPage implements Initializable {
         }
         else {
             int DivisionID = GetDivisionID(DivisionComboBox.getValue());
-            if (CustomerIDTextField == null) {
-                int NewCustomerID = (CustomersTable.GetHighestCustomerID()) + 1;
-                CustomersTable.AddCustomer(NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
+            // if CustomerID is empty, add new customer
+            if (CustomerIDTextField.getText().isEmpty()) {
+                int NewCustomerID = GetNewCustomerID();
+                CustomersTable.AddCustomer(NewCustomerID, NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
 
             } else {
                 CustomersTable.UpdateCustomer(Integer.parseInt(CustomerIDTextField.getText()), NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
@@ -260,7 +261,7 @@ public class CustomerPage implements Initializable {
     }
 
     int GetDivisionID(String DivisionName) {
-        int DivisionID=-1;
+        int DivisionID = 0;
 
         for (Division Division : DivisionsTable.GetDivisions()) {
             if (Division.getDivisionName().equals(DivisionName)) {
@@ -268,8 +269,17 @@ public class CustomerPage implements Initializable {
             }
         }
         return DivisionID;
+    }
 
-
+    int GetNewCustomerID() {
+        int NewCustomerID = 0;
+        // get largest customer ID in database
+        for (Customer Customer : CustomersTable.GetCustomers()) {
+            if (Customer.getCustomerID() > NewCustomerID) {
+                NewCustomerID = Customer.getCustomerID() + 1;
+            }
+        }
+        return NewCustomerID;
     }
 }
 
