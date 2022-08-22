@@ -367,8 +367,7 @@ public class AppointmentPage implements Initializable {
                     check = true;
                 } else if (Appt.getStart().isBefore(start) && Appt.getEnd().isAfter(end)) {
                     check = true;
-                } else
-                    check = false;
+                }
             }
         }
         return check;
