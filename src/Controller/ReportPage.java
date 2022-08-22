@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ReportPage implements Initializable {
@@ -95,33 +96,12 @@ public class ReportPage implements Initializable {
     void InitializeMonthComboBox() {
         // Fill ChooseMonthComboBox with months
         ChooseMonthComboBox.getItems().addAll("All", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        ChooseMonthComboBox.setValue("All");
     }
     void InitializeReport1Table() {
-        // Fill AppointmentTotalsTableTypeColumn with appointment types
-        AppointmentTotalsTableMonthColumn.setCellValueFactory(new PropertyValueFactory<>("Month"));
-        AppointmentTotalsTableTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        AppointmentTotalsTableTotalColumn.setCellValueFactory(new PropertyValueFactory<>("Total"));
-
-        // Fill AppointmentTotalsTableTypeColumn with appointment types
-        ObservableList<Appointment> Appts = AppointmentsTable.GetAppointments();
-
-        ObservableList<String> ApptType = FXCollections.observableArrayList();
-
-        for (Appointment Appt : Appts) {
-            String Month = Appt.getStart().getMonth().toString();
-
-            // If chosen combo box equals Month, add to list
-            if (ChooseMonthComboBox.getValue().equals(Month)) {
-                if (!ApptType.contains(Appt.getType())) {
-                    ApptType.add(Appt.getType());
-                }
-            }
-        }
     }
-    String GetMonthFromAppointment(Appointment Appt) {
-        // Get month from appointment
 
-    }
+
     void PopulateReport1Table(ActionEvent event){
         //
     }

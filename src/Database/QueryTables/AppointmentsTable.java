@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 public class AppointmentsTable {
 
@@ -71,4 +72,39 @@ public class AppointmentsTable {
             System.out.println(e.getMessage());
         }
     }
+
+    public static int CountAppointmentsByType(String Type) {
+        int Count = 0;
+        String Query = "SELECT COUNT(*) FROM appointments WHERE Type = '" + Type + "'";
+        try {
+            QueryUtils.SetPS(Query);
+            PreparedStatement PS = QueryUtils.GetPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            while (RS.next()) {
+                Count++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Count;
+    }
+
+    public static int CountAppointmentsByMonthType(String Type, String Month) {
+        int Count = 0;
+        String Query = "SELECT COUNT(*) FROM appointments WHERE Type = '" + Type + "' AND MONTH(Start) = '" + Month + "'";
+        try {
+            QueryUtils.SetPS(Query);
+            PreparedStatement PS = QueryUtils.GetPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            while (RS.next()) {
+                Count++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Count;
+    }
+
 }
