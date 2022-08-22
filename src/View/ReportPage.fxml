@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -44,12 +43,6 @@
                                     <Font name="System Bold" size="14.0" />
                                 </font>
                             </Label>
-                            <Label layoutX="434.0" layoutY="18.0" text="Contact ID">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                            </Label>
-                            <TextField fx:id="ContactIDTextField" disable="true" layoutX="514.0" layoutY="15.0" prefHeight="27.0" prefWidth="126.0" style="-fx-background-color: #fffff5;" />
                             <TableView fx:id="ContactScheduleTable" layoutX="13.0" layoutY="58.0" prefHeight="398.0" prefWidth="781.0" style="-fx-background-color: #fffff5; -fx-border-color: #000000;">
                                 <columns>
                                     <TableColumn fx:id="ContactScheduleTableAppointmentIDColumn" prefWidth="103.20004367828369" text="Appointment ID" />
@@ -71,9 +64,9 @@
                   <children>
                      <TableView fx:id="CustomerTotalsTable" layoutX="171.0" layoutY="44.0" prefHeight="398.0" prefWidth="465.0" style="-fx-background-color: #fffff5; -fx-border-color: #000000;">
                         <columns>
-                           <TableColumn fx:id="CustomerTotalsTableCustomerIDColumn" prefWidth="98.0" text="Customer ID" />
-                           <TableColumn fx:id="CustomerTotalsTableCustomerNameColumn" prefWidth="183.0" text="Customer Name" />
-                           <TableColumn fx:id="CustomerTotalsTableTotalsColumn" prefWidth="183.0" text="Total Upcoming Appointments" />
+                           <TableColumn fx:id="CustomerTotalsTableCustomerIDColumn" text="Customer ID" />
+                           <TableColumn fx:id="CustomerTotalsTableTotalPastColumn" prefWidth="186.0" text="Total Past Appointments" />
+                           <TableColumn fx:id="CustomerTotalsTableTotalFutureColumn" prefWidth="197.0" text="Total Future Appointments" />
                         </columns>
                      </TableView>
                   </children>

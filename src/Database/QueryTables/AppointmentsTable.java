@@ -2,8 +2,11 @@ package Database.QueryTables;
 
 import Database.QueryUtils;
 import Model.Appointment;
+import Model.Contact;
+import Model.Customer;
 import Model.ReportModels.Report1;
 import Model.ReportModels.Report2;
+import Model.ReportModels.Report3;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -96,7 +99,7 @@ public class AppointmentsTable {
         return Report1List;
     }
 
-    public static ObservableList<Report2> GetReport2(int ContactID){
+    public static ObservableList<Report2> GetReport2(int ContactID) {
         ObservableList<Report2> Report2List = FXCollections.observableArrayList();
         try {
             String Query = "SELECT * FROM appointments WHERE Contact_ID = '" + ContactID + "';";
@@ -121,6 +124,27 @@ public class AppointmentsTable {
         return Report2List;
     }
 
+    public static ObservableList<Report3> GetReport3() {
+        ObservableList<Report3> Report3List = FXCollections.observableArrayList();
+        try {
+            // get total number of appointments per customer ID
+            String Query = "SELECT Customer_ID, Count(*) as TotalCount, sum(case when Start > CURRENT_TIMESTAMP then 1 else 0 end) as TotalFuture, sum(case when Start < CURRENT_TIMESTAMP then 1 else 0 end) as TotalPast from appointments group by Customer_ID;";
+            QueryUtils.SetPS(Query);
+            PreparedStatement PS = QueryUtils.GetPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            while (RS.next()) {
+                int CustomerID = RS.getInt("Customer_ID");
+                int TotalFuture = RS.getInt("TotalFuture");
+                int TotalPast = RS.getInt("TotalPast");
+                Report3 NewReport = new Report3(CustomerID, TotalFuture, TotalPast);
+                Report3List.add(NewReport);
+            }
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Report3List;
+    }
 
 }

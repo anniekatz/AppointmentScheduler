@@ -2,9 +2,13 @@ package Controller;
 
 import Database.QueryTables.AppointmentsTable;
 import Database.QueryTables.ContactsTable;
+import Database.QueryTables.CustomersTable;
+import Model.Appointment;
 import Model.Contact;
+import Model.Customer;
 import Model.ReportModels.Report1;
 import Model.ReportModels.Report2;
+import Model.ReportModels.Report3;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,13 +67,13 @@ public class ReportPage implements Initializable {
     @FXML
     private Tab CustomerTotalsTab;
     @FXML
-    private TableView<?> CustomerTotalsTable;
+    private TableView<Report3> CustomerTotalsTable;
     @FXML
     private TableColumn<?, ?> CustomerTotalsTableCustomerIDColumn;
     @FXML
-    private TableColumn<?, ?> CustomerTotalsTableCustomerNameColumn;
+    private TableColumn<?, ?> CustomerTotalsTableTotalFutureColumn;
     @FXML
-    private TableColumn<?, ?> CustomerTotalsTableTotalsColumn;
+    private TableColumn<?, ?> CustomerTotalsTableTotalPastColumn;
     @FXML
     private Button CustomersButton;
     @FXML
@@ -100,8 +104,9 @@ public class ReportPage implements Initializable {
 
         // Report 3 Initializables
         CustomerTotalsTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
-        CustomerTotalsTableCustomerNameColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerName"));
-        CustomerTotalsTableTotalsColumn.setCellValueFactory(new PropertyValueFactory<>("Totals"));
+        CustomerTotalsTableTotalFutureColumn.setCellValueFactory(new PropertyValueFactory<>("TotalFuture"));
+        CustomerTotalsTableTotalPastColumn.setCellValueFactory(new PropertyValueFactory<>("TotalPast"));
+        InitializeReport3();
     }
 
     // Report 1 Methods
@@ -137,5 +142,9 @@ public class ReportPage implements Initializable {
     }
 
     // Report 3 Methods
+    void InitializeReport3(){
+        ObservableList<Report3> ReportList = AppointmentsTable.GetReport3();
+        CustomerTotalsTable.setItems(ReportList);
+    }
 }
 
