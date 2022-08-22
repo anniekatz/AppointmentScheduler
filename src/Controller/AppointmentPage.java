@@ -301,12 +301,12 @@ public class AppointmentPage implements Initializable {
 
         // If appointment ID is empty, add new appointment
             if (AppointmentIDTextField.getText().isEmpty()) {
-                AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intUserID, intCustomerID, intContactID);
+                AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);
             }
         // If appointment ID is not empty, update existing appointment
             else {
                 int AppointmentID = Integer.parseInt(AppointmentIDTextField.getText());
-                AppointmentsTable.UpdateAppointment(AppointmentID, TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intUserID, intCustomerID, intContactID);
+                AppointmentsTable.UpdateAppointment(AppointmentID, TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);
             }
             // Update TableView based on new appointment
             ObservableList<Appointment> FullAppointmentList = AppointmentsTable.GetAppointments();
