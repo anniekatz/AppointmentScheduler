@@ -275,42 +275,61 @@ public class AppointmentPage implements Initializable {
             String Start = ConvertToUTC(LocalStart);
             String End = ConvertToUTC(LocalEnd);
 
-            // Get ID Values from combo boxes to store in database
-            // if a space exists in UserIDComboBox, get the ID from the end of the string
-            String UserID = UserIDComboBox.getValue();
-            String CustomerID = CustIDComboBox.getValue();
-            String ContactID = ContactComboBox.getValue();
-
-            if (UserID.contains(" ")) {
-                // get substring up until " "
-                UserID = UserID.substring(0, UserID.indexOf(" "));
-            }
-            if (CustomerID.contains(" ")) {
-                // get substring up until " "
-                CustomerID = CustomerID.substring(0, CustomerID.indexOf(" "));
-            }
-            if (ContactID.contains(" ")) {
-                // get substring up until " "
-                ContactID = ContactID.substring(0, ContactID.indexOf(" "));
-            }
-
-            int intUserID = Integer.parseInt(UserID);
-            int intCustomerID = Integer.parseInt(CustomerID);
-            int intContactID = Integer.parseInt(ContactID);
-
-
-        // If appointment ID is empty, add new appointment
+            // Add ApptID variable to help check appointment overlap
+            int ApptID = -1;
             if (AppointmentIDTextField.getText().isEmpty()) {
-                AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);
+                ApptID = -1;
             }
-        // If appointment ID is not empty, update existing appointment
             else {
-                int AppointmentID = Integer.parseInt(AppointmentIDTextField.getText());
-                AppointmentsTable.UpdateAppointment(AppointmentID, TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);
+                ApptID = Integer.parseInt(AppointmentIDTextField.getText());
             }
-            // Update TableView based on new appointment
-            ObservableList<Appointment> FullAppointmentList = AppointmentsTable.GetAppointments();
-            ApptTable.setItems(FullAppointmentList);
+
+            if (CheckAppointmentOverlap(LocalStart, LocalEnd, ApptID)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error");
+                alert.setContentText("Appointment time cannot overlap with another appointment");
+                alert.showAndWait();
+            }
+            else {
+                // Get ID Values from combo boxes to store in database
+                // if a space exists in UserIDComboBox, get the ID from the end of the string
+                String UserID = UserIDComboBox.getValue();
+                String CustomerID = CustIDComboBox.getValue();
+                String ContactID = ContactComboBox.getValue();
+
+                if (UserID.contains(" ")) {
+                    // get substring up until " "
+                    UserID = UserID.substring(0, UserID.indexOf(" "));
+                }
+                if (CustomerID.contains(" ")) {
+                    // get substring up until " "
+                    CustomerID = CustomerID.substring(0, CustomerID.indexOf(" "));
+                }
+                if (ContactID.contains(" ")) {
+                    // get substring up until " "
+                    ContactID = ContactID.substring(0, ContactID.indexOf(" "));
+                }
+
+                int intUserID = Integer.parseInt(UserID);
+                int intCustomerID = Integer.parseInt(CustomerID);
+                int intContactID = Integer.parseInt(ContactID);
+
+
+                // If appointment ID is empty, add new appointment
+                if (AppointmentIDTextField.getText().isEmpty()) {
+                    AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);
+                }
+
+                // If appointment ID is not empty, update existing appointment
+                else {
+                    int AppointmentID = Integer.parseInt(AppointmentIDTextField.getText());
+                    AppointmentsTable.UpdateAppointment(AppointmentID, TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);
+                }
+                // Update TableView based on new appointment
+                ObservableList<Appointment> FullAppointmentList = AppointmentsTable.GetAppointments();
+                ApptTable.setItems(FullAppointmentList);
+            }
         }
     }
 
@@ -333,6 +352,26 @@ public class AppointmentPage implements Initializable {
             DeleteConfirmed.setContentText("Appointment has been deleted.");
             DeleteConfirmed.showAndWait();
         }
+    }
+
+    boolean CheckAppointmentOverlap(LocalDateTime start, LocalDateTime end, int ApptID) {
+        // if appointment start and end overlaps another appointment start and end, return true
+        boolean check = false;
+        for (Appointment Appt : AppointmentsTable.GetAppointments()) {
+            if (ApptID != Appt.getAppointmentID()) {
+                if (Appt.getStart().equals(start) || Appt.getEnd().equals(end)) {
+                    check = true;
+                } else if (Appt.getStart().isAfter(start) && Appt.getStart().isBefore(end)) {
+                    check = true;
+                } else if (Appt.getEnd().isAfter(start) && Appt.getEnd().isBefore(end)) {
+                    check = true;
+                } else if (Appt.getStart().isBefore(start) && Appt.getEnd().isAfter(end)) {
+                    check = true;
+                } else
+                    check = false;
+            }
+        }
+        return check;
     }
 
     String ConvertToUTC(LocalDateTime LocalDateTime) {
