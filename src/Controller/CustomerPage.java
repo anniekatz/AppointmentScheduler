@@ -67,21 +67,21 @@ public class CustomerPage implements Initializable {
     private TextField PostalCodeTextField;
 
 
-
     // Initialize method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Initialize Customer TableView
-        CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("CustomerID"));
-        CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerName"));
-        CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerAddress"));
-        CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerPhone"));
-        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<Customer,String>("CustomerZipCode"));
-        CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer,Integer>("DivisionID"));
+        CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("CustomerID"));
+        CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerName"));
+        CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerAddress"));
+        CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerPhone"));
+        CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerZipCode"));
+        CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("DivisionID"));
 
         ObservableList<Customer> FullCustomersList = CustomersTable.GetCustomers();
         CustomerTable.setItems(FullCustomersList);
+
 
         // Initialize Country ComboBox
         ObservableList<Country> CountriesList = CountriesTable.GetCountries();
@@ -92,7 +92,39 @@ public class CustomerPage implements Initializable {
         CountryComboBox.setItems(CountryNamesList);
         CountryComboBox.setEditable(true);
 
+        // Add table listener to PopulateForm when row is selected
+        CustomerTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Customer SelectedCustomer = CustomerTable.getSelectionModel().getSelectedItem();
+                PopulateForm(SelectedCustomer);
+            }
+        });
+
     }
+
+    @FXML
+    void AddUpdateCustomer(ActionEvent event) throws SQLException {
+        // if any part of form is null, try again
+        if (NameTextField.getText().isEmpty() || AddressTextField.getText().isEmpty() || PhoneTextField.getText().isEmpty() || PostalCodeTextField.getText().isEmpty() || CountryComboBox.getSelectionModel().isEmpty() || DivisionComboBox.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Add/Update Error");
+            alert.setContentText("Please fill out all fields");
+            alert.showAndWait();
+        }
+        else {
+            int DivisionID = GetDivisionID(DivisionComboBox.getValue());
+            if (CustomerIDTextField == null) {
+                int NewCustomerID = (CustomersTable.GetHighestCustomerID()) + 1;
+                CustomersTable.AddCustomer(NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
+
+            } else {
+                CustomersTable.UpdateCustomer(Integer.parseInt(CustomerIDTextField.getText()), NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
+
+            }
+            ObservableList<Customer> FullCustomersList = CustomersTable.GetCustomers();
+            CustomerTable.setItems(FullCustomersList);
+    }}
 
     // Delete customer
     @FXML
@@ -143,10 +175,10 @@ public class CustomerPage implements Initializable {
                 UKDivisionNamesList.add(Division.getDivisionName());
             } else if (Division.getCountryID() == 3) {
                 CADivisionNamesList.add(Division.getDivisionName());
-                }
+            }
             // Create full list of division names if country isn't chosen
             DivisionNamesList.add(Division.getDivisionName());
-            }
+        }
 
 
         // If CountryComboBox not null, include country selection to filter divisions
@@ -158,17 +190,18 @@ public class CustomerPage implements Initializable {
             DivisionComboBox.setItems(CADivisionNamesList);
         } else if (CountrySelection.equals("UK")) {
             DivisionComboBox.setItems(UKDivisionNamesList);
-        }
-        else {
+        } else {
             DivisionComboBox.setItems(DivisionNamesList);
         }
         DivisionComboBox.setEditable(true);
     }
+
     // Navigation button methods
     @FXML
     void NavToAppointments(ActionEvent event) throws IOException {
         ControllerUtils.NavToAppointments(event);
     }
+
     @FXML
     void NavToReports(ActionEvent event) throws IOException {
         ControllerUtils.NavToReports(event);
@@ -196,32 +229,47 @@ public class CustomerPage implements Initializable {
         CountryComboBox.setValue(GetCustomerCountry(SelectedCustomer.getDivisionID()));
 
     }
+
     String GetCustomerDivision(int DivisionID) {
         ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
-        String Name="";
+        String Name = "";
         for (Division Division : DivisionsList) {
             if (Division.getDivisionID() == DivisionID) {
                 Name = Division.getDivisionName();
             }
         }
         return Name;
-        }
+    }
+
     String GetCustomerCountry(int DivisionID) {
         ObservableList<Division> DivisionsList = DivisionsTable.GetDivisions();
         ObservableList<Country> CountriesList = CountriesTable.GetCountries();
-        String Name="";
+        String Name = "";
         int CountryID = 0;
         for (Division Division : DivisionsList) {
             if (Division.getDivisionID() == DivisionID) {
                 CountryID = Division.getCountryID();
             }
         }
-           for (Country Country : CountriesList) {
-                if (Country.getCountryID() == CountryID) {
-                    Name = Country.getCountry();
-                }
+        for (Country Country : CountriesList) {
+            if (Country.getCountryID() == CountryID) {
+                Name = Country.getCountry();
+            }
         }
         return Name;
-        }
     }
+
+    int GetDivisionID(String DivisionName) {
+        int DivisionID=-1;
+
+        for (Division Division : DivisionsTable.GetDivisions()) {
+            if (Division.getDivisionName().equals(DivisionName)) {
+                DivisionID = Division.getDivisionID();
+            }
+        }
+        return DivisionID;
+
+
+    }
+}
 

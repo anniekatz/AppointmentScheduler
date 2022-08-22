@@ -52,4 +52,21 @@ public class CustomersTable {
         PreparedStatement PS = QueryUtils.GetPS();
         PS.execute();
     }
+    public static void AddCustomer(String CustomerName, String CustomerAddress, String CustomerZipCode, String CustomerPhone, int DivisionID) throws SQLException {
+        String Query = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES ('" + CustomerName + "', '" + CustomerAddress + "', '" + CustomerZipCode + "', '" + CustomerPhone + "', '" + DivisionID + "');";
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+        PS.execute();
+    }
+
+    // Get largest customer ID in database
+    public static int GetHighestCustomerID() throws SQLException {
+        String Query = "SELECT MAX(Customer_ID) FROM customers;";
+        QueryUtils.SetPS(Query);
+        PreparedStatement PS = QueryUtils.GetPS();
+        PS.execute();
+        ResultSet RS = PS.getResultSet();
+        RS.next();
+        return RS.getInt(1);
+    }
 }
