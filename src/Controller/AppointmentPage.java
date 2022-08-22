@@ -299,7 +299,7 @@ public class AppointmentPage implements Initializable {
             int intContactID = Integer.parseInt(ContactID);
 
             // Add ApptID variable to help check appointment overlap
-            int ApptID = -1;
+            int ApptID;
             if (AppointmentIDTextField.getText().isEmpty()) {
                 ApptID = -1;
             }
@@ -316,9 +316,6 @@ public class AppointmentPage implements Initializable {
                 alert.showAndWait();
             }
             else {
-
-
-
                 // If appointment ID is empty, add new appointment
                 if (AppointmentIDTextField.getText().isEmpty()) {
                     AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intCustomerID, intUserID, intContactID);

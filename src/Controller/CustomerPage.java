@@ -90,7 +90,7 @@ public class CustomerPage implements Initializable {
         // Initialize ComboBoxes
         InitializeComboBox();
 
-        // Lambda
+        // JavaFX Listener Lambda method
         // Add table listener to PopulateForm when row is selected
         CustomerTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
