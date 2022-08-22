@@ -116,7 +116,7 @@
          <TableColumn fx:id="ApptTableUserIDColumn" prefWidth="62.0" text="User ID" />
       </columns>
    </TableView>
-   <RadioButton fx:id="AllFilterRadioButton" layoutX="195.0" layoutY="70.0" mnemonicParsing="false" text="All">
+   <RadioButton fx:id="AllFilterRadioButton" layoutX="195.0" layoutY="70.0" mnemonicParsing="false" onAction="#FilterApptView" selected="true" text="All">
       <font>
          <Font size="13.0" />
       </font>
@@ -129,12 +129,12 @@
          <Font name="System Bold" size="18.0" />
       </font>
    </Label>
-   <RadioButton fx:id="MonthFilterRadioButton" layoutX="253.0" layoutY="70.0" mnemonicParsing="false" text="This Month" toggleGroup="$FilterApptTG">
+   <RadioButton fx:id="MonthFilterRadioButton" layoutX="253.0" layoutY="70.0" mnemonicParsing="false" onAction="#FilterApptView" text="This Month" toggleGroup="$FilterApptTG">
       <font>
          <Font size="13.0" />
       </font>
    </RadioButton>
-   <RadioButton fx:id="WeekFilterRadioButton" layoutX="355.0" layoutY="70.0" mnemonicParsing="false" text="This Week" toggleGroup="$FilterApptTG">
+   <RadioButton fx:id="WeekFilterRadioButton" layoutX="355.0" layoutY="70.0" mnemonicParsing="false" onAction="#FilterApptView" text="This Week" toggleGroup="$FilterApptTG">
       <font>
          <Font size="13.0" />
       </font>
