@@ -82,6 +82,7 @@ public class CustomerPage implements Initializable {
         CustomerTablePhoneColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerPhone"));
         CustomerTablePostalCodeColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerZipCode"));
         CustomerTableDivisionColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("DivisionID"));
+
         ObservableList<Customer> FullCustomersList = CustomersTable.GetCustomers();
         CustomerTable.setItems(FullCustomersList);
 

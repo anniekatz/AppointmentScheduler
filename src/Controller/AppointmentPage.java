@@ -1,8 +1,12 @@
 package Controller;
 
+import Database.QueryTables.AppointmentsTable;
 import Model.Appointment;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -11,11 +15,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
-public class AppointmentPage {
+public class AppointmentPage implements Initializable {
 
     // Toggle filters for appointment table
     @FXML
@@ -33,7 +40,7 @@ public class AppointmentPage {
     @FXML
     private TableColumn<Appointment, Integer> ApptTableAppointmentIDColumn;
     @FXML
-    private TableColumn<?,?> ApptTableContactColumn;
+    private TableColumn<Appointment, Integer> ApptTableContactColumn;
     @FXML
     private TableColumn<Appointment, Integer> ApptTableCustomerIDColumn;
     @FXML
@@ -85,12 +92,55 @@ public class AppointmentPage {
     @FXML
     private ComboBox<?> UserIDComboBox;
 
+    // Initialize method
+    @Override
+    public void initialize(URL url, ResourceBundle resources) {
+        // Initialize Appointment tableview
+        ApptTableAppointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentID"));
+        ApptTableContactColumn.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
+        ApptTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        ApptTableDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        ApptTableEndColumn.setCellValueFactory(new PropertyValueFactory<>("End"));
+        ApptTableLocationColumn.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        ApptTableStartColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        ApptTableTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        ApptTableTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        ApptTableUserIDColumn.setCellValueFactory(new PropertyValueFactory<>("UserID"));
+
+        ObservableList<Appointment> ApptList = AppointmentsTable.GetAppointments();
+        ApptTable.setItems(ApptList);
+    }
 
 
-
+    // Filter appointment view by all, this month, or the next week
     @FXML
     void FilterApptView(ActionEvent event) {
-
+        ObservableList<Appointment> ApptList = AppointmentsTable.GetAppointments();
+        // if AllFilterRadioButton is selected, show all appointments
+        if (AllFilterRadioButton.isSelected()) {
+            ApptTable.setItems(ApptList);
+        }
+        // if MonthFilterRadioButton is selected, show appointments for the current month
+        else if (MonthFilterRadioButton.isSelected()) {
+            // For appointments in appointment list, if the start date is in the current month, add to filtered list
+            ObservableList<Appointment> FilteredApptList = FXCollections.observableArrayList();
+            for (Appointment Appt : ApptList) {
+                if (Appt.getStart().getMonthValue() == LocalDateTime.now().getMonthValue()) {
+                    FilteredApptList.add(Appt);
+                }
+            }
+            ApptTable.setItems(FilteredApptList);
+        }
+        else if (WeekFilterRadioButton.isSelected()) {
+            ObservableList<Appointment> FilteredApptList = FXCollections.observableArrayList();
+            // If appointment is within the next 7 days, add to filtered list
+            for (Appointment Appt : ApptList) {
+                if (Appt.getStart().isAfter(LocalDateTime.now()) && Appt.getStart().isBefore(LocalDateTime.now().plusDays(7))) {
+                    FilteredApptList.add(Appt);
+                }
+            }
+            ApptTable.setItems(FilteredApptList);
+        }
     }
 
     // Navigation button methods
