@@ -73,7 +73,7 @@
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <DatePicker fx:id="EndDatePicker" layoutX="211.0" layoutY="503.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
+    <DatePicker fx:id="EndDatePicker" disable="true" editable="false" layoutX="211.0" layoutY="503.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
     <ComboBox fx:id="EndTimeComboBox" layoutX="295.0" layoutY="503.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
     <Label layoutX="213.0" layoutY="439.0" text="Start" textAlignment="CENTER">
         <font>

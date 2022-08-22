@@ -202,37 +202,28 @@ public class AppointmentPage implements Initializable {
     // Once Start time is chosen, populate list of end times
     @FXML
     void PopulateEndComboBox(ActionEvent event) {
-        LocalTime StartTime = LocalTime.parse(StartTimeComboBox.getValue());
-        OffsetTime EndTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(),22,0);
-        ObservableList<String> EndTimeList = FXCollections.observableArrayList();
+        if (StartTimeComboBox.getValue() != null) {
+            LocalTime StartTime = LocalTime.parse(StartTimeComboBox.getValue());
+            OffsetTime EndTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(), 22, 0);
+            ObservableList<String> EndTimeList = FXCollections.observableArrayList();
 
-        while (StartTime.isBefore(LocalTime.from(EndTime))) {
-            StartTime = StartTime.plusMinutes(30);
-            EndTimeList.add(StartTime.toString());
+            while (StartTime.isBefore(LocalTime.from(EndTime))) {
+                StartTime = StartTime.plusMinutes(30);
+                EndTimeList.add(StartTime.toString());
+            }
+
+            EndTimeComboBox.setItems(EndTimeList);
+            EndTimeComboBox.setEditable(true);
         }
-
-        EndTimeComboBox.setItems(EndTimeList);
-        EndTimeComboBox.setEditable(true);
     }
 
     // Choose appointment date
     @FXML
     void ChooseApptDate(ActionEvent event) {
         LocalDate ApptDate = StartDatePicker.getValue();
-        if (ApptDate.isBefore(LocalDate.now())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid Date");
-            alert.setContentText("Appointment date cannot be in the past.");
-            alert.showAndWait();
-            StartDatePicker.setValue(LocalDate.now());
+        EndDatePicker.setValue(ApptDate);
+        EndDatePicker.setEditable(false);
         }
-        else {
-            EndDatePicker.setValue(ApptDate);
-            EndDatePicker.setEditable(false);
-        }
-
-    }
 
     // Filter appointment view by all, this month, or the next week
     @FXML
@@ -316,6 +307,11 @@ public class AppointmentPage implements Initializable {
         if (alert.getResult() == ButtonType.OK) {
             AppointmentsTable.DeleteAppointment(ApptTable.getSelectionModel().getSelectedItem().getAppointmentID());
             ApptTable.getItems().remove(ApptTable.getSelectionModel().getSelectedItem());
+            Alert DeleteConfirmed = new Alert(Alert.AlertType.INFORMATION);
+            DeleteConfirmed.setTitle("Appointment Deleted");
+            DeleteConfirmed.setHeaderText("Appointment Deleted");
+            DeleteConfirmed.setContentText("Appointment has been deleted.");
+            DeleteConfirmed.showAndWait();
         }
     }
 
@@ -335,11 +331,10 @@ public class AppointmentPage implements Initializable {
         ContactComboBox.setValue("");
         CustIDComboBox.setValue("");
         DescriptionTextField.setText("");
-        EndDatePicker.setValue(LocalDate.now());
-        EndTimeComboBox.setValue("");
-        LocationTextField.setText("");
         StartDatePicker.setValue(LocalDate.now());
-        StartTimeComboBox.setValue("");
+        LocationTextField.setText("");
+        StartTimeComboBox.setValue(null);
+        EndTimeComboBox.setValue(null);
         TitleTextField.setText("");
         TypeTextField.setText("");
         UserIDComboBox.setValue("");
