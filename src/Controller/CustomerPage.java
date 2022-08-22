@@ -87,14 +87,8 @@ public class CustomerPage implements Initializable {
         CustomerTable.setItems(FullCustomersList);
 
 
-        // Initialize Country ComboBox
-        ObservableList<Country> CountriesList = CountriesTable.GetCountries();
-        ObservableList<String> CountryNamesList = FXCollections.observableArrayList();
-        for (Country Country : CountriesList) {
-            CountryNamesList.add(Country.getCountry());
-        }
-        CountryComboBox.setItems(CountryNamesList);
-        CountryComboBox.setEditable(true);
+        // Initialize ComboBoxes
+        InitializeComboBox();
 
         // Lambda
         // Add table listener to PopulateForm when row is selected
@@ -160,6 +154,16 @@ public class CustomerPage implements Initializable {
 
             }
         }
+    }
+
+    void InitializeComboBox() {
+        ObservableList<Country> CountriesList = CountriesTable.GetCountries();
+        ObservableList<String> CountryNamesList = FXCollections.observableArrayList();
+        for (Country Country : CountriesList) {
+            CountryNamesList.add(Country.getCountry());
+        }
+        CountryComboBox.setItems(CountryNamesList);
+        CountryComboBox.setEditable(true);
     }
 
     // After country is chosen, populate division combo box

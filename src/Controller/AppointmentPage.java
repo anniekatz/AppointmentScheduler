@@ -18,7 +18,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class AppointmentPage implements Initializable {
@@ -73,7 +76,7 @@ public class AppointmentPage implements Initializable {
     @FXML
     private DatePicker EndDatePicker;
     @FXML
-    private ComboBox<?> EndTimeComboBox;
+    private ComboBox<String> EndTimeComboBox;
     @FXML
     private Button AddUpdateButton;
     @FXML
@@ -83,7 +86,7 @@ public class AppointmentPage implements Initializable {
     @FXML
     private DatePicker StartDatePicker;
     @FXML
-    private ComboBox<?> StartTimeComboBox;
+    private ComboBox<String> StartTimeComboBox;
     @FXML
     private TextField TitleTextField;
     @FXML
@@ -113,6 +116,29 @@ public class AppointmentPage implements Initializable {
 
         // Initialize ComboBoxes
         InitializeComboBoxes();
+
+        // Populate form with selected appointment info
+        ApptTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Appointment appointment = ApptTable.getSelectionModel().getSelectedItem();
+                PopulateForm(appointment);
+            }
+        });
+    }
+
+    void PopulateForm(Appointment appointment) {
+        AppointmentIDTextField.setText(Integer.toString(appointment.getAppointmentID()));
+        ContactComboBox.setValue(Integer.toString(appointment.getContactID()));
+        CustIDComboBox.setValue(Integer.toString(appointment.getCustomerID()));
+        DescriptionTextField.setText(appointment.getDescription());
+        EndDatePicker.setValue(appointment.getEnd().toLocalDate());
+        EndTimeComboBox.setValue(appointment.getEnd().toLocalTime().toString());
+        LocationTextField.setText(appointment.getLocation());
+        StartDatePicker.setValue(appointment.getStart().toLocalDate());
+        StartTimeComboBox.setValue(appointment.getStart().toLocalTime().toString());
+        TitleTextField.setText(appointment.getTitle());
+        TypeTextField.setText(appointment.getType());
+        UserIDComboBox.setValue(Integer.toString(appointment.getUserID()));
     }
 
 
@@ -144,6 +170,22 @@ public class AppointmentPage implements Initializable {
         }
         CustIDComboBox.setItems(CustomerNames);
         CustIDComboBox.setEditable(true);
+
+        // Initialize Start Time ComboBox
+        ObservableList<String> StartTimeList = FXCollections.observableArrayList();
+
+        // TODO: convert from Eastern to System Time
+        LocalTime StartTime = LocalTime.of(8,0);
+        LocalTime EndTime = LocalTime.of(22,0);
+
+        StartTimeList.add(StartTime.toString());
+        while (StartTime.isBefore(EndTime)) {
+            StartTime = StartTime.plusMinutes(30);
+            StartTimeList.add(StartTime.toString());
+        }
+        StartTimeList.add(EndTime.toString());
+        StartTimeComboBox.setItems(StartTimeList);
+        StartTimeComboBox.setEditable(true);
     }
 
     // Filter appointment view by all, this month, or the next week
