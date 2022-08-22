@@ -1,8 +1,7 @@
 package Controller;
 
 import Database.QueryTables.AppointmentsTable;
-import Model.Appointment;
-import javafx.collections.FXCollections;
+import Model.ReportModels.Report1;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,8 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ReportPage implements Initializable {
@@ -26,7 +23,7 @@ public class ReportPage implements Initializable {
     @FXML
     private Tab AppointmentTotalsTab;
     @FXML
-    private TableView<?> AppointmentTotalsTable;
+    private TableView<Report1> AppointmentTotalsTable;
     @FXML
     private TableColumn<?, ?> AppointmentTotalsTableMonthColumn;
     @FXML
@@ -83,6 +80,9 @@ public class ReportPage implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         // Report 1 Initializables
+        AppointmentTotalsTableTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        AppointmentTotalsTableTotalColumn.setCellValueFactory(new PropertyValueFactory<>("Total"));
+
         InitializeMonthComboBox();
 
 
@@ -95,15 +95,14 @@ public class ReportPage implements Initializable {
     // Report 1 Methods
     void InitializeMonthComboBox() {
         // Fill ChooseMonthComboBox with months
-        ChooseMonthComboBox.getItems().addAll("All", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-        ChooseMonthComboBox.setValue("All");
-    }
-    void InitializeReport1Table() {
+        ChooseMonthComboBox.getItems().addAll("All Months","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
     }
 
-
+    @FXML
     void PopulateReport1Table(ActionEvent event){
-        //
+        String Month = ChooseMonthComboBox.getValue();
+        ObservableList<Report1> ReportList = AppointmentsTable.GetReport1(Month);
+        AppointmentTotalsTable.setItems(ReportList);
     }
 
     // Report 2 Methods

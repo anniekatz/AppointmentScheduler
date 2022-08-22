@@ -2,6 +2,7 @@ package Database.QueryTables;
 
 import Database.QueryUtils;
 import Model.Appointment;
+import Model.ReportModels.Report1;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Optional;
 
 public class AppointmentsTable {
 
@@ -73,38 +72,30 @@ public class AppointmentsTable {
         }
     }
 
-    public static int CountAppointmentsByType(String Type) {
-        int Count = 0;
-        String Query = "SELECT COUNT(*) FROM appointments WHERE Type = '" + Type + "'";
+    public static ObservableList<Report1> GetReport1(String Month) {
+        ObservableList<Report1> Report1List = FXCollections.observableArrayList();
         try {
+            String Query = "SELECT Type, COUNT(*) AS Total FROM appointments WHERE MONTHNAME(Start) = '" + Month + "' GROUP BY Type;";
+            if (Month.equals("All Months")) {
+                Query = "SELECT Type, COUNT(*) AS Total FROM appointments GROUP BY Type;";
+            }
             QueryUtils.SetPS(Query);
             PreparedStatement PS = QueryUtils.GetPS();
             PS.execute();
             ResultSet RS = PS.getResultSet();
             while (RS.next()) {
-                Count++;
+                String Type = RS.getString("Type");
+                int Total = RS.getInt("Total");
+                Report1 NewReport = new Report1(Type, Total);
+                Report1List.add(NewReport);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return Count;
+        return Report1List;
+
     }
 
-    public static int CountAppointmentsByMonthType(String Type, String Month) {
-        int Count = 0;
-        String Query = "SELECT COUNT(*) FROM appointments WHERE Type = '" + Type + "' AND MONTH(Start) = '" + Month + "'";
-        try {
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
-            PS.execute();
-            ResultSet RS = PS.getResultSet();
-            while (RS.next()) {
-                Count++;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return Count;
-    }
+
 
 }

@@ -20,9 +20,8 @@
                         <children>
                             <TableView fx:id="AppointmentTotalsTable" layoutX="235.0" layoutY="54.0" prefHeight="363.0" prefWidth="336.0" style="-fx-background-color: #fffff5; -fx-border-color: #000000;">
                                 <columns>
-                           <TableColumn fx:id="AppointmentTotalsTableMonthColumn" prefWidth="128.79998779296875" text="Month" />
-                                    <TableColumn fx:id="AppointmentTotalsTableTypeColumn" prefWidth="128.79998779296875" text="Appointment Type" />
-                                    <TableColumn fx:id="AppointmentTotalsTableTotalColumn" prefWidth="73.5999755859375" text="Total" />
+                                    <TableColumn fx:id="AppointmentTotalsTableTypeColumn" prefWidth="168.0" text="Appointment Type" />
+                                    <TableColumn fx:id="AppointmentTotalsTableTotalColumn" prefWidth="166.0" text="Total for Chosen Month" />
                                 </columns>
                             </TableView>
                             <Label layoutX="267.0" layoutY="18.0" text="Choose Month">
