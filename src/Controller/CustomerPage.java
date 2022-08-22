@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Filter;
 
 public class CustomerPage implements Initializable {
+    public Button ResetButton;
     // Navigation buttons
     @FXML
     private Button ReportsButton;
@@ -116,8 +117,8 @@ public class CustomerPage implements Initializable {
             int DivisionID = GetDivisionID(DivisionComboBox.getValue());
             // if CustomerID is empty, add new customer
             if (CustomerIDTextField.getText().isEmpty()) {
-                int NewCustomerID = GetNewCustomerID();
-                CustomersTable.AddCustomer(NewCustomerID, NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
+
+                CustomersTable.AddCustomer(NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
 
             } else {
                 CustomersTable.UpdateCustomer(Integer.parseInt(CustomerIDTextField.getText()), NameTextField.getText(), AddressTextField.getText(), PostalCodeTextField.getText(), PhoneTextField.getText(), DivisionID);
@@ -271,15 +272,19 @@ public class CustomerPage implements Initializable {
         return DivisionID;
     }
 
-    int GetNewCustomerID() {
-        int NewCustomerID = 0;
-        // get largest customer ID in database
-        for (Customer Customer : CustomersTable.GetCustomers()) {
-            if (Customer.getCustomerID() > NewCustomerID) {
-                NewCustomerID = Customer.getCustomerID() + 1;
-            }
+    @FXML
+    void ResetButtonClicked(ActionEvent event) {
+        if (CustomerTable.getSelectionModel().getSelectedItem() != null) {
+            CustomerTable.getSelectionModel().clearSelection();
         }
-        return NewCustomerID;
+        CustomerIDTextField.setText("");
+        NameTextField.setText("");
+        AddressTextField.setText("");
+        PhoneTextField.setText("");
+        PostalCodeTextField.setText("");
+        DivisionComboBox.setValue(null);
+        CountryComboBox.setValue(null);
+
     }
 }
 
