@@ -16,6 +16,6 @@ JavaFX SDK 17.0.1
 MySQL Connector Java 8.1.25
 
 # Additional Report
-Our third report is one that lists all customers in the database (IDs and names) and the number of appointments they each have scheduled for the future.
+Our third report is one that lists all Customer IDs with appointments in the database, along with that customer's total number of past appointments and future appointments.
 
 # Running the Program
