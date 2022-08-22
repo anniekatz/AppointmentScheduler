@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -273,7 +274,7 @@ public class CustomerPage implements Initializable {
     }
 
     @FXML
-    void ResetButtonClicked(ActionEvent event) {
+    void ResetButtonClicked(ActionEvent event) throws RuntimeException{
         if (CustomerTable.getSelectionModel().getSelectedItem() != null) {
             CustomerTable.getSelectionModel().clearSelection();
         }
@@ -282,8 +283,8 @@ public class CustomerPage implements Initializable {
         AddressTextField.setText("");
         PhoneTextField.setText("");
         PostalCodeTextField.setText("");
-        DivisionComboBox.setValue(null);
-        CountryComboBox.setValue(null);
+        DivisionComboBox.setValue("");
+        CountryComboBox.setValue("");
 
     }
 }
