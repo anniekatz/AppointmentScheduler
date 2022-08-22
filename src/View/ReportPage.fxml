@@ -30,7 +30,7 @@
                                     <Font name="System Bold" size="14.0" />
                                 </font>
                             </Label>
-                     <ComboBox fx:id="ChooseMonthComboBox" layoutX="383.0" layoutY="16.0" prefWidth="150.0" style="-fx-background-color: #fffff5; -fx-border-color: #000000;" />
+                     <ComboBox fx:id="ChooseMonthComboBox" layoutX="383.0" layoutY="16.0" onAction="#PopulateReport1Table" prefWidth="150.0" style="-fx-background-color: #fffff5; -fx-border-color: #000000;" />
                         </children>
                     </AnchorPane>
                 </content>
