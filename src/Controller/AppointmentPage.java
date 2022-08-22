@@ -275,6 +275,29 @@ public class AppointmentPage implements Initializable {
             String Start = ConvertToUTC(LocalStart);
             String End = ConvertToUTC(LocalEnd);
 
+            // Get ID Values from combo boxes to store in database
+            // if a space exists in UserIDComboBox, get the ID from the end of the string
+            String UserID = UserIDComboBox.getValue();
+            String CustomerID = CustIDComboBox.getValue();
+            String ContactID = ContactComboBox.getValue();
+
+            if (UserID.contains(" ")) {
+                // get substring up until " "
+                UserID = UserID.substring(0, UserID.indexOf(" "));
+            }
+            if (CustomerID.contains(" ")) {
+                // get substring up until " "
+                CustomerID = CustomerID.substring(0, CustomerID.indexOf(" "));
+            }
+            if (ContactID.contains(" ")) {
+                // get substring up until " "
+                ContactID = ContactID.substring(0, ContactID.indexOf(" "));
+            }
+
+            int intUserID = Integer.parseInt(UserID);
+            int intCustomerID = Integer.parseInt(CustomerID);
+            int intContactID = Integer.parseInt(ContactID);
+
             // Add ApptID variable to help check appointment overlap
             int ApptID = -1;
             if (AppointmentIDTextField.getText().isEmpty()) {
@@ -284,36 +307,16 @@ public class AppointmentPage implements Initializable {
                 ApptID = Integer.parseInt(AppointmentIDTextField.getText());
             }
 
-            if (CheckAppointmentOverlap(LocalStart, LocalEnd, ApptID)) {
+            // if customer has an overlapping appointment, show error message
+            if (CheckAppointmentOverlap(LocalStart, LocalEnd, ApptID, intCustomerID)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Error");
-                alert.setContentText("Appointment time cannot overlap with another appointment");
+                alert.setContentText("Customer cannot have overlapping appointments");
                 alert.showAndWait();
             }
             else {
-                // Get ID Values from combo boxes to store in database
-                // if a space exists in UserIDComboBox, get the ID from the end of the string
-                String UserID = UserIDComboBox.getValue();
-                String CustomerID = CustIDComboBox.getValue();
-                String ContactID = ContactComboBox.getValue();
 
-                if (UserID.contains(" ")) {
-                    // get substring up until " "
-                    UserID = UserID.substring(0, UserID.indexOf(" "));
-                }
-                if (CustomerID.contains(" ")) {
-                    // get substring up until " "
-                    CustomerID = CustomerID.substring(0, CustomerID.indexOf(" "));
-                }
-                if (ContactID.contains(" ")) {
-                    // get substring up until " "
-                    ContactID = ContactID.substring(0, ContactID.indexOf(" "));
-                }
-
-                int intUserID = Integer.parseInt(UserID);
-                int intCustomerID = Integer.parseInt(CustomerID);
-                int intContactID = Integer.parseInt(ContactID);
 
 
                 // If appointment ID is empty, add new appointment
@@ -354,19 +357,22 @@ public class AppointmentPage implements Initializable {
         }
     }
 
-    boolean CheckAppointmentOverlap(LocalDateTime start, LocalDateTime end, int ApptID) {
+    boolean CheckAppointmentOverlap(LocalDateTime start, LocalDateTime end, int ApptID, int CustID) {
+        // Loops through a customer's appointments
         // if appointment start and end overlaps another appointment start and end, return true
         boolean check = false;
         for (Appointment Appt : AppointmentsTable.GetAppointments()) {
-            if (ApptID != Appt.getAppointmentID()) {
-                if (Appt.getStart().equals(start) || Appt.getEnd().equals(end)) {
-                    check = true;
-                } else if (Appt.getStart().isAfter(start) && Appt.getStart().isBefore(end)) {
-                    check = true;
-                } else if (Appt.getEnd().isAfter(start) && Appt.getEnd().isBefore(end)) {
-                    check = true;
-                } else if (Appt.getStart().isBefore(start) && Appt.getEnd().isAfter(end)) {
-                    check = true;
+            if (CustID == Appt.getCustomerID()) {
+                if (ApptID != Appt.getAppointmentID()) {
+                    if (Appt.getStart().equals(start) || Appt.getEnd().equals(end)) {
+                        check = true;
+                    } else if (Appt.getStart().isAfter(start) && Appt.getStart().isBefore(end)) {
+                        check = true;
+                    } else if (Appt.getEnd().isAfter(start) && Appt.getEnd().isBefore(end)) {
+                        check = true;
+                    } else if (Appt.getStart().isBefore(start) && Appt.getEnd().isAfter(end)) {
+                        check = true;
+                    }
                 }
             }
         }
