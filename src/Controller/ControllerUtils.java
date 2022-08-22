@@ -42,11 +42,11 @@ public class ControllerUtils {
         ControllerUtils.NavigateToWindow(event, "/View/ReportPage.fxml", "Reports");
     }
 
-    public static OffsetTime GetNewTime(String OtherTimeZone, int hour, int minute) {
+    public static OffsetTime GetNewTime(ZoneId OtherTimeZone, ZoneId FinalTimeZone, int hour, int minute) {
         // Get System offset and compare to Other zone offset
-        OffsetTime OtherZoneOffset = OffsetTime.now(ZoneId.of(OtherTimeZone));
-        OffsetTime SystemOffsetTime = OffsetTime.now(ZoneId.systemDefault());
-        int hoursDiff = SystemOffsetTime.getHour() - OtherZoneOffset.getHour();
+        OffsetTime OtherZoneOffset = OffsetTime.now(OtherTimeZone);
+        OffsetTime FinalOffsetTime = OffsetTime.now(FinalTimeZone);
+        int hoursDiff = FinalOffsetTime.getHour() - OtherZoneOffset.getHour();
 
         OffsetTime OldTime = OffsetTime.of(hour, minute, 0, 0, OtherZoneOffset.getOffset());
 

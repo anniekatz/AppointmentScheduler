@@ -179,10 +179,10 @@ public class AppointmentPage implements Initializable {
 
     }
 
-    // Time Conversion helper method
+    // Start Time Conversion helper method to populate Start Time ComboBox
     ObservableList<String> StartTimeConversion() {
-        OffsetTime SystemStartTime = ControllerUtils.GetNewTime("America/New_York",8,0);
-        OffsetTime SystemEndTime = ControllerUtils.GetNewTime("America/New_York",22,0);
+        OffsetTime SystemStartTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(),8,0);
+        OffsetTime SystemEndTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(),22,0);
         ObservableList<String> StartTimeList = FXCollections.observableArrayList();
 
         while (SystemStartTime.isBefore(SystemEndTime)) {
@@ -197,7 +197,7 @@ public class AppointmentPage implements Initializable {
     @FXML
     void PopulateEndComboBox(ActionEvent event) {
         LocalTime StartTime = LocalTime.parse(StartTimeComboBox.getValue());
-        OffsetTime EndTime = ControllerUtils.GetNewTime("America/New_York", 22,0);
+        OffsetTime EndTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(),22,0);
         ObservableList<String> EndTimeList = FXCollections.observableArrayList();
 
         while (StartTime.isBefore(LocalTime.from(EndTime))) {
