@@ -4,6 +4,7 @@ import Database.QueryTables.AppointmentsTable;
 import Database.QueryTables.ContactsTable;
 import Model.Contact;
 import Model.ReportModels.Report1;
+import Model.ReportModels.Report2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,7 +45,7 @@ public class ReportPage implements Initializable {
     @FXML
     private Tab ContactScheduleTab;
     @FXML
-    private TableView<?> ContactScheduleTable;
+    private TableView<Report2> ContactScheduleTable;
     @FXML
     private TableColumn<?, ?> ContactScheduleTableAppointmentIDColumn;
     @FXML
@@ -123,10 +124,13 @@ public class ReportPage implements Initializable {
         }
         ChooseContactComboBox.setItems(ContactNames);
     }
+    // Method to run when contact is chosen
     @FXML
     void PopulateReport2Table(ActionEvent event){
         // Get ContactID from chosen contact in ChooseContactComboBox
-        Integer ContactID = Integer.parseInt(ChooseContactComboBox.getValue().split("-")[0]);
+        int ContactID = Integer.parseInt(ChooseContactComboBox.getValue().split("-")[0]);
+        ObservableList<Report2> ReportList = AppointmentsTable.GetReport2(ContactID);
+        ContactScheduleTable.setItems(ReportList);
     }
 
     // Report 3 Methods

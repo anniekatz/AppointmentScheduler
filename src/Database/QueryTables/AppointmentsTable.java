@@ -3,6 +3,7 @@ package Database.QueryTables;
 import Database.QueryUtils;
 import Model.Appointment;
 import Model.ReportModels.Report1;
+import Model.ReportModels.Report2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -93,7 +94,31 @@ public class AppointmentsTable {
             System.out.println(e.getMessage());
         }
         return Report1List;
+    }
 
+    public static ObservableList<Report2> GetReport2(int ContactID){
+        ObservableList<Report2> Report2List = FXCollections.observableArrayList();
+        try {
+            String Query = "SELECT * FROM appointments WHERE Contact_ID = '" + ContactID + "';";
+            QueryUtils.SetPS(Query);
+            PreparedStatement PS = QueryUtils.GetPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            while (RS.next()) {
+                int AppointmentID = RS.getInt("Appointment_ID");
+                String Title = RS.getString("Title");
+                String Type = RS.getString("Type");
+                String Description = RS.getString("Description");
+                LocalDateTime Start = RS.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime End = RS.getTimestamp("End").toLocalDateTime();
+                int CustomerID = RS.getInt("Customer_ID");
+                Report2 NewReport = new Report2(AppointmentID, Title, Type, Description, Start, End, CustomerID);
+                Report2List.add(NewReport);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Report2List;
     }
 
 
