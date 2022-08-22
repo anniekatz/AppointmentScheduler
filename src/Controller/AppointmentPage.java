@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
@@ -117,6 +118,7 @@ public class AppointmentPage implements Initializable {
         // Initialize ComboBoxes
         InitializeComboBoxes();
 
+        // Lambda expression for tableview row selection
         // Populate form with selected appointment info
         ApptTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -175,17 +177,31 @@ public class AppointmentPage implements Initializable {
         ObservableList<String> StartTimeList = FXCollections.observableArrayList();
 
         // TODO: convert from Eastern to System Time
-        LocalTime StartTime = LocalTime.of(8,0);
-        LocalTime EndTime = LocalTime.of(22,0);
+        LocalTime StartTime = LocalTime.of(8, 0);
+        LocalTime EndTime = LocalTime.of(22, 0);
 
-        StartTimeList.add(StartTime.toString());
         while (StartTime.isBefore(EndTime)) {
-            StartTime = StartTime.plusMinutes(30);
             StartTimeList.add(StartTime.toString());
+            StartTime = StartTime.plusMinutes(30);
         }
-        StartTimeList.add(EndTime.toString());
         StartTimeComboBox.setItems(StartTimeList);
         StartTimeComboBox.setEditable(true);
+
+    }
+
+    @FXML
+    void PopulateEndComboBox(ActionEvent event) {
+        LocalTime StartTime = LocalTime.parse(StartTimeComboBox.getValue());
+        LocalTime EndTime = LocalTime.of(22, 0);
+        ObservableList<String> EndTimeList = FXCollections.observableArrayList();
+
+        while (StartTime.isBefore(EndTime)) {
+            StartTime = StartTime.plusMinutes(30);
+            EndTimeList.add(StartTime.toString());
+        }
+
+        EndTimeComboBox.setItems(EndTimeList);
+        EndTimeComboBox.setEditable(true);
     }
 
     // Filter appointment view by all, this month, or the next week
