@@ -43,4 +43,16 @@ public class AppointmentsTable {
         }
         return AppointmentList;
     }
+
+    public static void DeleteAppointment(int AppointmentID) {
+        try {
+            String Query = "DELETE FROM appointments WHERE Appointment_ID = ?;";
+            QueryUtils.SetPS(Query);
+            PreparedStatement PS = QueryUtils.GetPS();
+            PS.setInt(1, AppointmentID);
+            PS.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

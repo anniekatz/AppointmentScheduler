@@ -7,19 +7,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentPage implements Initializable {
@@ -140,6 +134,21 @@ public class AppointmentPage implements Initializable {
                 }
             }
             ApptTable.setItems(FilteredApptList);
+        }
+    }
+    // Delete appointment
+    @FXML
+    void DeleteAppointment(ActionEvent event) {
+        // pop up box to confirm deletion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText("Are you sure you want to delete this appointment?");
+        alert.setContentText("This cannot be undone.");
+        alert.showAndWait();
+        // if yes, delete appointment
+        if (alert.getResult() == ButtonType.OK) {
+            AppointmentsTable.DeleteAppointment(ApptTable.getSelectionModel().getSelectedItem().getAppointmentID());
+            ApptTable.getItems().remove(ApptTable.getSelectionModel().getSelectedItem());
         }
     }
 

@@ -58,7 +58,7 @@
     <ComboBox fx:id="LocationComboBox" layoutX="88.0" layoutY="553.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
     <TextField fx:id="TitleTextField" layoutX="88.0" layoutY="460.0" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
     <TextField fx:id="DescriptionTextField" layoutX="88.0" layoutY="506.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <Button fx:id="DeleteButton" layoutX="620.0" layoutY="544.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Delete">
+    <Button fx:id="DeleteButton" layoutX="620.0" layoutY="544.0" mnemonicParsing="false" onAction="#DeleteAppointment" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Delete">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
