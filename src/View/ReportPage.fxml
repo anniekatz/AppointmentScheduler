@@ -38,7 +38,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <ComboBox fx:id="ChooseContactComboBox" layoutX="279.0" layoutY="14.0" prefHeight="27.0" prefWidth="129.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
+                            <ComboBox fx:id="ChooseContactComboBox" layoutX="279.0" layoutY="14.0" onAction="#PopulateReport2Table" prefHeight="27.0" prefWidth="129.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" />
                             <Label layoutX="167.0" layoutY="18.0" text="Choose Contact">
                                 <font>
                                     <Font name="System Bold" size="14.0" />

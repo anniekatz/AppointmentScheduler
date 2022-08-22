@@ -1,7 +1,10 @@
 package Controller;
 
 import Database.QueryTables.AppointmentsTable;
+import Database.QueryTables.ContactsTable;
+import Model.Contact;
 import Model.ReportModels.Report1;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +36,7 @@ public class ReportPage implements Initializable {
     @FXML
     private Button AppointmentsButton;
     @FXML
-    private ComboBox<?> ChooseContactComboBox;
+    private ComboBox<String> ChooseContactComboBox;
     @FXML
     private ComboBox<String> ChooseMonthComboBox;
     @FXML
@@ -82,12 +85,17 @@ public class ReportPage implements Initializable {
         // Report 1 Initializables
         AppointmentTotalsTableTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
         AppointmentTotalsTableTotalColumn.setCellValueFactory(new PropertyValueFactory<>("Total"));
-
         InitializeMonthComboBox();
 
-
         // Report 2 Initializables
-
+        ContactScheduleTableAppointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentID"));
+        ContactScheduleTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        ContactScheduleTableDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        ContactScheduleTableEndColumn.setCellValueFactory(new PropertyValueFactory<>("End"));
+        ContactScheduleTableStartColumn.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        ContactScheduleTableTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        ContactScheduleTableTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        InitializeContactComboBox();
 
         // Report 3 Initializables
     }
@@ -97,7 +105,7 @@ public class ReportPage implements Initializable {
         // Fill ChooseMonthComboBox with months
         ChooseMonthComboBox.getItems().addAll("All Months","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
     }
-
+    // Method to run when month is chosen
     @FXML
     void PopulateReport1Table(ActionEvent event){
         String Month = ChooseMonthComboBox.getValue();
@@ -105,7 +113,21 @@ public class ReportPage implements Initializable {
         AppointmentTotalsTable.setItems(ReportList);
     }
 
+
     // Report 2 Methods
+    void InitializeContactComboBox(){
+        ObservableList<Contact> Contacts = ContactsTable.GetContacts();
+        ObservableList<String> ContactNames = FXCollections.observableArrayList();
+        for (Contact Contact : Contacts) {
+            ContactNames.add(Contact.getContactID() + "- " + Contact.getName());
+        }
+        ChooseContactComboBox.setItems(ContactNames);
+    }
+    @FXML
+    void PopulateReport2Table(ActionEvent event){
+        // Get ContactID from chosen contact in ChooseContactComboBox
+        Integer ContactID = Integer.parseInt(ChooseContactComboBox.getValue().split("-")[0]);
+    }
 
     // Report 3 Methods
 }
