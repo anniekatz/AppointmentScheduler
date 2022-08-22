@@ -99,6 +99,9 @@ public class ReportPage implements Initializable {
         InitializeContactComboBox();
 
         // Report 3 Initializables
+        CustomerTotalsTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        CustomerTotalsTableCustomerNameColumn.setCellValueFactory(new PropertyValueFactory<>("CustomerName"));
+        CustomerTotalsTableTotalsColumn.setCellValueFactory(new PropertyValueFactory<>("Totals"));
     }
 
     // Report 1 Methods
