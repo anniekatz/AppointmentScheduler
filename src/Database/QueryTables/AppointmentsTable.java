@@ -45,14 +45,14 @@ public class AppointmentsTable {
         return AppointmentList;
     }
 
-    public static void AddAppointment(String Title, String Description, String Location, String Type, ZonedDateTime Start, ZonedDateTime End, int CustomerID, int UserID, int ContactID) throws SQLException {
+    public static void AddAppointment(String Title, String Description, String Location, String Type, String Start, String End, int CustomerID, int UserID, int ContactID) throws SQLException {
         String Query = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES ('" + Title + "', '" + Description + "', '" + Location + "', '" + Type + "', '" + Start + "', '" + End + "', '" + CustomerID + "', '" + UserID + "', '" + ContactID + "');";
         QueryUtils.SetPS(Query);
         PreparedStatement PS = QueryUtils.GetPS();
         PS.execute();
     }
 
-    public static void UpdateAppointment(int AppointmentID, String Title, String Description, String Location, String Type, ZonedDateTime Start, ZonedDateTime End, int CustomerID, int UserID, int ContactID) throws SQLException {
+    public static void UpdateAppointment(int AppointmentID, String Title, String Description, String Location, String Type, String Start, String End, int CustomerID, int UserID, int ContactID) throws SQLException {
         // Update Appointment in appointments table where Appointment_ID = AppointmentID
         String Query = "UPDATE appointments SET Title = '" + Title + "', Description = '" + Description + "', Location = '" + Location + "', Type = '" + Type + "', Start = '" + Start + "', End = '" + End + "', Customer_ID = '" + CustomerID + "', User_ID = '" + UserID + "', Contact_ID = '" + ContactID + "' WHERE Appointment_ID = '" + AppointmentID + "';";
         QueryUtils.SetPS(Query);

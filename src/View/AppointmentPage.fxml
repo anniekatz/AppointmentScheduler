@@ -68,14 +68,14 @@
         </font>
     </Button>
     <TextField fx:id="TypeTextField" layoutX="212.0" layoutY="550.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <Label layoutX="212.0" layoutY="485.0" text="End" textAlignment="CENTER">
+    <Label layoutX="212.0" layoutY="485.0" text="End (Local Time)" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
     <DatePicker fx:id="EndDatePicker" disable="true" editable="false" layoutX="211.0" layoutY="503.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
     <ComboBox fx:id="EndTimeComboBox" layoutX="295.0" layoutY="503.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
-    <Label layoutX="213.0" layoutY="439.0" text="Start" textAlignment="CENTER">
+    <Label layoutX="213.0" layoutY="439.0" text="Start (Local Time)" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
@@ -105,13 +105,13 @@
       <columns>
          <TableColumn fx:id="ApptTableAppointmentIDColumn" prefWidth="66.3999662399292" text="Appt ID" />
          <TableColumn fx:id="ApptTableTitleColumn" prefWidth="92.80001831054688" text="Title" />
-         <TableColumn fx:id="ApptTableDescriptionColumn" prefWidth="127.0" text="Description" />
-         <TableColumn fx:id="ApptTableLocationColumn" prefWidth="72.0" text="Location" />
-         <TableColumn fx:id="ApptTableContactColumn" prefWidth="77.0" text="Contact" />
-         <TableColumn fx:id="ApptTableTypeColumn" prefWidth="57.0" text="Type" />
-         <TableColumn fx:id="ApptTableStartColumn" prefWidth="82.0" text="Start" />
-         <TableColumn fx:id="ApptTableEndColumn" prefWidth="91.0" text="End" />
-         <TableColumn fx:id="ApptTableCustomerIDColumn" prefWidth="87.0" text="Customer ID" />
+         <TableColumn fx:id="ApptTableDescriptionColumn" prefWidth="96.0" text="Description" />
+         <TableColumn fx:id="ApptTableLocationColumn" prefWidth="79.0" text="Location" />
+         <TableColumn fx:id="ApptTableContactColumn" prefWidth="61.0" text="Contact" />
+         <TableColumn fx:id="ApptTableTypeColumn" prefWidth="66.0" text="Type" />
+         <TableColumn fx:id="ApptTableStartColumn" prefWidth="106.0" text="Start (Local Time)" />
+         <TableColumn fx:id="ApptTableEndColumn" prefWidth="107.0" text="End (Local Time)" />
+         <TableColumn fx:id="ApptTableCustomerIDColumn" prefWidth="78.0" text="Customer ID" />
          <TableColumn fx:id="ApptTableUserIDColumn" prefWidth="62.0" text="User ID" />
       </columns>
    </TableView>

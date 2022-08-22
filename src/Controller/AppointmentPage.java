@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
@@ -136,7 +137,7 @@ public class AppointmentPage implements Initializable {
 
     void PopulateForm(Appointment appointment) {
         AppointmentIDTextField.setText(Integer.toString(appointment.getAppointmentID()));
-        ContactComboBox.setValue(Integer.toString(appointment.getContactID()));
+        ContactComboBox.setValue((Integer.toString(appointment.getContactID())));
         CustIDComboBox.setValue(Integer.toString(appointment.getCustomerID()));
         DescriptionTextField.setText(appointment.getDescription());
         EndDatePicker.setValue(appointment.getEnd().toLocalDate());
@@ -271,22 +272,41 @@ public class AppointmentPage implements Initializable {
             // Convert time to UTC to store database
             LocalDateTime LocalStart = LocalDateTime.of(StartDatePicker.getValue(), LocalTime.parse(StartTimeComboBox.getValue()));
             LocalDateTime LocalEnd = LocalDateTime.of(EndDatePicker.getValue(), LocalTime.parse(EndTimeComboBox.getValue()));
-            ZonedDateTime Start = ConvertToUTC(LocalStart);
-            ZonedDateTime End = ConvertToUTC(LocalEnd);
+            String Start = ConvertToUTC(LocalStart);
+            String End = ConvertToUTC(LocalEnd);
 
             // Get ID Values from combo boxes to store in database
-            int UserID = Integer.parseInt(UserIDComboBox.getValue().substring(0, UserIDComboBox.getValue().indexOf(" ")));
-            int CustID = Integer.parseInt(CustIDComboBox.getValue().substring(0, CustIDComboBox.getValue().indexOf(" ")));
-            int ContactID = Integer.parseInt(ContactComboBox.getValue().substring(0, ContactComboBox.getValue().indexOf(" ")));
+            // if a space exists in UserIDComboBox, get the ID from the end of the string
+            String UserID = UserIDComboBox.getValue();
+            String CustomerID = CustIDComboBox.getValue();
+            String ContactID = ContactComboBox.getValue();
+
+            if (UserID.contains(" ")) {
+                // get substring up until " "
+                UserID = UserID.substring(0, UserID.indexOf(" "));
+            }
+            if (CustomerID.contains(" ")) {
+                // get substring up until " "
+                CustomerID = CustomerID.substring(0, CustomerID.indexOf(" "));
+            }
+            if (ContactID.contains(" ")) {
+                // get substring up until " "
+                ContactID = ContactID.substring(0, ContactID.indexOf(" "));
+            }
+
+            int intUserID = Integer.parseInt(UserID);
+            int intCustomerID = Integer.parseInt(CustomerID);
+            int intContactID = Integer.parseInt(ContactID);
+
 
         // If appointment ID is empty, add new appointment
             if (AppointmentIDTextField.getText().isEmpty()) {
-                AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, UserID, CustID, ContactID);
+                AppointmentsTable.AddAppointment(TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intUserID, intCustomerID, intContactID);
             }
         // If appointment ID is not empty, update existing appointment
             else {
                 int AppointmentID = Integer.parseInt(AppointmentIDTextField.getText());
-                AppointmentsTable.UpdateAppointment(AppointmentID, TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, UserID, CustID, ContactID);
+                AppointmentsTable.UpdateAppointment(AppointmentID, TitleTextField.getText(), DescriptionTextField.getText(), LocationTextField.getText(), TypeTextField.getText(), Start, End, intUserID, intCustomerID, intContactID);
             }
             // Update TableView based on new appointment
             ObservableList<Appointment> FullAppointmentList = AppointmentsTable.GetAppointments();
@@ -315,11 +335,15 @@ public class AppointmentPage implements Initializable {
         }
     }
 
-    ZonedDateTime ConvertToUTC(LocalDateTime LocalDateTime) {
+    String ConvertToUTC(LocalDateTime LocalDateTime) {
         ZonedDateTime SystemDateTime = LocalDateTime.atZone(ZoneId.systemDefault());
         ZonedDateTime UTCDateTime = SystemDateTime.withZoneSameInstant(ZoneId.of("UTC"));
         System.out.println(UTCDateTime);
-        return UTCDateTime;
+        // Convert UTCDateTime to String
+        String UTCDateTimeString = UTCDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println(UTCDateTimeString);
+        return UTCDateTimeString;
+
     }
 
     @FXML
