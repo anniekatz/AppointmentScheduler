@@ -62,7 +62,7 @@
             <Font name="System Bold" size="12.0" />
         </font>
     </Button>
-    <Button fx:id="AddUpdateButton" layoutX="576.0" layoutY="501.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Add/Update">
+    <Button fx:id="AddUpdateButton" layoutX="576.0" layoutY="501.0" mnemonicParsing="false" onAction="#AddUpdateAppointment" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Add/Update">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
@@ -80,7 +80,7 @@
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <DatePicker fx:id="StartDatePicker" layoutX="212.0" layoutY="457.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
+    <DatePicker fx:id="StartDatePicker" layoutX="212.0" layoutY="457.0" onAction="#ChooseApptDate" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
     <ComboBox fx:id="StartTimeComboBox" layoutX="296.0" layoutY="457.0" onAction="#PopulateEndComboBox" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
     <Label layoutX="381.0" layoutY="487.0" text="Customer" textAlignment="CENTER">
         <font>
