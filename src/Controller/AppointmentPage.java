@@ -181,30 +181,14 @@ public class AppointmentPage implements Initializable {
 
     // Time Conversion helper method
     ObservableList<String> StartTimeConversion() {
-        // Check if it is daylight savings time
-        OffsetTime EastOffsetTime = OffsetTime.now(ZoneId.of("America/New_York"));
-        OffsetTime SystemOffsetTime = OffsetTime.now(ZoneId.systemDefault());
-
-        // Get the hours difference between Eastern and System time
-        int hoursDiff = SystemOffsetTime.getHour() - EastOffsetTime.getHour();
-
-        OffsetTime StartTime = OffsetTime.of(8,0,0,0,EastOffsetTime.getOffset());
-        OffsetTime EndTime = OffsetTime.of(22,0,0,0,EastOffsetTime.getOffset());
-
-        // Change time to hours difference
-        OffsetTime NewStartTime = StartTime.plusHours(hoursDiff);
-        OffsetTime NewEndTime = EndTime.plusHours(hoursDiff);
-
+        OffsetTime SystemStartTime = ControllerUtils.GetNewTime("America/New_York",8,0);
+        OffsetTime SystemEndTime = ControllerUtils.GetNewTime("America/New_York",22,0);
         ObservableList<String> StartTimeList = FXCollections.observableArrayList();
 
-        while (NewStartTime.isBefore(NewEndTime)) {
-            StartTimeList.add(NewStartTime.toString().substring(0, NewStartTime.toString().length() - 6));
-            NewStartTime = NewStartTime.plusMinutes(30);
+        while (SystemStartTime.isBefore(SystemEndTime)) {
+            StartTimeList.add(SystemStartTime.toString().substring(0, SystemStartTime.toString().length() - 6));
+            SystemStartTime = SystemStartTime.plusMinutes(30);
         }
-
-        // Parse time to just say beginning part
-        String StartString= NewStartTime.toString().substring(0, NewStartTime.toString().length() - 6);
-        String EndString = NewEndTime.toString().substring(0, NewEndTime.toString().length() - 6);
 
         return StartTimeList;
     }
@@ -213,10 +197,10 @@ public class AppointmentPage implements Initializable {
     @FXML
     void PopulateEndComboBox(ActionEvent event) {
         LocalTime StartTime = LocalTime.parse(StartTimeComboBox.getValue());
-        LocalTime EndTime = LocalTime.of(22, 0);
+        OffsetTime EndTime = ControllerUtils.GetNewTime("America/New_York", 22,0);
         ObservableList<String> EndTimeList = FXCollections.observableArrayList();
 
-        while (StartTime.isBefore(EndTime)) {
+        while (StartTime.isBefore(LocalTime.from(EndTime))) {
             StartTime = StartTime.plusMinutes(30);
             EndTimeList.add(StartTime.toString());
         }

@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.OffsetTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Objects;
 
 // Class contains methods that controllers share
@@ -41,5 +40,18 @@ public class ControllerUtils {
     @FXML
     public static void NavToReports(ActionEvent event) throws IOException {
         ControllerUtils.NavigateToWindow(event, "/View/ReportPage.fxml", "Reports");
+    }
+
+    public static OffsetTime GetNewTime(String OtherTimeZone, int hour, int minute) {
+        // Get System offset and compare to Other zone offset
+        OffsetTime OtherZoneOffset = OffsetTime.now(ZoneId.of(OtherTimeZone));
+        OffsetTime SystemOffsetTime = OffsetTime.now(ZoneId.systemDefault());
+        int hoursDiff = SystemOffsetTime.getHour() - OtherZoneOffset.getHour();
+
+        OffsetTime OldTime = OffsetTime.of(hour, minute, 0, 0, OtherZoneOffset.getOffset());
+
+        OffsetTime NewTime = OldTime.plusHours(hoursDiff);
+
+        return NewTime;
     }
 }
