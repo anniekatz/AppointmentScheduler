@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #fff5ed;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentPage">
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb598" height="156.0" layoutX="78.0" layoutY="434.0" stroke="BLACK" strokeType="INSIDE" width="684.0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffb598" height="156.0" layoutX="34.0" layoutY="431.0" stroke="BLACK" strokeType="INSIDE" width="684.0" />
     <Label layoutX="338.0" layoutY="14.0" text="Appointments" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="28.0" />
@@ -30,78 +30,77 @@
             <Font name="System Bold" size="13.0" />
         </font>
     </Button>
-    <Label layoutX="88.0" layoutY="442.0" text="Title" textAlignment="CENTER">
+    <Label layoutX="44.0" layoutY="439.0" text="Title" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <Label layoutX="88.0" layoutY="488.0" text="Description" textAlignment="CENTER">
+    <Label layoutX="44.0" layoutY="485.0" text="Description" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <Label layoutX="88.0" layoutY="535.0" text="Location" textAlignment="CENTER">
+    <Label layoutX="44.0" layoutY="532.0" text="Location" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <Label layoutX="425.0" layoutY="442.0" text="Contact" textAlignment="CENTER">
+    <Label layoutX="381.0" layoutY="439.0" text="Contact" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <Label layoutX="256.0" layoutY="535.0" text="Type" textAlignment="CENTER">
+    <Label layoutX="212.0" layoutY="532.0" text="Type" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <ComboBox fx:id="LocationComboBox" layoutX="88.0" layoutY="553.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
-    <TextField fx:id="TitleTextField" layoutX="88.0" layoutY="460.0" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <TextField fx:id="DescriptionTextField" layoutX="88.0" layoutY="506.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <Button fx:id="DeleteButton" layoutX="620.0" layoutY="544.0" mnemonicParsing="false" onAction="#DeleteAppointment" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Delete">
+    <TextField fx:id="TitleTextField" layoutX="44.0" layoutY="461.0" prefHeight="0.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
+    <TextField fx:id="DescriptionTextField" layoutX="44.0" layoutY="503.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
+    <Button fx:id="DeleteButton" layoutX="576.0" layoutY="541.0" mnemonicParsing="false" onAction="#DeleteAppointment" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Delete">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Button>
-    <Button fx:id="AddUpdateButton" layoutX="620.0" layoutY="504.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Add/Update">
+    <Button fx:id="AddUpdateButton" layoutX="576.0" layoutY="501.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="90.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Add/Update">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Button>
-    <TextField fx:id="TypeTextField" layoutX="256.0" layoutY="553.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <Label layoutX="256.0" layoutY="488.0" text="End" textAlignment="CENTER">
+    <TextField fx:id="TypeTextField" layoutX="212.0" layoutY="550.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
+    <Label layoutX="212.0" layoutY="485.0" text="End" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <DatePicker fx:id="EndDatePicker" layoutX="255.0" layoutY="506.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
-    <ComboBox fx:id="EndTimeComboBox" layoutX="339.0" layoutY="506.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
-    <Label layoutX="257.0" layoutY="442.0" text="Start" textAlignment="CENTER">
+    <DatePicker fx:id="EndDatePicker" layoutX="211.0" layoutY="503.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
+    <ComboBox fx:id="EndTimeComboBox" layoutX="295.0" layoutY="503.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
+    <Label layoutX="213.0" layoutY="439.0" text="Start" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <DatePicker fx:id="StartDatePicker" layoutX="256.0" layoutY="460.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
-    <ComboBox fx:id="StartTimeComboBox" layoutX="340.0" layoutY="460.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
-    <Label layoutX="425.0" layoutY="490.0" text="Customer ID" textAlignment="CENTER">
+    <DatePicker fx:id="StartDatePicker" layoutX="212.0" layoutY="457.0" prefHeight="26.0" prefWidth="83.0" style="-fx-background-color: #fffffa;" />
+    <ComboBox fx:id="StartTimeComboBox" layoutX="296.0" layoutY="457.0" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #fffff5;" />
+    <Label layoutX="381.0" layoutY="487.0" text="Customer" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <Label layoutX="425.0" layoutY="535.0" text="User ID" textAlignment="CENTER">
+    <Label layoutX="381.0" layoutY="532.0" text="User" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <Label layoutX="591.0" layoutY="442.0" text="Appointment ID" textAlignment="CENTER">
+    <Label layoutX="547.0" layoutY="439.0" text="Appointment ID" textAlignment="CENTER">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Label>
-    <TextField fx:id="AppointmentIDTextField" disable="true" layoutX="590.0" layoutY="460.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
-    <ComboBox fx:id="ContactComboBox" layoutX="424.0" layoutY="460.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
-   <ComboBox fx:id="CustIDComboBox" layoutX="425.0" layoutY="507.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
-   <ComboBox fx:id="UserIDComboBox" layoutX="425.0" layoutY="553.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
+    <TextField fx:id="AppointmentIDTextField" disable="true" layoutX="546.0" layoutY="457.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
+    <ComboBox fx:id="ContactComboBox" layoutX="380.0" layoutY="457.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
+   <ComboBox fx:id="CustIDComboBox" layoutX="381.0" layoutY="504.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
+   <ComboBox fx:id="UserIDComboBox" layoutX="381.0" layoutY="550.0" prefWidth="150.0" style="-fx-background-color: #fffff5;" />
    <TableView fx:id="ApptTable" layoutX="12.0" layoutY="103.0" prefHeight="319.0" prefWidth="820.0" style="-fx-background-color: #fffff5; -fx-border-color: #000000;">
       <columns>
          <TableColumn fx:id="ApptTableAppointmentIDColumn" prefWidth="66.3999662399292" text="Appt ID" />
@@ -139,4 +138,10 @@
          <Font size="13.0" />
       </font>
    </RadioButton>
+   <Button fx:id="ResetButton" layoutX="728.0" layoutY="434.0" mnemonicParsing="false" onAction="#ResetButtonClicked" prefHeight="52.0" prefWidth="102.0" style="-fx-background-color: #fffffa; -fx-border-color: #000000;" text="Reset Form / Deselect Item" wrapText="true">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font>
+   </Button>
+   <TextField fx:id="LocationTextField" layoutX="44.0" layoutY="550.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #fffffa;" />
 </AnchorPane>

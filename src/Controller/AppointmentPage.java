@@ -1,7 +1,13 @@
 package Controller;
 
 import Database.QueryTables.AppointmentsTable;
+import Database.QueryTables.ContactsTable;
+import Database.QueryTables.CustomersTable;
+import Database.QueryTables.UsersTable;
 import Model.Appointment;
+import Model.Contact;
+import Model.Customer;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentPage implements Initializable {
@@ -56,9 +61,9 @@ public class AppointmentPage implements Initializable {
     @FXML
     private TextField AppointmentIDTextField;
     @FXML
-    private ComboBox<?> ContactComboBox;
+    private ComboBox<String> ContactComboBox;
     @FXML
-    private ComboBox<?> CustIDComboBox;
+    private ComboBox<String> CustIDComboBox;
     @FXML
     private Button CustomersButton;
     @FXML
@@ -72,7 +77,7 @@ public class AppointmentPage implements Initializable {
     @FXML
     private Button AddUpdateButton;
     @FXML
-    private ComboBox<?> LocationComboBox;
+    private TextField LocationTextField;
     @FXML
     private Button ReportsButton;
     @FXML
@@ -84,7 +89,9 @@ public class AppointmentPage implements Initializable {
     @FXML
     private TextField TypeTextField;
     @FXML
-    private ComboBox<?> UserIDComboBox;
+    private ComboBox<String> UserIDComboBox;
+    @FXML
+    private Button ResetButton;
 
     // Initialize method
     @Override
@@ -103,8 +110,41 @@ public class AppointmentPage implements Initializable {
 
         ObservableList<Appointment> ApptList = AppointmentsTable.GetAppointments();
         ApptTable.setItems(ApptList);
+
+        // Initialize ComboBoxes
+        InitializeComboBoxes();
     }
 
+
+    // Initialize ComboBoxes
+    void InitializeComboBoxes() {
+        // Initialize Contact ComboBox
+        ObservableList<Contact> ContactList = ContactsTable.GetContacts();
+        ObservableList<String> ContactNames = FXCollections.observableArrayList();
+        for (Contact Contact : ContactList) {
+            ContactNames.add(Contact.getName());
+        }
+        ContactComboBox.setItems(ContactNames);
+        ContactComboBox.setEditable(true);
+
+        // Initialize UserID ComboBox
+        ObservableList<User> UserList = UsersTable.GetUsers();
+        ObservableList<String> UserNames = FXCollections.observableArrayList();
+        for (User User : UserList) {
+            UserNames.add(User.getUsername());
+        }
+        UserIDComboBox.setItems(UserNames);
+        UserIDComboBox.setEditable(true);
+
+        // Initialize CustomerID ComboBox
+        ObservableList<Customer> CustomerList = CustomersTable.GetCustomers();
+        ObservableList<String> CustomerNames = FXCollections.observableArrayList();
+        for (Customer Customer : CustomerList) {
+            CustomerNames.add(Customer.getCustomerName());
+        }
+        CustIDComboBox.setItems(CustomerNames);
+        CustIDComboBox.setEditable(true);
+    }
 
     // Filter appointment view by all, this month, or the next week
     @FXML
@@ -152,6 +192,21 @@ public class AppointmentPage implements Initializable {
         }
     }
 
+    @FXML
+    void ResetButtonClicked(ActionEvent event) {
+        AppointmentIDTextField.setText("");
+        ContactComboBox.setValue("");
+        CustIDComboBox.setValue("");
+        DescriptionTextField.setText("");
+        EndDatePicker.setValue(null);
+        EndTimeComboBox.setValue(null);
+        LocationTextField.setText("");
+        StartDatePicker.setValue(null);
+        StartTimeComboBox.setValue(null);
+        TitleTextField.setText("");
+        TypeTextField.setText("");
+        UserIDComboBox.setValue("");
+    }
     // Navigation button methods
     @FXML
     void NavToCustomers(ActionEvent event) throws IOException {
