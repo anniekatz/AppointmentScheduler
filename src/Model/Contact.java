@@ -2,6 +2,7 @@ package Model;
 
 // Model to represent a contact
 public class Contact {
+
     private int contactID;
     private String name;
     private String email;

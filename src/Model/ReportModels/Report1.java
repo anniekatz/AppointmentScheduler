@@ -2,6 +2,7 @@ package Model.ReportModels;
 
 // Model class for Report 1
 public class Report1 {
+
     // Report 1 variables
     private String type;
     private int total;

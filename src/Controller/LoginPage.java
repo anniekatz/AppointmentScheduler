@@ -24,6 +24,7 @@ import java.util.TimeZone;
 // Login Controller class implements initializable interface
 // This class is used by LoginPage view to log in the user
 public class LoginPage implements Initializable {
+
     // View variables
     @FXML
     private Label LangLabel;
@@ -44,12 +45,12 @@ public class LoginPage implements Initializable {
 
     // Initialize the login page
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Check user language and change label if necessary
         ChangeUserLanguage(rb);
         // Check user locale and replace label
-        CheckUserTZ();
+        CheckUserTZ(rb);
     }
 
     // Method to change language using Resource Bundle in Language package
@@ -66,12 +67,12 @@ public class LoginPage implements Initializable {
     }
 
     // Check user's system timezone
-    public void CheckUserTZ() {
+    public void CheckUserTZ(ResourceBundle rb) {
         if (TimeZone.getDefault().getID() != null) {
             // Set LocaleLabel to display user's timezone
-            LocaleLabel.setText(TimeZone.getDefault().getDisplayName());
+            LocaleLabel.setText(TimeZone.getDefault().getID());
         } else {
-            LocaleLabel.setText("Error getting timezone");
+            LocaleLabel.setText(rb.getString("TimezoneError"));
         }
     }
 

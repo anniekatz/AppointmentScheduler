@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 
 // Model class for Report 2
 public class Report2 {
+
     // Report 2 variables
     private int appointmentID;
     private String title;

@@ -2,6 +2,7 @@ package Model;
 
 // Model to represent a customer
 public class Customer {
+
     private int customerID;
     private String customerName;
     private String customerAddress;

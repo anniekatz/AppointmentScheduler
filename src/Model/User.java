@@ -2,6 +2,7 @@ package Model;
 
 // Model to represent a user
 public class User {
+    
     // User variables
     private int userID;
     private String username;

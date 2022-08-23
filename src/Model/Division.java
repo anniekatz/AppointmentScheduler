@@ -2,6 +2,7 @@ package Model;
 
 // Model to represent a division
 public class Division {
+
     // Division variables
     private int divisionID;
     private String divisionName;

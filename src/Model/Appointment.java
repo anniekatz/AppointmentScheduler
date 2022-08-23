@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 // Model to represent an appointment
 public class Appointment {
+
     private int appointmentID;
     private String title;
     private String description;

@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 
 // Controller Class used by HomePage view to represent a home page upon successful user login
 public class HomePage {
+
     // Navigation button variables
     @FXML
     public Button AppointmentsButton;

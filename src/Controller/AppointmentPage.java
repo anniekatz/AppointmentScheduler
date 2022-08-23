@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 // Appointment Controller class implements Initializable interface
 // This class is used by AppointmentPage view to view, create, update, and delete appointments
 public class AppointmentPage implements Initializable {
+
     // Variable declaration
     // Toggle filter variables to filter appointments by month or week
     @FXML

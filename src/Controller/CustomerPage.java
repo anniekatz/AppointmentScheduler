@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 // Customer Page Controller implements Initializable interface
 // This class is used by CustomerPage view to view, add, edit, and delete customers
 public class CustomerPage implements Initializable {
+
     // Navigation buttons= variables
     @FXML
     private Button ReportsButton;

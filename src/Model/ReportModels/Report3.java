@@ -2,6 +2,7 @@ package Model.ReportModels;
 
 // Model class for Report 3
 public class Report3 {
+
     // Report 3 variables
     private int customerID;
     private int totalFuture;

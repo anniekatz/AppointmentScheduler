@@ -2,6 +2,7 @@ package Model;
 
 // Model to represent a country
 public class Country {
+
     private int countryID;
     private String countryName;
 
