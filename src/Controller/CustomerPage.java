@@ -19,17 +19,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-// Customer Page Controller implements Initializable interface
-// This class is used by CustomerPage view to view, add, edit, and delete customers
+/**
+ * CustomerPage Controller class is used to view, add, edit, and delete customers in a CustomerPage view
+ * Implements Initializable interface
+ */
 public class CustomerPage implements Initializable {
 
-    // Navigation button variables
     @FXML
     private Button ReportsButton;
     @FXML
     private Button AppointmentsButton;
-
-    // Customer TableView Variables
     @FXML
     public TableView<Customer> CustomerTable;
     @FXML
@@ -44,8 +43,6 @@ public class CustomerPage implements Initializable {
     public TableColumn<Customer, String> CustomerTablePhoneColumn;
     @FXML
     public TableColumn<Customer, String> CustomerTablePostalCodeColumn;
-
-    // Creating/Updating/Deleting Form Variables
     @FXML
     private Button AddUpdateButton;
     @FXML
@@ -67,11 +64,19 @@ public class CustomerPage implements Initializable {
     @FXML
     private TextField PostalCodeTextField;
 
-    // Initialize customer page upon open
+    /**
+     * Method initializes the CustomerPage controller class.
+     * It initializes customer tableview, combo box data, and listener for row selection/deselection.
+     * Lambda expression is a JavaFX Listener method for row selection/deselection
+     *      Lambda is ideal as this custom JavaFX method is only used in one function and is only used in this page
+     *      Lambda adds table listener to PopulateForm when row is selected and depopulates form upon deselection (using reset button)
+     * @param url The url location used to resolve relative paths for the root; is considered null if the location is not known.
+     * @param resourceBundle The resources used to localize the root; is considered null if the root was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Initialize Customer TableView with data from database
+        // Initialize customer tableview
         CustomerTableCustomerIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("CustomerID"));
         CustomerTableNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerName"));
         CustomerTableAddressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustomerAddress"));
@@ -81,12 +86,10 @@ public class CustomerPage implements Initializable {
         ObservableList<Customer> FullCustomersList = CustomersTable.getCustomers();
         CustomerTable.setItems(FullCustomersList);
 
-        // Initialize Combo Boxes with valid data
+        // Initialize valid combo box data
         InitializeComboBox();
 
-        // JavaFX Listener Lambda method
-        // Lambda is ideal as this custom JavaFX method is only used in one function and is only used in this page
-        // Add table listener to PopulateForm when row is selected and depopulates form upon deselection (using reset button)
+        // Lambda expression for listener for row selection/deselection and form population/depopulation
         CustomerTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Populate form with selected row data
@@ -96,18 +99,10 @@ public class CustomerPage implements Initializable {
         });
     }
 
-    // Initialize Combo Boxes with valid data from database
-    void InitializeComboBox() {
-        ObservableList<Country> CountriesList = CountriesTable.getCountries();
-        ObservableList<String> CountryNamesList = FXCollections.observableArrayList();
-        for (Country Country : CountriesList) {
-            CountryNamesList.add(Country.getCountry());
-        }
-        CountryComboBox.setItems(CountryNamesList);
-        CountryComboBox.setEditable(true);
-    }
-
-    // Populate form based on selected customer row
+    /**
+     * Method populates form based on selected customer row.
+     * @param SelectedCustomer Customer object from row selection
+     */
     void PopulateForm(Customer SelectedCustomer) {
         CustomerIDTextField.setText(Integer.toString(SelectedCustomer.getCustomerID()));
         NameTextField.setText(SelectedCustomer.getCustomerName());
@@ -118,7 +113,23 @@ public class CustomerPage implements Initializable {
         CountryComboBox.setValue(GetCustomerCountry(SelectedCustomer.getDivisionID()));
     }
 
-    // After country is chosen, populate division combo box with valid divisions for that country
+    /**
+     * Method initializes valid data for the country combo box
+     * Adds all countries from database for selection
+     */
+    void InitializeComboBox() {
+        ObservableList<Country> CountriesList = CountriesTable.getCountries();
+        ObservableList<String> CountryNamesList = FXCollections.observableArrayList();
+        for (Country Country : CountriesList) {
+            CountryNamesList.add(Country.getCountry());
+        }
+        CountryComboBox.setItems(CountryNamesList);
+        CountryComboBox.setEditable(true);
+    }
+
+    /** Method runs after country is chosen; populates division combo box with valid divisions for that country
+     * @param event ActionEvent that is triggered when country is chosen from combo box
+     */
     @FXML
     void ChooseCountryComboBox(ActionEvent event) {
         // Create division lists for different countries
@@ -147,7 +158,10 @@ public class CustomerPage implements Initializable {
         DivisionComboBox.setEditable(true);
     }
 
-    // Get division name from division ID to ensure valid data in combo box
+    /** Method gets division name from customer's division ID to ensure valid, readable data in combo box
+     * @param DivisionID
+     * @return String division name to fill combo box
+     */
     String GetCustomerDivision(int DivisionID) {
         ObservableList<Division> DivisionsList = DivisionsTable.getDivisions();
         String Name = "";
@@ -160,7 +174,10 @@ public class CustomerPage implements Initializable {
         return Name;
     }
 
-    // Get country name from division ID to ensure valid data in combo box
+    /** Get country name from customer's division ID to ensure valid data in division combo box
+     * @param DivisionID Division ID to get country name from
+     * @return String country name to fill country combo box upon customer selection
+     * */
     String GetCustomerCountry(int DivisionID) {
         ObservableList<Division> DivisionsList = DivisionsTable.getDivisions();
         ObservableList<Country> CountriesList = CountriesTable.getCountries();
