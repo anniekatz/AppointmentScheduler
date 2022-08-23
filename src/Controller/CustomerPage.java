@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 // This class is used by CustomerPage view to view, add, edit, and delete customers
 public class CustomerPage implements Initializable {
 
-    // Navigation buttons= variables
+    // Navigation button variables
     @FXML
     private Button ReportsButton;
     @FXML
@@ -85,8 +85,8 @@ public class CustomerPage implements Initializable {
         InitializeComboBox();
 
         // JavaFX Listener Lambda method
-        // Lambda is ideal as this method is only used in one function in only this class
-        // Add table listener to PopulateForm when row is selected
+        // Lambda is ideal as this custom JavaFX method is only used in one function and is only used in this page
+        // Add table listener to PopulateForm when row is selected and depopulates form upon deselection (using reset button)
         CustomerTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Populate form with selected row data

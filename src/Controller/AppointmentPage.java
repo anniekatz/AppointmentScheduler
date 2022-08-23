@@ -122,8 +122,8 @@ public class AppointmentPage implements Initializable {
         EndDatePicker.setEditable(false);
 
         // JavaFX Lambda expression for tableview row selection listener
-        // Lambda is ideal as this custom method is called only for this form
-        // Populate form with selected appointment info
+        // Lambda is ideal as this custom JavaFX listener method is called only for this form and it is only called in one method
+        // Populate form with selected appointment info, and depopulate form upon deselection
         ApptTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Appointment appointment = ApptTable.getSelectionModel().getSelectedItem();
