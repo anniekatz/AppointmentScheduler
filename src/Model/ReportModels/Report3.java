@@ -1,26 +1,27 @@
 package Model.ReportModels;
 
-
+// Model class for Report 3
 public class Report3 {
-    private int CustomerID;
-    private int TotalFuture;
-    private int TotalPast;
+    // Report 3 variables
+    private int customerID;
+    private int totalFuture;
+    private int totalPast;
 
-
-    public Report3(int CustomerID, int TotalFuture, int TotalPast) {
-        this.CustomerID = CustomerID;
-        this.TotalFuture = TotalFuture;
-        this.TotalPast = TotalPast;
+    // Report3 constructor
+    public Report3(int customerID, int totalFuture, int totalPast) {
+        this.customerID = customerID;
+        this.totalFuture = totalFuture;
+        this.totalPast = totalPast;
     }
 
+    // Get Report 3 information methods
     public int getCustomerID() {
-        return CustomerID;
+        return customerID;
     }
-
     public int getTotalFuture() {
-        return TotalFuture;
+        return totalFuture;
     }
     public int getTotalPast() {
-        return TotalPast;
+        return totalPast;
     }
 }

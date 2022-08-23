@@ -1,29 +1,28 @@
 package Model;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
+// Model to represent a user
 public class User {
-    private int UserID;
-    private String Username;
-    private String Password;
+    // User variables
+    private int userID;
+    private String username;
+    private String password;
 
 
     // User constructor
-    public User(int UserID, String Username, String Password) {
-        this.UserID = UserID;
-        this.Username = Username;
-        this.Password = Password;
+    public User(int userID, String username, String password) {
+        this.userID = userID;
+        this.username = username;
+        this.password = password;
     }
 
-    // Get methods
+    // Get user information methods
     public int getUserID() {
-        return UserID;
+        return userID;
     }
     public String getUsername() {
-        return Username;
+        return username;
     }
     public String getPassword() {
-        return Password;
+        return password;
     }
 }

@@ -9,54 +9,71 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Class to query customers table in database
 public class CustomersTable {
-    public static ObservableList<Customer> GetCustomers() {
-        ObservableList<Customer> CustomerList = FXCollections.observableArrayList();
-
+    // Get full customers table
+    public static ObservableList<Customer> getCustomers() {
+        // Initialize empty Observable List
+        ObservableList<Customer> customerList = FXCollections.observableArrayList();
         try {
-        String Query = "SELECT * FROM customers;";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
-        ResultSet RS = PS.getResultSet();
-
-        while (RS.next()) {
-            int CustomerID = RS.getInt("Customer_ID");
-            String CustomerName = RS.getString("Customer_Name");
-            String CustomerAddress = RS.getString("Address");
-            String CustomerZipCode = RS.getString("Postal_Code");
-            String CustomerPhone = RS.getString("Phone");
-            int DivisionID = RS.getInt("Division_ID");
-
-            Customer NewCustomer = new Customer(CustomerID, CustomerName, CustomerAddress, CustomerPhone, CustomerZipCode, DivisionID);
-            CustomerList.add(NewCustomer);
-        }}
-        catch (SQLException e) {
+            // Query to get all customers
+            String query = "SELECT * FROM customers;";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            // Loop through records to get data for all customers
+            while (RS.next()) {
+                int customerID = RS.getInt("Customer_ID");
+                String customerName = RS.getString("Customer_Name");
+                String customerAddress = RS.getString("Address");
+                String customerZipCode = RS.getString("Postal_Code");
+                String customerPhone = RS.getString("Phone");
+                int divisionID = RS.getInt("Division_ID");
+                // Add each customer to Observable List
+                Customer newCustomer = new Customer(customerID, customerName, customerAddress, customerPhone, customerZipCode, divisionID);
+                customerList.add(newCustomer);
+        }} catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return CustomerList;
+        return customerList;
     }
 
-    // Delete customer from database
-    public static void DeleteCustomer(int CustomerID) throws SQLException {
-        String Query = "DELETE FROM customers WHERE Customer_ID =  '" + CustomerID + "';";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
+    // Method to delete customer from database
+    public static void deleteCustomer(int customerID) {
+        try {
+            // Query to delete customer based on ID
+            String query = "DELETE FROM customers WHERE Customer_ID =  '" + customerID + "';";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    // Update customer in database
-    public static void UpdateCustomer(int CustomerID, String CustomerName, String CustomerAddress, String CustomerZipCode, String CustomerPhone, int DivisionID) throws SQLException {
-        // Update Customer in customers table where Customer_ID = CustomerID
-        String Query = "UPDATE customers SET Customer_Name = '" + CustomerName + "', Address = '" + CustomerAddress + "', Postal_Code = '" + CustomerZipCode + "', Phone = '" + CustomerPhone + "', Division_ID = '" + DivisionID + "' WHERE Customer_ID = '" + CustomerID + "';";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
+    // Method to update customer info in database
+    public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerZipCode, String customerPhone, int divisionID) {
+        try {
+        // Update customer in customers table where Customer_ID = customerID
+        String query = "UPDATE customers SET Customer_Name = '" + customerName + "', Address = '" + customerAddress + "', Postal_Code = '" + customerZipCode + "', Phone = '" + customerPhone + "', Division_ID = '" + divisionID + "' WHERE Customer_ID = '" + customerID + "';";
+        QueryUtils.setPS(query);
+        PreparedStatement PS = QueryUtils.getPS();
         PS.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
-    public static void AddCustomer(String CustomerName, String CustomerAddress, String CustomerZipCode, String CustomerPhone, int DivisionID) throws SQLException {
-        String Query = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES ('" + CustomerName + "', '" + CustomerAddress + "', '" + CustomerZipCode + "', '" + CustomerPhone + "', '" + DivisionID + "');";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
+    // Method to add new customer to database
+    public static void addCustomer(String customerName, String customerAddress, String customerZipCode, String customerPhone, int divisionID) {
+        try {
+            // Query to add new customer to customers table and generate new Customer ID
+            String query = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES ('" + customerName + "', '" + customerAddress + "', '" + customerZipCode + "', '" + customerPhone + "', '" + divisionID + "');";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

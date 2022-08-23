@@ -2,42 +2,43 @@ package Model;
 
 import java.time.LocalDateTime;
 
+// Model to represent an appointment
 public class Appointment {
-    private int AppointmentID;
-    private String Title;
-    private String Description;
-    private String Location;
-    private String Type;
-    private LocalDateTime Start;
-    private LocalDateTime End;
-    private int CustomerID;
-    private int UserID;
-    private int ContactID;
+    private int appointmentID;
+    private String title;
+    private String description;
+    private String location;
+    private String type;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private int customerID;
+    private int userID;
+    private int contactID;
 
     // Appointment constructor
-    public Appointment(int AppointmentID, String Title, String Description, String Location, String Type, LocalDateTime Start, LocalDateTime End, int CustomerID, int UserID, int ContactID) {
-        this.AppointmentID = AppointmentID;
-        this.Title = Title;
-        this.Description = Description;
-        this.Location = Location;
-        this.Type = Type;
-        this.Start = Start;
-        this.End = End;
-        this.CustomerID = CustomerID;
-        this.UserID = UserID;
-        this.ContactID = ContactID;
+    public Appointment(int appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
+        this.appointmentID = appointmentID;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.customerID = customerID;
+        this.userID = userID;
+        this.contactID = contactID;
     }
 
-    // Get methods
-    public int getAppointmentID() { return AppointmentID; }
-    public String getTitle() { return Title; }
-    public String getDescription() { return Description; }
-    public String getLocation() { return Location; }
-    public String getType() { return Type; }
-    public LocalDateTime getStart() { return Start; }
-    public LocalDateTime getEnd() { return End; }
-    public int getCustomerID() { return CustomerID; }
-    public int getUserID() { return UserID; }
-    public int getContactID() { return ContactID; }
+    // Get appointment data methods
+    public int getAppointmentID() { return appointmentID; }
+    public String getTitle() { return title; }
+    public String getDescription() { return description; }
+    public String getLocation() { return location; }
+    public String getType() { return type; }
+    public LocalDateTime getStart() { return start; }
+    public LocalDateTime getEnd() { return end; }
+    public int getCustomerID() { return customerID; }
+    public int getUserID() { return userID; }
+    public int getContactID() { return contactID; }
 
 }

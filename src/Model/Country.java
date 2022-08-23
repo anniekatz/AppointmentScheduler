@@ -1,23 +1,22 @@
 package Model;
 
-import java.time.LocalDateTime;
-
+// Model to represent a country
 public class Country {
-    private int CountryID;
-    private String Country;
+    private int countryID;
+    private String countryName;
 
     // Country constructor
-    public Country(int CountryID, String Country) {
-        this.CountryID = CountryID;
-        this.Country = Country;
+    public Country(int countryID, String countryName) {
+        this.countryID = countryID;
+        this.countryName = countryName;
     }
 
-    // Get methods
+    // Get country information methods
     public int getCountryID() {
-        return CountryID;
+        return countryID;
     }
     public String getCountry() {
-        return Country;
+        return countryName;
     }
 }
 

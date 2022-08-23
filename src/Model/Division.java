@@ -1,28 +1,28 @@
 package Model;
 
-import java.time.LocalDateTime;
-
+// Model to represent a division
 public class Division {
-    private int DivisionID;
-    private String DivisionName;
-    private int CountryID;
+    // Division variables
+    private int divisionID;
+    private String divisionName;
+    private int countryID;
 
-    // Divison constructor
-    public Division(int DivisionID, String DivisionName, int CountryID) {
-        this.DivisionID = DivisionID;
-        this.DivisionName = DivisionName;
-        this.CountryID = CountryID;
+    // Division constructor
+    public Division(int divisionID, String divisionName, int countryID) {
+        this.divisionID = divisionID;
+        this.divisionName = divisionName;
+        this.countryID = countryID;
     }
 
-    // Get methods
+    // Get division information methods
     public int getDivisionID() {
-        return DivisionID;
+        return divisionID;
     }
     public String getDivisionName() {
-        return DivisionName;
+        return divisionName;
     }
     public int getCountryID() {
-        return CountryID;
+        return countryID;
     }
 }
 

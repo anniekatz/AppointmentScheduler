@@ -4,36 +4,37 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// Establish connection to MySQL database
+// Class to establish connection to MySQL database
 public abstract class ConnectDB {
-    // TODO: Check which database to use, whether local or WGU remote
-    // Local URL parts
-    private static final String DBProtocol = "jdbc:";
-    private static final String DBVendor = "mysql:";
-    private static final String DBServer = "//localhost:3306/";
-    private static final String DBName = "client_schedule";
-    private static final String DBTZServer = "?connectionTimeZone=SERVER";
+
+    // Local database connectors
+    private static final String dbProtocol = "jdbc:";
+    private static final String dbVendor = "mysql:";
+    private static final String dbServer = "//localhost:3306/";
+    private static final String dbName = "client_schedule";
+    private static final String dbTZServer = "?connectionTimeZone=SERVER";
 
     // Final URL for connecting to local database
-    private static final String JDBC_URL = DBProtocol + DBVendor + DBServer + DBName + DBTZServer;
+    private static final String jdbcURL = dbProtocol + dbVendor + dbServer + dbName + dbTZServer;
 
 
     // Add database driver, username, and password
-    private static final String DB_Driver = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_User = "sqlUser";
-    private static final String DB_Pass = "Passw0rd!";
+    private static final String dbDriver = "com.mysql.cj.jdbc.Driver";
+    private static final String dbUser = "sqlUser";
+    private static final String dbPass = "Passw0rd!";
 
-    // Connection variable
-    public static Connection DBConnection;
+    // Create Connection variable
+    public static Connection dbConnection;
 
     // Method to connect to database upon program open
-    public static void Connect() {
+    // Used in main method
+    public static void dbConnect() {
         try {
-            Class.forName(DB_Driver);
-            DBConnection = DriverManager.getConnection(JDBC_URL, DB_User, DB_Pass);
+            Class.forName(dbDriver);
+            dbConnection = DriverManager.getConnection(jdbcURL, dbUser, dbPass);
             System.out.println("Database successfully connected.");
         } catch (SQLException e) {
-            System.out.println("Error: Connection Failed. Check output console.");
+            System.out.println("Error: Database connection failed.");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Error: Database driver not found.");
@@ -41,15 +42,15 @@ public abstract class ConnectDB {
         }
     }
 
-    // Method to disconnect from database once program is closed
-    public static void Disconnect() {
+    // Method to disconnect from database once GUI is closed
+    // Used in main method
+    public static void dbDisconnect() {
         try {
-            DBConnection.close();
+            dbConnection.close();
             System.out.println("Database successfully disconnected.");
         } catch (SQLException e) {
-            System.out.println("Error: Disconnect Failed. Check output console.");
+            System.out.println("Error: Database disconnect Failed.");
             e.printStackTrace();
         }
     }
-
 }

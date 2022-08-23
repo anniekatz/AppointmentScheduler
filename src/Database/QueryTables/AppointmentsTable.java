@@ -2,8 +2,6 @@ package Database.QueryTables;
 
 import Database.QueryUtils;
 import Model.Appointment;
-import Model.Contact;
-import Model.Customer;
 import Model.ReportModels.Report1;
 import Model.ReportModels.Report2;
 import Model.ReportModels.Report3;
@@ -15,136 +13,160 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+// Class to query appointments table in database
 public class AppointmentsTable {
 
-    public static ObservableList<Appointment> GetAppointments() {
-        ObservableList<Appointment> AppointmentList = FXCollections.observableArrayList();
-
+    // Get full appointments table
+    public static ObservableList<Appointment> getAppointments() {
+        // Initialize Observable List
+        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        // Create query to get all appointments
         try {
-            String Query = "SELECT * FROM appointments;";
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
+            String query = "SELECT * FROM appointments;";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
             PS.execute();
             ResultSet RS = PS.getResultSet();
 
-            // Get appointments from database
+            // Loop through records to get data for all appointments
             while (RS.next()) {
-                int AppointmentID = RS.getInt("Appointment_ID");
-                String Title = RS.getString("Title");
-                String Description = RS.getString("Description");
-                String Location = RS.getString("Location");
-                String Type = RS.getString("Type");
-                LocalDateTime Start = RS.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime End = RS.getTimestamp("End").toLocalDateTime();
-                int CustomerID = RS.getInt("Customer_ID");
-                int UserID = RS.getInt("User_ID");
-                int ContactID = RS.getInt("Contact_ID");
+                int appointmentID = RS.getInt("Appointment_ID");
+                String title = RS.getString("Title");
+                String description = RS.getString("Description");
+                String location = RS.getString("Location");
+                String type = RS.getString("Type");
+                LocalDateTime start = RS.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime end = RS.getTimestamp("End").toLocalDateTime();
+                int customerID = RS.getInt("Customer_ID");
+                int userID = RS.getInt("User_ID");
+                int contactID = RS.getInt("Contact_ID");
 
-                Appointment NewAppointment = new Appointment(AppointmentID, Title, Description, Location, Type, Start, End, CustomerID, UserID, ContactID);
-                AppointmentList.add(NewAppointment);
+                // Add each appointment to Observable List
+                Appointment newAppointment = new Appointment(appointmentID, title, description, location, type, start, end, customerID, userID, contactID);
+                appointmentList.add(newAppointment);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return AppointmentList;
+        return appointmentList;
     }
 
-    public static void AddAppointment(String Title, String Description, String Location, String Type, String Start, String End, int CustomerID, int UserID, int ContactID) throws SQLException {
-        String Query = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES ('" + Title + "', '" + Description + "', '" + Location + "', '" + Type + "', '" + Start + "', '" + End + "', '" + CustomerID + "', '" + UserID + "', '" + ContactID + "');";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
+    // Method to add an appointment to database
+    public static void addAppointment(String title, String description, String location, String type, String start, String end, int customerID, int userID, int contactID) {
+        try {
+            // Insert into appointments table; DB will automatically assign an appointment ID
+            String query = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES ('" + title + "', '" + description + "', '" + location + "', '" + type + "', '" + start + "', '" + end + "', '" + customerID + "', '" + userID + "', '" + contactID + "');";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Method to update existing appointment in database
+    public static void updateAppointment(int appointmentID, String title, String description, String location, String type, String start, String end, int customerID, int userID, int contactID) {
+        try {
+        // Update Appointment in appointments table where Appointment_ID = appointmentID
+        String query = "UPDATE appointments SET Title = '" + title + "', Description = '" + description + "', Location = '" + location + "', Type = '" + type + "', Start = '" + start + "', End = '" + end + "', Customer_ID = '" + customerID + "', User_ID = '" + userID + "', Contact_ID = '" + contactID + "' WHERE Appointment_ID = '" + appointmentID + "';";
+        QueryUtils.setPS(query);
+        PreparedStatement PS = QueryUtils.getPS();
         PS.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void UpdateAppointment(int AppointmentID, String Title, String Description, String Location, String Type, String Start, String End, int CustomerID, int UserID, int ContactID) throws SQLException {
-        // Update Appointment in appointments table where Appointment_ID = AppointmentID
-        String Query = "UPDATE appointments SET Title = '" + Title + "', Description = '" + Description + "', Location = '" + Location + "', Type = '" + Type + "', Start = '" + Start + "', End = '" + End + "', Customer_ID = '" + CustomerID + "', User_ID = '" + UserID + "', Contact_ID = '" + ContactID + "' WHERE Appointment_ID = '" + AppointmentID + "';";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
-    }
-
-    public static void DeleteAppointment(int AppointmentID) {
+    // Method to delete an appointment from database
+    public static void deleteAppointment(int appointmentID) {
         try {
-            String Query = "DELETE FROM appointments WHERE Appointment_ID = ?;";
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
-            PS.setInt(1, AppointmentID);
+            // Delete appointment from appointments table if appointment ID matches
+            String query = "DELETE FROM appointments WHERE Appointment_ID = '" + appointmentID + "';";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
             PS.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static ObservableList<Report1> GetReport1(String Month) {
-        ObservableList<Report1> Report1List = FXCollections.observableArrayList();
+    // Method to generate Report 1 based on appointments table
+    public static ObservableList<Report1> generateReport1(String month) {
+        // Initialize empty Observable List
+        ObservableList<Report1> report1List = FXCollections.observableArrayList();
+        // Create query to get num appointments for given month by type
         try {
-            String Query = "SELECT Type, COUNT(*) AS Total FROM appointments WHERE MONTHNAME(Start) = '" + Month + "' GROUP BY Type;";
-            if (Month.equals("All Months")) {
-                Query = "SELECT Type, COUNT(*) AS Total FROM appointments GROUP BY Type;";
+            String query = "SELECT Type, COUNT(*) AS Total FROM appointments WHERE MONTHNAME(Start) = '" + month + "' GROUP BY Type;";
+            if (month.equals("All Months")) {
+                query = "SELECT Type, COUNT(*) AS Total FROM appointments GROUP BY Type;";
             }
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
-            PS.execute();
-            ResultSet RS = PS.getResultSet();
-            while (RS.next()) {
-                String Type = RS.getString("Type");
-                int Total = RS.getInt("Total");
-                Report1 NewReport = new Report1(Type, Total);
-                Report1List.add(NewReport);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return Report1List;
-    }
-
-    public static ObservableList<Report2> GetReport2(int ContactID) {
-        ObservableList<Report2> Report2List = FXCollections.observableArrayList();
-        try {
-            String Query = "SELECT * FROM appointments WHERE Contact_ID = '" + ContactID + "';";
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
             PS.execute();
             ResultSet RS = PS.getResultSet();
+            // Loop through records to add to Report 1 list
             while (RS.next()) {
-                int AppointmentID = RS.getInt("Appointment_ID");
-                String Title = RS.getString("Title");
-                String Type = RS.getString("Type");
-                String Description = RS.getString("Description");
-                LocalDateTime Start = RS.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime End = RS.getTimestamp("End").toLocalDateTime();
-                int CustomerID = RS.getInt("Customer_ID");
-                Report2 NewReport = new Report2(AppointmentID, Title, Type, Description, Start, End, CustomerID);
-                Report2List.add(NewReport);
+                String type = RS.getString("Type");
+                int total = RS.getInt("Total");
+                Report1 newReport = new Report1(type, total);
+                report1List.add(newReport);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return Report2List;
+        return report1List;
     }
 
-    public static ObservableList<Report3> GetReport3() {
-        ObservableList<Report3> Report3List = FXCollections.observableArrayList();
+    // Method to generate Report 2 based on appointments table
+    public static ObservableList<Report2> generateReport2(int contactID) {
+        // Initialize empty Observable List
+        ObservableList<Report2> report2List = FXCollections.observableArrayList();
+        // Query to get appointments by contact ID
         try {
-            // get total number of appointments per customer ID
-            String Query = "SELECT Customer_ID, Count(*) as TotalCount, sum(case when Start > CURRENT_TIMESTAMP then 1 else 0 end) as TotalFuture, sum(case when Start < CURRENT_TIMESTAMP then 1 else 0 end) as TotalPast from appointments group by Customer_ID;";
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
+            String query = "SELECT * FROM appointments WHERE Contact_ID = '" + contactID + "';";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
             PS.execute();
             ResultSet RS = PS.getResultSet();
+            // loop through result set and add to Report 2 list
             while (RS.next()) {
-                int CustomerID = RS.getInt("Customer_ID");
-                int TotalFuture = RS.getInt("TotalFuture");
-                int TotalPast = RS.getInt("TotalPast");
-                Report3 NewReport = new Report3(CustomerID, TotalFuture, TotalPast);
-                Report3List.add(NewReport);
+                int appointmentID = RS.getInt("Appointment_ID");
+                String title = RS.getString("Title");
+                String type = RS.getString("Type");
+                String description = RS.getString("Description");
+                LocalDateTime start = RS.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime end = RS.getTimestamp("End").toLocalDateTime();
+                int customerID = RS.getInt("Customer_ID");
+                Report2 newReport = new Report2(appointmentID, title, type, description, start, end, customerID);
+                report2List.add(newReport);
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return Report3List;
+        return report2List;
     }
 
+    // Method to generate Report 3 based on appointments table
+    public static ObservableList<Report3> generateReport3() {
+        ObservableList<Report3> report3List = FXCollections.observableArrayList();
+        try {
+            // Query to get total number of appointments, future appointments, and past appointments per customer ID
+            String query = "SELECT Customer_ID, Count(*) as TotalCount, sum(case when Start > CURRENT_TIMESTAMP then 1 else 0 end) as TotalFuture, sum(case when Start < CURRENT_TIMESTAMP then 1 else 0 end) as TotalPast from appointments group by Customer_ID;";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            // Loop through result set and add to Report 3 list
+            while (RS.next()) {
+                int customerID = RS.getInt("Customer_ID");
+                int totalFuture = RS.getInt("TotalFuture");
+                int totalPast = RS.getInt("TotalPast");
+                Report3 newReport = new Report3(customerID, totalFuture, totalPast);
+                report3List.add(newReport);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return report3List;
+    }
 }

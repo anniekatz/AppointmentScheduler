@@ -1,19 +1,22 @@
 package Model.ReportModels;
 
+// Model class for Report 1
 public class Report1 {
-    private String Type;
-    private int Total;
+    // Report 1 variables
+    private String type;
+    private int total;
 
-    public Report1(String Type, int Total) {
-        this.Type = Type;
-        this.Total = Total;
+    // Report 1 constructor
+    public Report1(String type, int total) {
+        this.type = type;
+        this.total = total;
     }
 
+    // Get Report 1 information methods
     public String getType() {
-        return Type;
+        return type;
     }
-
     public int getTotal() {
-        return Total;
+        return total;
     }
 }

@@ -1,22 +1,23 @@
 package Model;
 
+// Model to represent a contact
 public class Contact {
-    private int ContactID;
-    private String Name;
-    private String Email;
+    private int contactID;
+    private String name;
+    private String email;
 
     // Contact constructor
-    public Contact(int ContactID, String Name, String Email) {
-        this.ContactID = ContactID;
-        this.Name = Name;
-        this.Email = Email;
+    public Contact(int contactID, String name, String email) {
+        this.contactID = contactID;
+        this.name = name;
+        this.email = email;
     }
 
-    // Get methods
-    public int getContactID() { return ContactID; }
-    public String getName() { return Name; }
+    // Get contact information methods
+    public int getContactID() { return contactID; }
+    public String getName() { return name; }
     public String getEmail() {
-        return Email;
+        return email;
     }
 
 }

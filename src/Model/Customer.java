@@ -1,50 +1,40 @@
 package Model;
 
-import java.time.LocalDateTime;
-
+// Model to represent a customer
 public class Customer {
-    private int CustomerID;
-    private String CustomerName;
-    private String CustomerAddress;
-    private String CustomerZipCode;
-    private String CustomerPhone;
-    private int DivisionID;
+    private int customerID;
+    private String customerName;
+    private String customerAddress;
+    private String customerZipCode;
+    private String customerPhone;
+    private int divisionID;
 
     // Customer constructor
-    public Customer(int CustomerID, String CustomerName, String CustomerAddress, String CustomerZipCode, String CustomerPhone, int DivisionID) {
-        this.CustomerID = CustomerID;
-        this.CustomerName = CustomerName;
-        this.CustomerAddress = CustomerAddress;
-        this.CustomerZipCode = CustomerZipCode;
-        this.CustomerPhone = CustomerPhone;
-        this.DivisionID = DivisionID;
+    public Customer(int customerID, String customerName, String customerAddress, String customerZipCode, String customerPhone, int divisionID) {
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerZipCode = customerZipCode;
+        this.customerPhone = customerPhone;
+        this.divisionID = divisionID;
     }
 
-    // Get methods
+    // Get customer information methods
     public int getCustomerID() {
-        return CustomerID;
+        return customerID;
     }
     public String getCustomerName() {
-        return CustomerName;
+        return customerName;
     }
     public String getCustomerAddress() {
-        return CustomerAddress;
+        return customerAddress;
     }
     public String getCustomerZipCode() {
-        return CustomerZipCode;
+        return customerZipCode;
     }
-    public String getCustomerPhone() { return CustomerPhone; }
+    public String getCustomerPhone() { return customerPhone; }
     public int getDivisionID() {
-        return DivisionID;
+        return divisionID;
     }
-
-
-    // Set methods
-    public void setCustomerID(int CustomerID) { this.CustomerID = CustomerID; }
-    public void setCustomerName(String CustomerName) { this.CustomerName = CustomerName; }
-    public void setCustomerAddress(String CustomerAddress) { this.CustomerAddress = CustomerAddress; }
-    public void setCustomerZipCode(String CustomerZipCode) { this.CustomerZipCode = CustomerZipCode; }
-    public void setCustomerPhone(String CustomerPhone) { this.CustomerPhone = CustomerPhone; }
-    public void setDivisionID(int DivisionID) { this.DivisionID = DivisionID; }
 
 }

@@ -8,31 +8,32 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
+// Class to query divisions table in database
 public class DivisionsTable {
-    public static ObservableList<Division> GetDivisions() {
-        ObservableList<Division> DivisionList = FXCollections.observableArrayList();
-try {
-        String Query = "SELECT * FROM first_level_divisions;";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
-        ResultSet RS = PS.getResultSet();
-
-        while (RS.next()) {
-            int DivisionID = RS.getInt("Division_ID");
-            String DivisionName = RS.getString("Division");
-            int CountryID = RS.getInt("Country_ID");
-
-            // populate entire division list
-            Division NewDivision = new Division(DivisionID, DivisionName, CountryID);
-            DivisionList.add(NewDivision);
-
-
-        }} catch (SQLException e) {
+    // Get full divisions table
+    public static ObservableList<Division> getDivisions() {
+        // Initialize empty Observable List
+        ObservableList<Division> divisionList = FXCollections.observableArrayList();
+        try {
+            // Create query to get all divisions
+            String query = "SELECT * FROM first_level_divisions;";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            // Loop through results to get data for all divisions
+            while (RS.next()) {
+                int divisionID = RS.getInt("Division_ID");
+                String divisionName = RS.getString("Division");
+                int countryID = RS.getInt("Country_ID");
+            // Populate entire division list
+            Division newDivision = new Division(divisionID, divisionName, countryID);
+            divisionList.add(newDivision);
+            }
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return DivisionList;
+        return divisionList;
     }
 }

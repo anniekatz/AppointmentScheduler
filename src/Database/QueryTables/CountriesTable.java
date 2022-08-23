@@ -8,28 +8,32 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
+// Class to query countries table in database
 public class CountriesTable {
-    public static ObservableList<Country> GetCountries() {
-        ObservableList<Country> CountryList = FXCollections.observableArrayList();
+    // Get full countries table
+    public static ObservableList<Country> getCountries() {
+        // Initialize empty Observable List
+        ObservableList<Country> countryList = FXCollections.observableArrayList();
         try {
-            String Query = "SELECT * FROM countries;";
-            QueryUtils.SetPS(Query);
-            PreparedStatement PS = QueryUtils.GetPS();
+            // Create query to get all countries
+            String query = "SELECT * FROM countries;";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
             PS.execute();
             ResultSet RS = PS.getResultSet();
+            // Loop through records to get data for all countries
             while (RS.next()) {
-                int CountryID = RS.getInt("Country_ID");
-                String Country = RS.getString("Country");
-
-                Country NewCountry = new Country(CountryID, Country);
-                CountryList.add(NewCountry);
+                int countryID = RS.getInt("Country_ID");
+                String countryName = RS.getString("Country");
+                // Add each country to Observable List
+                Country newCountry = new Country(countryID, countryName);
+                countryList.add(newCountry);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return CountryList;
+        return countryList;
     }
 }
 

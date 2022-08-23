@@ -8,28 +8,32 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
+// Class to query contacts table in database
 public class ContactsTable {
-    public static ObservableList<Contact> GetContacts()  {
-        ObservableList<Contact> ContactList = FXCollections.observableArrayList();
-try {
-        String Query = "SELECT * FROM contacts;";
-        QueryUtils.SetPS(Query);
-        PreparedStatement PS = QueryUtils.GetPS();
-        PS.execute();
-        ResultSet RS = PS.getResultSet();
-
-        while (RS.next()) {
-            int ContactID = RS.getInt("Contact_ID");
-            String Name = RS.getString("Contact_Name");
-            String Email = RS.getString("Email");
-
-            Contact NewContact = new Contact(ContactID, Name, Email);
-            ContactList.add(NewContact);
-        }} catch (SQLException e) {
+    // Get full contacts table
+    public static ObservableList<Contact> getContacts()  {
+        // Initialize empty Observable List
+        ObservableList<Contact> contactList = FXCollections.observableArrayList();
+        // Create query to get all contacts
+        try {
+            String query = "SELECT * FROM contacts;";
+            QueryUtils.setPS(query);
+            PreparedStatement PS = QueryUtils.getPS();
+            PS.execute();
+            ResultSet RS = PS.getResultSet();
+            // Loop through records to get data for all contacts
+            while (RS.next()) {
+                int contactID = RS.getInt("Contact_ID");
+                String name = RS.getString("Contact_Name");
+                String email = RS.getString("Email");
+                // Add each contact to Observable List
+                Contact newContact = new Contact(contactID, name, email);
+                contactList.add(newContact);
+            }
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return ContactList;
+        return contactList;
     }
 }
