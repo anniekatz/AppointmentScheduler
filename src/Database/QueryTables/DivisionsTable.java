@@ -10,13 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This class is used to query the divisions table in database.
+ * This class is used to query the first_level_divisions table in database.
  */
 public class DivisionsTable {
 
     /**
      * This method is used to get all divisions from the database.
-     * @return ObservableList List containing divisions and their information.
+     * @return returns Observable List containing divisions and their information.
      */
     public static ObservableList<Division> getDivisions() {
         // Initialize empty Observable List

@@ -44,16 +44,64 @@ public class Appointment {
         this.contactID = contactID;
     }
 
-    // Get appointment methods
+    /**
+     * This method gets appointment ID
+     * @return int appointment ID
+     */
     public int getAppointmentID() { return appointmentID; }
+
+    /**
+     * This method gets title
+     * @return String value of appointment title
+     */
     public String getTitle() { return title; }
+
+    /**
+     * This method gets description
+     * @return String value of appointment description
+     */
     public String getDescription() { return description; }
+
+    /**
+     * This method gets location
+     * @return String value of appointment location
+     */
     public String getLocation() { return location; }
+
+    /**
+     * This method gets type
+     * @return String value of appointment type
+     */
     public String getType() { return type; }
+
+    /**
+     * This method gets start time
+     * @return LocalDateTime value of appointment start time
+     */
     public LocalDateTime getStart() { return start; }
+
+    /**
+     * This method gets end time
+     * @return LocalDateTime value of appointment end time
+     */
     public LocalDateTime getEnd() { return end; }
+
+    /**
+     * This method gets customer ID
+     * @return int value of customer ID
+     */
     public int getCustomerID() { return customerID; }
+
+    /**
+     * This method gets user ID
+     * @return int value of user ID
+     */
     public int getUserID() { return userID; }
+
+    /**
+     * This method gets contact ID
+     * @return int value of contact ID
+     */
     public int getContactID() { return contactID; }
 
 }

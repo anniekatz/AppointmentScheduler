@@ -16,7 +16,7 @@ public class CountriesTable {
 
     /**
      * This method is used to get all countries from the database.
-     * @return ObservableList List containing countries and their information.
+     * @return returns ObservableList containing countries and their information.
      */
     public static ObservableList<Country> getCountries() {
         // Initialize empty Observable List

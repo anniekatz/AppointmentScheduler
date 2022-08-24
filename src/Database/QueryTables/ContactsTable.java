@@ -16,7 +16,7 @@ public class ContactsTable {
 
     /**
      * This method is used to get all contacts from the database.
-     * @return ObservableList List containing Contacts and their information.
+     * @return returns observable list containing Contacts and their information.
      */
     public static ObservableList<Contact> getContacts() {
         // Initialize empty Observable List

@@ -21,9 +21,22 @@ public class Contact {
         this.email = email;
     }
 
-    // Get contact information methods
+    /**
+     * This method gets contact ID
+     * @return int contact ID
+     */
     public int getContactID() { return contactID; }
+
+    /**
+     * This method gets name
+     * @return String value of contact name
+     */
     public String getName() { return name; }
+
+    /**
+     * This method gets email
+     * @return String value of contact email
+     */
     public String getEmail() {return email;}
 
 }

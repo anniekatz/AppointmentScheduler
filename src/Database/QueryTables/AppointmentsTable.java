@@ -20,7 +20,7 @@ public class AppointmentsTable {
 
     /**
      * This method is used to query the appointments table in database and return each record in an ObservableList.
-     * @return ObservableList<Appointment> - returns an ObservableList of Appointments.
+     * @return returns an ObservableList of Appointments.
      */
     public static ObservableList<Appointment> getAppointments() {
         // Initialize Observable List
@@ -125,7 +125,7 @@ public class AppointmentsTable {
      * This method is used by appointment controller to generate Report 1 based on appointments table.
      * It counts the number of existing appointments by month and type.
      * @param month - String month to be used in query
-     * @return ObservableList<Report1> - returns an ObservableList of Report1.
+     * @return returns an ObservableList of Report1.
      */
     public static ObservableList<Report1> generateReport1(String month) {
         // Initialize empty Observable List
@@ -158,7 +158,7 @@ public class AppointmentsTable {
      * This method is used by appointment controller to generate Report 2 based on appointments table.
      * It returns an appointment schedule for a given contact
      * @param contactID - contact to be used in the query
-     * @return ObservableList<Report2> - returns an ObservableList of Report2.
+     * @return returns an ObservableList of Report2.
      */
     public static ObservableList<Report2> generateReport2(int contactID) {
         // Initialize empty Observable List
@@ -191,7 +191,7 @@ public class AppointmentsTable {
     /**
      * This method is used by appointment controller to generate Report 3 based on appointments table.
      * It returns the total number of upcoming and past appointments for each customer.
-     * @return ObservableList<Report3> - returns an ObservableList of Report3.
+     * @return returns an ObservableList of Report3.
      */
     public static ObservableList<Report3> generateReport3() {
         ObservableList<Report3> report3List = FXCollections.observableArrayList();

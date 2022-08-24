@@ -22,13 +22,26 @@ public class Division {
         this.countryID = countryID;
     }
 
-    // Get division information methods
+    /**
+     * This method gets division ID
+     * @return int division ID
+     */
     public int getDivisionID() {
         return divisionID;
     }
+
+    /**
+     * This method gets division name
+     * @return String value of division name
+     */
     public String getDivisionName() {
         return divisionName;
     }
+
+    /**
+     * This method gets division's country ID
+     * @return int division's country ID
+     */
     public int getCountryID() {
         return countryID;
     }

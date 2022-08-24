@@ -16,7 +16,7 @@ public class CustomersTable {
 
     /**
      * This method is used to get all customers from the database.
-     * @return ObservableList List containing customers and their information.
+     * @return returns ObservableList containing customers and their information.
      */
     public static ObservableList<Customer> getCustomers() {
         // Initialize empty Observable List

@@ -21,13 +21,26 @@ public class Report3 {
         this.totalPast = totalPast;
     }
 
-    // Get Report 3 information methods
+    /**
+     * This method gets customer ID
+     * @return Int value of customer ID
+     */
     public int getCustomerID() {
         return customerID;
     }
+
+    /**
+     * This method gets total future appointments
+     * @return Int value of total number of future appointments for customer
+     */
     public int getTotalFuture() {
         return totalFuture;
     }
+
+    /**
+     * This method gets total past appointments
+     * @return Int value of total number of past appointments for customer
+     */
     public int getTotalPast() {
         return totalPast;
     }

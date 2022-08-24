@@ -30,20 +30,48 @@ public class Customer {
         this.divisionID = divisionID;
     }
 
-    // Get customer information methods
+    /**
+     * This method gets customer ID
+     * @return Int value of customer ID
+     */
     public int getCustomerID() {
         return customerID;
     }
+
+    /**
+     * This method gets customer name
+     * @return String value of customer name
+     */
     public String getCustomerName() {
         return customerName;
     }
+
+    /**
+     * This method gets customer address
+     * @return String value of customer address
+     */
     public String getCustomerAddress() {
         return customerAddress;
     }
+
+    /**
+     * This method gets customer zip code
+     * @return String value of customer zip code
+     */
     public String getCustomerZipCode() {
         return customerZipCode;
     }
+
+    /**
+     * This method gets customer phone
+     * @return String value of customer phone
+     */
     public String getCustomerPhone() { return customerPhone; }
+
+    /**
+     * This method gets customer division ID
+     * @return Int value of customer division ID
+     */
     public int getDivisionID() {
         return divisionID;
     }

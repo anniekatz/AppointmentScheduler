@@ -18,7 +18,16 @@ public class Report1 {
         this.total = total;
     }
 
-    // Get methods
+
+    /**
+     * This method gets type
+     * @return String value of appointment type
+     */
     public String getType() {return type;}
+
+    /**
+     * This method gets total
+     * @return Int value of total number of appointments of that type
+     */
     public int getTotal() {return total;}
 }

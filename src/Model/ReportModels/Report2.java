@@ -34,13 +34,46 @@ public class Report2 {
         this.customerID = customerID;
     }
 
-    // Get Report 2 data methods
+    /**
+     * This method gets appointment ID
+     * @return Int value of appointment ID
+     */
     public int getAppointmentID() { return appointmentID; }
+
+    /**
+     * This method gets title
+     * @return String value of appointment title
+     */
     public String getTitle() { return title; }
+
+    /**
+     * This method gets type
+     * @return String value of appointment type
+     */
     public String getType() { return type; }
+
+    /**
+     * This method gets description
+     * @return String value of appointment description
+     */
     public String getDescription() { return description; }
+
+    /**
+     * This method gets start time
+     * @return LocalDateTime value of appointment start time
+     */
     public LocalDateTime getStart() { return start; }
+
+    /**
+     * This method gets end time
+     * @return LocalDateTime value of appointment end time
+     */
     public LocalDateTime getEnd() { return end; }
+
+    /**
+     * This method gets customer ID
+     * @return Int value of customer ID
+     */
     public int getCustomerID() { return customerID; }
 
 }

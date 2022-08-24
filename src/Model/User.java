@@ -22,13 +22,26 @@ public class User {
         this.password = password;
     }
 
-    // Get user information methods
+    /**
+     * This method gets user ID
+     * @return int user ID
+     */
     public int getUserID() {
         return userID;
     }
+
+    /**
+     * This method gets user's username
+     * @return String value of user's username
+     */
     public String getUsername() {
         return username;
     }
+
+    /**
+     * This method gets user's password
+     * @return String value of user's password
+     */
     public String getPassword() {
         return password;
     }

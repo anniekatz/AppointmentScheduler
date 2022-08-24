@@ -18,10 +18,18 @@ public class Country {
         this.countryName = countryName;
     }
 
-    // Get country methods
+    /**
+     * This method gets country ID
+     * @return int country ID
+     */
     public int getCountryID() {
         return countryID;
     }
+
+    /**
+     * This method gets country name
+     * @return String value of country name
+     */
     public String getCountry() {
         return countryName;
     }

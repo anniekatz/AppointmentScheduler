@@ -16,7 +16,7 @@ public class UsersTable {
 
     /**
      * This method is used to get all users from the database.
-     * @return ObservableList List containing users and their information.
+     * @return returns ObservableList containing users and their information.
      */
     public static ObservableList<User> getUsers() {
         ObservableList<User> userList = FXCollections.observableArrayList();
