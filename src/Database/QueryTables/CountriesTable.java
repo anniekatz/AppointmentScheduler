@@ -9,9 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// Class to query countries table in database
+/**
+ * This class is used to query countries table in database
+ */
 public class CountriesTable {
-    // Get full countries table
+
+    /**
+     * This method is used to get all countries from the database.
+     * @return ObservableList List containing countries and their information.
+     */
     public static ObservableList<Country> getCountries() {
         // Initialize empty Observable List
         ObservableList<Country> countryList = FXCollections.observableArrayList();

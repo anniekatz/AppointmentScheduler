@@ -23,11 +23,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-// Reports Controller class implements Initializable Interface
-// This class is used by ReportPage view to generate reports for the user in different tabs
+/**
+ * This Reports Controller class implements Initializable Interface
+ * This class initializes the Report Page view to generate reports for the user in different tabs.
+ */
 public class ReportPage implements Initializable {
-
-    // Navigation button variables
     @FXML
     private Button AppointmentsButton;
     @FXML
@@ -83,7 +83,11 @@ public class ReportPage implements Initializable {
     @FXML
     private TableColumn<?, ?> CustomerTotalsTableTotalPastColumn;
 
-    // Method to initialize page and all reports
+    /**
+     * This method initializes the Report Page view to generate reports for the user in different tabs.
+     * @param url URL is the location of the FXML page.
+     * @param resources ResourceBundle is the resource bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         // Report 1 Initializables
@@ -112,11 +116,19 @@ public class ReportPage implements Initializable {
     }
 
     // Report 1 Methods
+    /**
+     * This method initializes the Report 1 Month ComboBox.
+     */
     void InitializeMonthComboBox() {
         // Fill ChooseMonthComboBox with valid months
         ChooseMonthComboBox.getItems().addAll("All Months","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
     }
-    // Method to run when month is chosen in combo box
+    /**
+     * This method runs when a month is chosen in the Report 1 Month ComboBox.
+     * It generates a total of each type based on the chosen month.
+     * If "All months" chosen, it generates a total for each type in general.
+     * @param event ActionEvent is the event of choosing a month in the combo box.
+     */
     @FXML
     void PopulateReport1Table(ActionEvent event){
         // Generate tableview items from database based on month chosen
@@ -126,6 +138,10 @@ public class ReportPage implements Initializable {
     }
 
     // Report 2 Methods
+    /**
+     * This method initializes the Report 2 Contact ComboBox.
+     * It populates the combo box with all contacts in the database and their names for easy selection.
+     */
     void InitializeContactComboBox(){
         // Initialize combo box with a list of contacts from contacts table
         // Add contact names to make it easier for user to read
@@ -136,7 +152,11 @@ public class ReportPage implements Initializable {
         }
         ChooseContactComboBox.setItems(ContactNames);
     }
-    // Method to run when contact is chosen in combo box
+    /**
+     * This method runs when a contact is chosen in the Contact ComboBox.
+     * It generates a tableview of the chosen contact's appointment schedule.
+     * @param event ActionEvent is the event of choosing a contact in the combo box.
+     */
     @FXML
     void PopulateReport2Table(ActionEvent event){
         // Get ContactID from chosen contact in ChooseContactComboBox
@@ -148,17 +168,29 @@ public class ReportPage implements Initializable {
     }
 
     // Report 3 Method
+    /**
+     * This method initializes the Report 3 TableView.
+     * It populates the view with customers who have appointments and their total number of future and past appointments.
+     */
     void InitializeReport3(){
         // Generate report 3 from appointment database
         ObservableList<Report3> ReportList = AppointmentsTable.generateReport3();
         CustomerTotalsTable.setItems(ReportList);
     }
 
-    // Navigation Button Methods
-    @FXML
+    /**
+     * This method navigates to appointments page.
+     * @param event ActionEvent is the event of clicking the appointments button.
+     */
+     @FXML
     void NavToAppointments(ActionEvent event) {
         ControllerUtils.NavToAppointments(event);
     }
+
+    /**
+     * This method navigates to customers page.
+     * @param event ActionEvent is the event of clicking the customers button.
+     */
     @FXML
     void NavToCustomers(ActionEvent event) {
         ControllerUtils.NavToCustomers(event);

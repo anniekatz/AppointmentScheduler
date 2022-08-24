@@ -20,12 +20,12 @@ import java.net.URL;
 import java.time.*;
 import java.util.ResourceBundle;
 
-// Appointment Controller class implements Initializable interface
-// This class is used by AppointmentPage view to view, create, update, and delete appointments
+/**
+ * This class is the controller for the Appointment Page view.
+ * It implements the Initializable interface.
+ */
 public class AppointmentPage implements Initializable {
 
-    // Variable declaration
-    // Toggle filter variables to filter appointments by month or week
     @FXML
     private ToggleGroup FilterApptTG;
     @FXML
@@ -34,8 +34,6 @@ public class AppointmentPage implements Initializable {
     private RadioButton MonthFilterRadioButton;
     @FXML
     private RadioButton WeekFilterRadioButton;
-
-    // Tableview variables
     @FXML
     private TableView<Appointment> ApptTable;
     @FXML
@@ -58,8 +56,6 @@ public class AppointmentPage implements Initializable {
     private TableColumn<Appointment, String> ApptTableTypeColumn;
     @FXML
     private TableColumn<Appointment, Integer> ApptTableUserIDColumn;
-
-    // Form variables for adding, updating, or deleting appointment
     @FXML
     private TextField AppointmentIDTextField;
     @FXML
@@ -95,7 +91,15 @@ public class AppointmentPage implements Initializable {
     @FXML
     private Button ResetButton;
 
-    // Initialize FX page method
+    /**
+     * This method is called when the controller is initialized.
+     * It populates the appointment table with all appointments and combo boxes with valid data.
+     * JavaFX Lambda expression created as a tableview row selection listener.
+     *     Lambda is ideal as this custom JavaFX listener method is called only for this page in this method.
+     *     Populate form with selected appointment info, and depopulate form upon deselection.
+     * @param url The url location used for paths for the root object; considered null if the url location is not known.
+     * @param resources The resources used to localize the root object; considered null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         // Initialize Appointment tableview columns
@@ -121,9 +125,7 @@ public class AppointmentPage implements Initializable {
         EndDatePicker.setValue(LocalDate.now());
         EndDatePicker.setEditable(false);
 
-        // JavaFX Lambda expression for tableview row selection listener
-        // Lambda is ideal as this custom JavaFX listener method is called only for this form and it is only called in one method
-        // Populate form with selected appointment info, and depopulate form upon deselection
+        // Lambda expression - tableview row selection listener
         ApptTable.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 Appointment appointment = ApptTable.getSelectionModel().getSelectedItem();
@@ -133,9 +135,11 @@ public class AppointmentPage implements Initializable {
         });
     }
 
-    // Method to initialize Combo Boxes with valid data
+    /**
+     * This method initializes combo boxes with valid data.
+     */
     void InitializeComboBoxes() {
-        // Initialize Contact ComboBox with valid data from contacts table from database
+        // Initialize Contact ComboBox from contacts table from database
         ObservableList<Contact> ContactList = ContactsTable.getContacts();
         ObservableList<String> ContactNames = FXCollections.observableArrayList();
         for (Contact Contact : ContactList) {
@@ -167,7 +171,10 @@ public class AppointmentPage implements Initializable {
         StartTimeComboBox.setEditable(true);
     }
 
-    // Method to populate form from selected appointment method
+    /**
+     * This method populates the form with the selected appointment info for editing.
+     * @param appointment The selected appointment from table view.
+     */
     void PopulateForm(Appointment appointment) {
         AppointmentIDTextField.setText(Integer.toString(appointment.getAppointmentID()));
         ContactComboBox.setValue((Integer.toString(appointment.getContactID())));
@@ -183,9 +190,12 @@ public class AppointmentPage implements Initializable {
         UserIDComboBox.setValue(Integer.toString(appointment.getUserID()));
     }
 
-    // Start Time Conversion helper method to populate Start Time Combo Box
-    // This method converts business hours (8AM-10PM EST) to system time
-    // Uses ControllerUtils class method GetNewTime to get new time
+    /**
+     * This method populates Start Time Combo Box.
+     * This method converts business hours (8AM-10PM EST) to system time.
+     * Uses ControllerUtils class method GetNewTime to get a new time block.
+     * @return ObservableList<String> of possible appointment start times to fill start time combo box
+     */
     ObservableList<String> StartTimeConversion() {
         OffsetTime SystemStartTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(),8,0);
         OffsetTime SystemEndTime = ControllerUtils.GetNewTime(ZoneId.of("America/New_York"), ZoneId.systemDefault(),22,0);
@@ -199,8 +209,11 @@ public class AppointmentPage implements Initializable {
         return StartTimeList;
     }
 
-    // Once Start time is chosen, populate list of end times after start time
-    // Uses time zone conversion method GetNewTime from ControllerUtils class to convert business hours to system time
+    /**
+     * This method runs after Start time is chosen, populate list of end times after start time.
+     * It uses time zone conversion method GetNewTime from ControllerUtils class to convert business hours to system time.
+     * @param event The event of choosing a start time from start time combo box
+     */
     @FXML
     void PopulateEndComboBox(ActionEvent event) {
         if (StartTimeComboBox.getValue() != null) {
@@ -218,7 +231,10 @@ public class AppointmentPage implements Initializable {
         }
     }
 
-    // Choose appointment date in DatePicker
+    /**
+     * This method sets End date the same as Start date after choosing Start date.
+     * @param event The event of choosing a start date from start date picker
+     */
     @FXML
     void ChooseApptDate(ActionEvent event) {
         LocalDate ApptDate = StartDatePicker.getValue();
@@ -227,8 +243,10 @@ public class AppointmentPage implements Initializable {
         EndDatePicker.setEditable(false);
         }
 
-    // Filter appointment table view by all, this month, or the next week
-    // Radio buttons used to navigate between views
+    /**
+     * This method filters appointment table view by all, this month, or the next week.
+     * @param event Action event when Radio buttons are clicked to navigate between tableview filters
+     */
     @FXML
     void FilterApptView(ActionEvent event) {
         ObservableList<Appointment> ApptList = AppointmentsTable.getAppointments();
@@ -260,8 +278,12 @@ public class AppointmentPage implements Initializable {
         }
     }
 
-    // Add or Update Appointment method for add/update button
-    // Updates in database then tableview updates
+    /**
+     * This method acts as add new or update existing appointment method for add/update button.
+     * It ensures valid data in form, then decides to add or update an appointment in database then tableview updates.
+     * It checks if customer has overlapping appointments and, if so, it displays a pop-up and does not add appointment.
+     * @param event The event of clicking the add/update button
+     */
     @FXML
     void AddUpdateAppointment(ActionEvent event) {
         // if any part of form (besides autogenerated ID) is null, alert shows
@@ -342,32 +364,45 @@ public class AppointmentPage implements Initializable {
         }
     }
 
-    // Delete appointment method for delete button
-    // Removes appointment from database and tableview
+    /**
+     * This method deletes a chosen appointment.
+     *  It asks user to confirm deletion, then deletes appointment from database and tableview.
+     *  It checks to see if an appointment is selected first.
+     * @param event The ActionEvent of clicking the delete button
+     */
     @FXML
     void DeleteAppointment(ActionEvent event) {
-        // Pop-up alert box to confirm deletion
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm Delete");
-        alert.setHeaderText("Are you sure you want to delete this appointment?");
-        alert.setContentText("This cannot be undone.");
-        alert.showAndWait();
-        // If No, nothing will delete
-        // If Yes, delete appointment from database and a confirmation pop-up will display
-        if (alert.getResult() == ButtonType.OK) {
-            AppointmentsTable.deleteAppointment(ApptTable.getSelectionModel().getSelectedItem().getAppointmentID());
-            ApptTable.getItems().remove(ApptTable.getSelectionModel().getSelectedItem());
-            Alert DeleteConfirmed = new Alert(Alert.AlertType.INFORMATION);
-            DeleteConfirmed.setTitle("Appointment Deleted");
-            DeleteConfirmed.setHeaderText("Appointment Deleted");
-            DeleteConfirmed.setContentText("Appointment has been deleted.");
-            DeleteConfirmed.showAndWait();
+        if (ApptTable.getSelectionModel().getSelectedItem() != null) {
+            // Pop-up alert box to confirm deletion
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Delete");
+            alert.setHeaderText("Are you sure you want to delete this appointment?");
+            alert.setContentText("This cannot be undone.");
+            alert.showAndWait();
+            // If No, nothing will delete
+            // If Yes, delete appointment from database and a confirmation pop-up will display
+            if (alert.getResult() == ButtonType.OK) {
+                AppointmentsTable.deleteAppointment(ApptTable.getSelectionModel().getSelectedItem().getAppointmentID());
+                ApptTable.getItems().remove(ApptTable.getSelectionModel().getSelectedItem());
+                Alert DeleteConfirmed = new Alert(Alert.AlertType.INFORMATION);
+                DeleteConfirmed.setTitle("Appointment Deleted");
+                DeleteConfirmed.setHeaderText("Appointment Deleted");
+                DeleteConfirmed.setContentText("Appointment has been deleted.");
+                DeleteConfirmed.showAndWait();
+            }
         }
     }
 
-    // Method to check if customer has any overlapping appointments
-    // Loops through a customer's appointments
-    // if appointment start and end overlaps another appointment start and end, return true
+    /**
+     * This method checks if customer has any overlapping appointments before adding/updating an appointment.
+     * It loops through a customer's appointments to see if appointment start and end overlaps another appointment start and end.
+     * It does not count the same appointment as an overlap.
+     * @param start LocalDateTime of appointment start time
+     * @param end LocalDateTime of appointment end time
+     * @param ApptID int of appointment ID; if it does not have one (adding new appointment) a stub int is used
+     * @param CustID int of customer ID
+     * @return boolean true if there is an overlap, false if there is not
+     */
     boolean CheckAppointmentOverlap(LocalDateTime start, LocalDateTime end, int ApptID, int CustID) {
         boolean check = false;
         for (Appointment Appt : AppointmentsTable.getAppointments()) {
@@ -390,7 +425,11 @@ public class AppointmentPage implements Initializable {
         return check;
     }
 
-    // Method to reset form and/or deselect row if Reset Button is clicked
+    /**
+     * Method resets form and/or deselects row if Reset Button is clicked.
+     * @param event The ActionEvent is clicking the reset button
+     * @throws RuntimeException if null value cannot be added
+     */
     @FXML
     void ResetButtonClicked(ActionEvent event) throws RuntimeException {
         // Deselect row if one is selected
@@ -411,12 +450,18 @@ public class AppointmentPage implements Initializable {
         UserIDComboBox.setValue("");
     }
 
-    // Navigation button methods
-    // Use ControllerUtils Navigation to navigate to other scenes
+    /**
+     * This method is used to navigate to Customer page using ControllerUtils method
+     * @param event The ActionEvent is clicking the customer button
+     */
     @FXML
     void NavToCustomers(ActionEvent event) {
         ControllerUtils.NavToCustomers(event);
     }
+
+    /** This method is used to navigate to Reports page using ControllerUtils method
+     * @param event The ActionEvent is clicking the reports button
+     */
     @FXML
     void NavToReports(ActionEvent event) {
         ControllerUtils.NavToReports(event);

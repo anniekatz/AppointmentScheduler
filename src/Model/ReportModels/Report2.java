@@ -1,10 +1,11 @@
 package Model.ReportModels;
 import java.time.LocalDateTime;
 
-// Model class for Report 2
+/**
+ * This class represents the model for Report 2: Contact Schedule.
+ */
 public class Report2 {
 
-    // Report 2 variables
     private int appointmentID;
     private String title;
     private String type;
@@ -13,7 +14,16 @@ public class Report2 {
     private LocalDateTime end;
     private int customerID;
 
-    // Report2 constructor
+    /**
+     * This is the constructor for Report 2 - contact schedule.
+     * @param appointmentID Int value of appointment ID
+     * @param title String value of appointment title
+     * @param type String value of appointment type
+     * @param description String value of appointment description
+     * @param start LocalDateTime value of appointment start time
+     * @param end LocalDateTime value of appointment end time
+     * @param customerID Int value of customer ID
+     */
     public Report2(int appointmentID, String title, String type, String description, LocalDateTime start, LocalDateTime end, int customerID) {
         this.appointmentID = appointmentID;
         this.title = title;

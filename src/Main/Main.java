@@ -1,5 +1,8 @@
-/* @author Annie Katz
+/**
+ * @author Annie Katz
  * Appointment Scheduler
+ * WGU August 2022
+ * C195 Performance Assessment
  */
 
 package Main;
@@ -15,10 +18,16 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-// Main class to start the Appointment application
+/**
+ * This is the Main class used to start the Appointment application.
+ */
 public class Main extends Application {
 
-    // Method to initialize JavaFX application with login view and resource bundles
+    /**
+     * Start method initializes JavaFX application with login view and resource bundles.
+     * @param stage JavaFX Stage to be initialized
+     * @throws Exception in case any errors while loading the login page
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent rootScene = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/LoginPage.fxml")));
@@ -27,7 +36,11 @@ public class Main extends Application {
         stage.show();
     }
 
-    // Main method connects to database and closes connection when application is closed
+    /**
+     * Main method is used to start the application.
+     * It connects to the database upon open and disconnects upon close.
+     * @param args String array of args.
+     */
     public static void main(String[] args) {
         ConnectDB.dbConnect();
         launch(args);

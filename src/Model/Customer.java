@@ -1,6 +1,8 @@
 package Model;
 
-// Model to represent a customer
+/**
+ * This class represents the model for a customer.
+ */
 public class Customer {
 
     private int customerID;
@@ -10,7 +12,15 @@ public class Customer {
     private String customerPhone;
     private int divisionID;
 
-    // Customer constructor
+    /**
+     * This is the constructor for a customer.
+     * @param customerID Int value of customer ID
+     * @param customerName String value of customer name
+     * @param customerAddress String value of customer address
+     * @param customerZipCode String value of customer zip code
+     * @param customerPhone String value of customer phone
+     * @param divisionID Int value of customer division ID
+     */
     public Customer(int customerID, String customerName, String customerAddress, String customerZipCode, String customerPhone, int divisionID) {
         this.customerID = customerID;
         this.customerName = customerName;

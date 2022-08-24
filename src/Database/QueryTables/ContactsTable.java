@@ -9,10 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// Class to query contacts table in database
+/**
+ * This class is used to query the contacts table in database.
+ * */
 public class ContactsTable {
-    // Get full contacts table
-    public static ObservableList<Contact> getContacts()  {
+
+    /**
+     * This method is used to get all contacts from the database.
+     * @return ObservableList List containing Contacts and their information.
+     */
+    public static ObservableList<Contact> getContacts() {
         // Initialize empty Observable List
         ObservableList<Contact> contactList = FXCollections.observableArrayList();
         // Create query to get all contacts

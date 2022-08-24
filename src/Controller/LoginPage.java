@@ -21,11 +21,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
-// Login Controller class implements initializable interface
-// This class is used by LoginPage view to log in the user
+/**
+ * The Login Controller class implements the initializable interface.
+ * This class is linked to the Login Page view to log in the user.
+ */
 public class LoginPage implements Initializable {
 
-    // View variables
     @FXML
     private Label LangLabel;
     @FXML
@@ -43,17 +44,24 @@ public class LoginPage implements Initializable {
     // Switches between French and English depending on user's system language settings
     public ResourceBundle rb = ResourceBundle.getBundle("Languages/Lang", Locale.getDefault());
 
-    // Initialize the login page
+    /**
+     * This method initializes the login page.
+     * It sets the language and locale labels to the current language and locale.
+     * @param url URL location of the associated FXML file
+     * @param resourceBundle ResourceBundle resource of the FXML file
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         // Check user language and change label if necessary
         ChangeUserLanguage(rb);
         // Check user locale and replace label
         CheckUserTZ(rb);
     }
 
-    // Method to change language using Resource Bundle in Language package
+    /**
+     * This method replaces items on the login form with correct system language (English or French).
+     * @param rb ResourceBundle language page to be used.
+     */
     public void ChangeUserLanguage(ResourceBundle rb) {
         if (rb.getLocale().getLanguage().equals("fr")) {
             LangLabel.setText(rb.getString("Lang"));
@@ -66,7 +74,10 @@ public class LoginPage implements Initializable {
         }
     }
 
-    // Check user's system timezone
+    /**
+     * This method checks user's system timezone and displays it in a label.
+     * @param rb ResourceBundle language page to be used.
+     */
     public void CheckUserTZ(ResourceBundle rb) {
         if (TimeZone.getDefault().getID() != null) {
             // Set LocaleLabel to display user's timezone
@@ -76,7 +87,12 @@ public class LoginPage implements Initializable {
         }
     }
 
-    // Login button method
+    /**
+     * This method logs the user in and navigates to the home page if the login is successful.
+     * It will show an error message if the login is unsuccessful.
+     * It will track user login attempts upon button clicks.
+     * @param event ActionEvent is triggered when the login button is clicked.
+     */
     @FXML
     void OnActionLogin(ActionEvent event) {
         String Username = UsernameTextField.getText();
@@ -102,7 +118,12 @@ public class LoginPage implements Initializable {
         }
     }
 
-    // Method to track login attempts in text file login_activity.txt
+    /**
+     * This method tracks login attempts in login_activity.txt.
+     * It runs upon login button click.
+     * @param LoginStatus String status of the login attempt.
+     * @param Username String username of the user attempting to log in.
+     */
     public void LoginTracker(String LoginStatus, String Username) {
         try {
             // Get user's system time zone
@@ -124,7 +145,12 @@ public class LoginPage implements Initializable {
         }
     }
 
-    // Validate user login and return true if successful
+    /**
+     * This method validates the user's username and password upon login button click.
+     * @param Username String username of the user attempting to log in.
+     * @param Password String password of the user attempting to log in.
+     * @return boolean true if user is valid, false if user is invalid.
+     */
     public boolean ValidateUser(String Username, String Password) {
         boolean check = false;
         // Loop through users and check if username matches
@@ -140,8 +166,10 @@ public class LoginPage implements Initializable {
         return check;
     }
 
-    // Method to send alert if username and password fields are empty
-    // Displays in correct language
+    /**
+     * This method displays a pop-up error message if the username or password is empty upon login button click.
+     * @param rb ResourceBundle language to be used to display error message.
+     */
     private void SendLoginEmptyErrorMessage(ResourceBundle rb) {
         Alert EmptyLogin = new Alert(Alert.AlertType.ERROR);
         EmptyLogin.setTitle(rb.getString("Error"));
@@ -150,8 +178,10 @@ public class LoginPage implements Initializable {
         EmptyLogin.showAndWait();
     }
 
-    // Method to send alert for incorrect login
-    // Displays in correct language
+    /**
+     * This method displays a pop-up error message if the username or password is invalid upon login button click.
+     * @param rb ResourceBundle language to be used to display error message.
+     */
     public void SendInvalidLoginErrorMessage(ResourceBundle rb) {
         // Shows message based on user language
         Alert LoginError = new Alert(Alert.AlertType.ERROR);
@@ -161,8 +191,12 @@ public class LoginPage implements Initializable {
         LoginError.showAndWait();
     }
 
-    // Show upcoming appointments for logged-in user
-    // Displays in correct language
+    /**
+     * This method displays a pop-up when the user successfully logs in.
+     * It shows the number of appointments the user has in the next 15 minutes, if any, in the correct language.
+     * @param Username String username of the user who just logged in.
+     * @param rb ResourceBundle language to be used to display error message.
+     */
     public void ShowAppointments(String Username, ResourceBundle rb) {
         // Get user ID based on valid username
         int UserID = GetUserID(Username);
@@ -183,7 +217,12 @@ public class LoginPage implements Initializable {
         }
     }
 
-    // Check for num of upcoming appointments for user
+    /**
+     * This method gets the number of appointments the user has in the next 15 minutes.
+     * It is used to display a message to the user if there are any upcoming appointments upon login.
+     * @param UserID int user ID of the user who just logged in
+     * @return int number of appointments the user has in the next 15 minutes.
+     */
     int GetUserAppointment(int UserID) {
         ObservableList<Appointment> AppointmentsList = AppointmentsTable.getAppointments();
         int NumAppts = 0;
@@ -200,7 +239,11 @@ public class LoginPage implements Initializable {
         return NumAppts;
     }
 
-    // Method to get user ID based on username (to check for upcoming appointments)
+    /**
+     * This method gets the user ID based on the username of the user who just logged in, to check for upcoming appointments.
+     * @param Username String username of the user who just logged in.
+     * @return int user ID of the user who just logged in.
+     */
     int GetUserID(String Username) {
         ObservableList<User> UsersList = UsersTable.getUsers();
         // Initialize user ID with stub integer

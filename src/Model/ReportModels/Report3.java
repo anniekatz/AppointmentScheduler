@@ -1,14 +1,20 @@
 package Model.ReportModels;
 
-// Model class for Report 3
+/**
+ * This class represents the model for Report 3: Customer Appointment Totals for Future and Past.
+ */
 public class Report3 {
 
-    // Report 3 variables
     private int customerID;
     private int totalFuture;
     private int totalPast;
 
-    // Report3 constructor
+    /**
+     * This is the constructor for Report 3 - customer's total appointments
+     * @param customerID Int value of customer ID
+     * @param totalFuture Int value of total number of future appointments for customer
+     * @param totalPast Int value of total number of past appointments for customer
+     */
     public Report3(int customerID, int totalFuture, int totalPast) {
         this.customerID = customerID;
         this.totalFuture = totalFuture;

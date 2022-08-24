@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// Class to establish connection to MySQL database
+/**
+ * This class is used to create and close the connection to a MySQL Database.
+ */
 public abstract class ConnectDB {
 
     // Local database connectors
@@ -26,8 +28,10 @@ public abstract class ConnectDB {
     // Create Connection variable
     public static Connection dbConnection;
 
-    // Method to connect to database upon program open
-    // Used in main method
+    /**
+     * This method starts the connection with the MySQL Database.
+     * Used by main method upon program open
+     */
     public static void dbConnect() {
         try {
             Class.forName(dbDriver);
@@ -42,8 +46,10 @@ public abstract class ConnectDB {
         }
     }
 
-    // Method to disconnect from database once GUI is closed
-    // Used in main method
+    /**
+     * This method closes the connection with the MySQL Database.
+     * Used by main method upon program close.
+     */
     public static void dbDisconnect() {
         try {
             dbConnection.close();

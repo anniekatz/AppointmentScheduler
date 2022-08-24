@@ -9,9 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// Class to query users table in database
+/**
+ * This class is used to query the users table in database.
+ */
 public class UsersTable {
-    // Get full users table
+
+    /**
+     * This method is used to get all users from the database.
+     * @return ObservableList List containing users and their information.
+     */
     public static ObservableList<User> getUsers() {
         ObservableList<User> userList = FXCollections.observableArrayList();
         try {

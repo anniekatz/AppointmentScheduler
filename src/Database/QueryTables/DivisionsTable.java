@@ -9,9 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// Class to query divisions table in database
+/**
+ * This class is used to query the divisions table in database.
+ */
 public class DivisionsTable {
-    // Get full divisions table
+
+    /**
+     * This method is used to get all divisions from the database.
+     * @return ObservableList List containing divisions and their information.
+     */
     public static ObservableList<Division> getDivisions() {
         // Initialize empty Observable List
         ObservableList<Division> divisionList = FXCollections.observableArrayList();

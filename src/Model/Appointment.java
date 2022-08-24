@@ -2,7 +2,9 @@ package Model;
 
 import java.time.LocalDateTime;
 
-// Model to represent an appointment
+/**
+ * This class represents the model for an Appointment.
+ */
 public class Appointment {
 
     private int appointmentID;
@@ -16,7 +18,19 @@ public class Appointment {
     private int userID;
     private int contactID;
 
-    // Appointment constructor
+    /**
+     * This is the constructor for an appointment.
+     * @param appointmentID Int value of appointment ID
+     * @param title String value of appointment title
+     * @param description String value of appointment description
+     * @param location String value of appointment location
+     * @param type String value of appointment type
+     * @param start LocalDateTime value of appointment start time
+     * @param end LocalDateTime value of appointment end time
+     * @param customerID Int value of customer ID
+     * @param userID Int value of user ID
+     * @param contactID Int value of contact ID
+     */
     public Appointment(int appointmentID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         this.appointmentID = appointmentID;
         this.title = title;
@@ -30,7 +44,7 @@ public class Appointment {
         this.contactID = contactID;
     }
 
-    // Get appointment data methods
+    // Get appointment methods
     public int getAppointmentID() { return appointmentID; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }

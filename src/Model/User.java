@@ -1,15 +1,21 @@
 package Model;
 
-// Model to represent a user
+/**
+ * This class represents the model for a user.
+ */
 public class User {
-    
-    // User variables
+
     private int userID;
     private String username;
     private String password;
 
 
-    // User constructor
+    /**
+     * This is the constructor for a user.
+     * @param userID Int value of user ID
+     * @param username String value of user's username
+     * @param password String value of user's password
+     */
     public User(int userID, String username, String password) {
         this.userID = userID;
         this.username = username;
