@@ -382,12 +382,13 @@ public class AppointmentPage implements Initializable {
             // If No, nothing will delete
             // If Yes, delete appointment from database and a confirmation pop-up will display
             if (alert.getResult() == ButtonType.OK) {
-                AppointmentsTable.deleteAppointment(ApptTable.getSelectionModel().getSelectedItem().getAppointmentID());
+                int ApptID = ApptTable.getSelectionModel().getSelectedItem().getAppointmentID();
+                AppointmentsTable.deleteAppointment(ApptID);
                 ApptTable.getItems().remove(ApptTable.getSelectionModel().getSelectedItem());
                 Alert DeleteConfirmed = new Alert(Alert.AlertType.INFORMATION);
                 DeleteConfirmed.setTitle("Appointment Deleted");
                 DeleteConfirmed.setHeaderText("Appointment Deleted");
-                DeleteConfirmed.setContentText("Appointment has been deleted.");
+                DeleteConfirmed.setContentText("Appointment " + ApptID + " has been deleted.");
                 DeleteConfirmed.showAndWait();
             }
         }
