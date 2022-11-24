@@ -22,8 +22,8 @@ public abstract class ConnectDB {
 
     // Add database driver, username, and password
     private static final String dbDriver = "com.mysql.cj.jdbc.Driver";
-    private static final String dbUser = "sqlUser";
-    private static final String dbPass = "Passw0rd!";
+    private static final String dbUser = "<USERNAME>";
+    private static final String dbPass = "<PASSWORD>";
 
     // Create Connection variable
     public static Connection dbConnection;
