@@ -1,8 +1,6 @@
 /**
  * @author Annie Katz
  * Appointment Scheduler
- * WGU August 2022
- * C195 Performance Assessment
  */
 
 package Main;
